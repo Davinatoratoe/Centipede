@@ -3,16 +3,18 @@
 #include "Font.h"
 #include "Input.h"
 
-CentipedeGameApp::CentipedeGameApp() {
+CentipedeGameApp::CentipedeGameApp() 
+{
 
 }
 
-CentipedeGameApp::~CentipedeGameApp() {
+CentipedeGameApp::~CentipedeGameApp() 
+{
 
 }
 
-bool CentipedeGameApp::startup() {
-	
+bool CentipedeGameApp::startup() 
+{
 	renderer = new Renderer2D();
 
 	// TODO: remember to change this when redistributing a build!
@@ -22,13 +24,15 @@ bool CentipedeGameApp::startup() {
 	return true;
 }
 
-void CentipedeGameApp::shutdown() {
+void CentipedeGameApp::shutdown()
+{
 
 	delete font;
 	delete renderer;
 }
 
-void CentipedeGameApp::update(float deltaTime) {
+void CentipedeGameApp::update(float deltaTime) 
+{
 
 	//Get Input Instance
 	Input* input = Input::getInstance();
@@ -38,7 +42,8 @@ void CentipedeGameApp::update(float deltaTime) {
 		quit();
 }
 
-void CentipedeGameApp::draw() {
+void CentipedeGameApp::draw() 
+{
 
 	//Clear the screen
 	clearScreen();
