@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h" />
+    <ClInclude Include="DynamicList.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Sprite.h" />
