@@ -1,11 +1,14 @@
 #pragma once
 #include "Application.h"
 #include "Renderer2D.h"
+#include "Player.h"
 
 using namespace aie;
 
-class CentipedeGameApp : public Application {
+class CentipedeGameApp : public Application 
+{
 public:
+	static CentipedeGameApp* instance;
 
 	CentipedeGameApp();
 	virtual ~CentipedeGameApp();
@@ -17,7 +20,10 @@ public:
 	virtual void draw();
 
 protected:
-
 	Renderer2D*	renderer;
-	Font*			font;
+	Font* font;
+	Texture* shipTexture;
+	Texture* bulletTexture;
+
+	Player* player;
 };

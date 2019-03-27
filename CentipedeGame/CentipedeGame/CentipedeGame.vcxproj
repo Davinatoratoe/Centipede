@@ -168,10 +168,12 @@
   <ItemGroup>
     <ClCompile Include="CentipedeGameApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="Sprite.h" />
   </ItemGroup>
