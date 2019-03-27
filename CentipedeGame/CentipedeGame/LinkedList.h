@@ -8,19 +8,19 @@ class LinkedList
 {
 private:
 	template <typename T>
-	class Node
+	class LinkedListNode
 	{
 	public:
 		T data;
-		Node* next;
-		Node* previous;
+		LinkedListNode* next;
+		LinkedListNode* previous;
 
-		Node(Node* _next, Node* _previous)
+		LinkedListNode(LinkedListNode* _next, LinkedListNode* _previous)
 		{
 			_next = next;
 			_previous = previous;
 		}
-		Node(T _data, Node* _next, Node* _previous)
+		LinkedListNode(T& _data, LinkedListNode* _next, LinkedListNode* _previous)
 		{
 			data = _data;
 			next = _next;
@@ -28,8 +28,8 @@ private:
 		}
 	};
 
-	Node* head;
-	Node* tail;
+	LinkedListNode<T>* head;
+	LinkedListNode<T>* tail;
 	unsigned int size;
 
 public:
@@ -45,17 +45,17 @@ public:
 		while (head != nullptr)
 			PopFront();
 	}
-
+	
 	void PushFront(T value)
 	{
 		if (head == nullptr)
 		{
-			head = new Node<T>(value, nullptr, nullptr);
+			head = new LinkedListNode<T>(value, nullptr, nullptr);
 			tail = head;
 		}
 		else
 		{
-			Node<T>* newNode = new Node<T>(value, head, nullptr);
+			LinkedListNode<T>* newNode = new LinkedListNode<T>(value, head, nullptr);
 			head->previous = newNode;
 			head = newNode;
 		}
@@ -81,16 +81,16 @@ public:
 		--size;
 	}
 
-	void PushBack()
+	void PushBack(T value)
 	{
 		if (tail == nullptr)
 		{
-			tail = new Node<T>(value, nullptr, nullptr);
+			tail = new LinkedListNode<T>(value, nullptr, nullptr);
 			head = tail;
 		}
 		else
 		{
-			Node<T>* newNode = new Node<T>(value, nullptr, tail);
+			LinkedListNode<T>* newNode = new LinkedListNode<T>(value, nullptr, tail);
 			tail->next = newNode;
 			tail = newNode;
 		}
@@ -122,48 +122,19 @@ public:
 			return;
 		else
 		{
-			Node<T>* node = head;
+			LinkedListNode<T>* node = head;
 			while (node != nullptr)
 			{
 				if (node->data == value)
 				{
-					Remove(node);
+					node->previous->next = node->next;
+					node->next->previous = node->previous;
+					delete node;
+					--size;
 					return;
 				}
 				node = node->next;
 			}
-		}
-	}
-
-	void Remove(Node* node)
-	{
-		if (node == nullptr)
-			return;
-		else if (head == tail || node == tail)
-			PopBack();
-		else if (node == head)
-			PopFront();
-		else
-		{
-			node->previous->next = node->next;
-			node->next->previous = node->previous;
-			delete node;
-			--size;
-		}
-	}
-
-	void Insert(Node* node, T value)
-	{
-		if (node == nullptr)
-			return;
-		else if (head == tail || node == tail)
-			PushBack(value);
-		else
-		{
-			Node<T>* newNode = new Node<T>(value, node->next, node);
-			node->next = newNode;
-			newNode->next->previous = newNode;
-			++size;
 		}
 	}
 
@@ -174,23 +145,36 @@ public:
 		size = 0;
 	}
 
-	Node* Begin() const
+	unsigned int Size() const
 	{
-		return head;
-	}
-
-	Node* End() const
-	{
-		return new Node<T>(nullptr, tail);
+		return size;
 	}
 
 	T& First() const
 	{
-		return *this[0];
+		if (head != nullptr)
+			return head.data;
 	}
 
 	T& Last() const
 	{
-		return *this[size - 1];
+		if (tail != nullptr)
+			return tail.data;
+	}
+
+	void Display()
+	{
+		if (head == nullptr)
+			return;
+
+		cout << "Size: " << size << ":    ";
+
+		LinkedListNode<T>* node = head;
+		while (node != nullptr)
+		{
+			cout << (node->data);
+			cout << " ";
+			node = node->next;
+		}
 	}
 };
