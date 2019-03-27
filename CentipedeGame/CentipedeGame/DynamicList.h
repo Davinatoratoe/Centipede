@@ -93,4 +93,11 @@ public:
 		if (index >= 0 && index < size)
 			return data[index];
 	}
+
+	void Display() const
+	{
+		cout << "Size: " << size << "   ";
+		for (unsigned int i = 0; i < size; ++i)
+			cout << data[i] << " ";
+	}
 };
