@@ -26,4 +26,9 @@ protected:
 	Texture* bulletTexture;
 
 	Player* player;
+	//DynamicList<Bullet> bullets;
+	//DynamicList<Mushroom> mushrooms;
+	//Centipede centipede;
+
+	int score;
 };
