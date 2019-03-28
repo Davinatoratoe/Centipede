@@ -4,26 +4,48 @@
 
 using namespace std;
 
-int main() 
-{	
-	cout << "Testing Linked List" << endl;
-	LinkedList<int> list;
-	list.PushFront(10);
-	list.PushFront(20);
-	list.PushBack(30);
-	list.PushFront(40);
-	list.PopBack();
-	list.PopFront();
-	list.Clear();
+void TestLinkedList()
+{
+	cout << "---Testing Linked List" << endl;
+	
+	LinkedList<int> list;			//Default contructor
+	list.PushFront(10);				//Push front
+	list.PushBack(20);				//Push back
+	list.PushFront(30);
+	list.PrintDetails();			//Print details
+
+	list.PopBack();					//Pop back
+	list.PopFront();				//Pop front
+	list.PrintDetails();
+
+	LinkedList<int> list2(list);	//Copy constructor
+	list2.PushBack(100);
+	list2.PrintDetails();
+
+	list2.Clear();					//Clear list
+	list2.PrintDetails();
+
+	list2 = list;					//= (assignment) operator
+	list2.PushFront(5);
+	list2.PrintDetails();
+
 	list.PushFront(100);
 	list.PushBack(200);
 	list.PushFront(300);
 	list.PushBack(400);
-	list.Remove(300);
-	list.Display();
-	
-	cout << endl << "Finished Testing" << endl;
-	
+	list.Remove(10);				//Remove
+	list.Remove(300);				//Remove head
+	list.Remove(400);				//Remove tail
+	list.PrintDetails();
+
+	cout << "List: " << list << endl;	//>> operator overload
+
+	cout << "---Finished Testing" << endl;
+}
+
+int main() 
+{	
+	TestLinkedList();
 	return 0;
 
 	// allocation

@@ -20,7 +20,8 @@ private:
 			_next = next;
 			_previous = previous;
 		}
-		LinkedListNode(T& _data, LinkedListNode* _next, LinkedListNode* _previous)
+		
+		LinkedListNode(const T& _data, LinkedListNode* _next, LinkedListNode* _previous)
 		{
 			data = _data;
 			next = _next;
@@ -39,6 +40,20 @@ public:
 		tail = nullptr;
 		size = 0;
 	}
+	
+	LinkedList(const LinkedList<T>& copy)
+	{
+		head = nullptr;
+		tail = nullptr;
+		size = 0;
+
+		LinkedListNode<T>* node = copy.head;
+		while (node != nullptr)
+		{
+			PushBack(node->data);
+			node = node->next;
+		}
+	}
 
 	~LinkedList()
 	{
@@ -46,7 +61,7 @@ public:
 			PopFront();
 	}
 	
-	void PushFront(T value)
+	void PushFront(const T& value)
 	{
 		if (head == nullptr)
 		{
@@ -81,7 +96,7 @@ public:
 		--size;
 	}
 
-	void PushBack(T value)
+	void PushBack(const T& value)
 	{
 		if (tail == nullptr)
 		{
@@ -120,6 +135,10 @@ public:
 	{
 		if (head == nullptr)
 			return;
+		else if (head->data == value)
+			PopFront();
+		else if (tail->data == value)
+			PopBack();
 		else
 		{
 			LinkedListNode<T>* node = head;
@@ -162,12 +181,39 @@ public:
 			return tail.data;
 	}
 
-	void Display()
+	LinkedList<T>& operator= (const LinkedList<T>& other)
 	{
-		if (head == nullptr)
-			return;
+		Clear();
+		LinkedListNode<T>* node = other.head;
+		while (node != nullptr)
+		{
+			PushBack(node->data);
+			node = node->next;
+		}
+		return *this;
+	}
 
-		cout << "Size: " << size << ":    ";
+	friend ostream& operator<< (ostream& os, const LinkedList<T>& list)
+	{
+		os << "[";
+		os << "Not implemented";
+		/*
+		LinkedListNode<T>* node = list.head;
+		while (node != nullptr)
+		{
+			if (node != head)
+				os << ", ";
+			os = node.data;
+			node = node->next;
+		}
+		*/
+		os << "]";
+		return os;
+	}
+
+	void PrintDetails()
+	{
+		cout << "Size: " << size << "   ";
 
 		LinkedListNode<T>* node = head;
 		while (node != nullptr)
@@ -176,5 +222,6 @@ public:
 			cout << " ";
 			node = node->next;
 		}
+		cout << endl;
 	}
 };
