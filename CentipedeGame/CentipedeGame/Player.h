@@ -5,13 +5,16 @@
 class Player : Sprite
 {
 public:
-	Player(Texture* _texture, float x, float y);
-	~Player();
+	Player(Texture* _texture, float x, float y);	//Default constructor
+	~Player();										//Deconstructor
 
+	//Update the player and move according to inputs
 	void Update(float deltaTime, Input* input) override;
+
+	//Draw the player ship to the screen
 	void Draw(Renderer2D* renderer) override;
 
 protected:
-	const float MAX_SPEED = 80;
+	const float MAX_SPEED = 80;		//The movement speed of the player
 };
 
