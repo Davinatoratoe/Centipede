@@ -12,7 +12,7 @@ private:
 	unsigned int capacity;
 
 public:
-	public Stack()
+	Stack()
 	{
 		capacity = 10;
 		size = 0;
@@ -20,7 +20,15 @@ public:
 		memset(data, 0, sizeof(T) * capacity);
 	}
 
-	public Stack(unsigned int _capacity)
+	Stack(const Stack<T>& copy)
+	{
+		capacity = copy.capacity;
+		size = copy.size;
+		data = new T[capacity];
+		memcpy(data, copy.data, sizeof(T) * capacity);
+	}
+
+	Stack(unsigned int _capacity)
 	{
 		capacity = _capacity;
 		size = 0;
@@ -53,9 +61,54 @@ public:
 		size = 0;
 	}
 
+	unsigned int Size() const
+	{
+		return size;
+	}
+
+	unsigned int Capacity() const
+	{
+		return capacity;
+	}
+
+	bool Empty() const
+	{
+		return size == 0;
+	}
+
 	T& Top() const
 	{
 		if (size > 0)
 			return data[size - 1];
+	}
+
+	Stack<T>& operator= (const Stack<T>& other)
+	{
+		delete data;
+		capacity = other.capacity;
+		size = other.size;
+		data = new T[capacity];
+		memcpy(data, other.data, sizeof(T) * capacity);
+		return *this;
+	}
+
+	friend ostream& operator<< (ostream& os, const Stack<T>& stack)
+	{
+		if (!stack.Empty())
+			os << stack.Top();
+		else
+			os << "Empty";
+		return os;
+	}
+
+	void PrintDetails() const
+	{
+		cout << "Size: " << size << "   ";
+		cout << "Capacity: " << capacity << "   ";
+		if (!Empty())
+			cout << Top();
+		else
+			cout << "Empty";
+		cout << endl;
 	}
 };
