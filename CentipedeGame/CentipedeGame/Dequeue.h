@@ -14,15 +14,15 @@ private:
 		T data;
 		Node* next;
 
-		Node(const T& _data, Node* next)
+		Node(const T& _data, Node* _next)
 		{
 			data = _data;
 			next = _next;
 		}
 	};
 
-	Node* head;
-	Node* tail;
+	Node<T>* head;
+	Node<T>* tail;
 	unsigned int size;
 
 public:
@@ -30,6 +30,20 @@ public:
 	{
 		head = nullptr;
 		tail = nullptr;
+		size = 0;
+	}
+
+	Dequeue(const Dequeue<T>& copy)
+	{
+		head = nullptr;
+		tail = nullptr;
+		size = 0;
+		Node<T>* node = copy.head;
+		while (node != nullptr)
+		{
+			PushBack(node->data);
+			node = node->next;
+		}
 	}
 
 	~Dequeue()
@@ -67,8 +81,8 @@ public:
 		else
 		{
 			Node<T>* oldNode = head;
-			head = head->next;
-			delete oldNose;
+			head = oldNode->next;
+			delete oldNode;
 		}
 		--size;
 	}
@@ -102,16 +116,11 @@ public:
 		else
 		{
 			Node<T>* node = head;
-			while (true)
-			{
-				if (node->next->next == nullptr)
-				{
-					delete node->next;
-					tail = node;
-					break;
-				}
+			while (node->next->next != nullptr)
 				node = node->next;
-			}
+			delete node->next;
+			tail = node;
+			tail->next = nullptr;
 		}
 		--size;
 	}
@@ -136,5 +145,38 @@ public:
 	T& Bottom() const
 	{
 		return tail;
+	}
+
+	Dequeue<T>& operator= (const Dequeue<T>& other)
+	{
+		Clear();
+		Node<T>* node = other.head;
+		while (node != nullptr)
+		{
+			PushBack(node->data);
+			node = node->next;
+		}
+		return *this;
+	}
+
+	friend ostream& operator<< (ostream& os, const Dequeue<T>& dequeue)
+	{
+		os << "[";
+		os << "Not implemented";
+		os << "]";
+		return os;
+	}
+
+	void PrintDetails() const
+	{
+		cout << "Size: " << size << "  ";
+		Node<T>* node = head;
+		while (node != nullptr)
+		{
+			cout << node->data;
+			cout << " ";
+			node = node->next;
+		}
+		cout << endl;
 	}
 };
