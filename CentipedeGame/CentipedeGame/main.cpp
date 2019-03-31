@@ -7,7 +7,7 @@ using namespace std;
 void TestLinkedList()
 {
 	cout << "---Testing Linked List" << endl;
-	
+
 	LinkedList<int> list;			//Default contructor
 	list.PushFront(10);				//Push front
 	list.PushBack(20);				//Push back
@@ -38,7 +38,13 @@ void TestLinkedList()
 	list.Remove(400);				//Remove tail
 	list.PrintDetails();
 
-	cout << "List: " << list << endl;	//>> operator overload
+	list.PushFront(220);
+	list.PushFront(500);
+	list.PushBack(700);
+	list.PushBack(1000);
+	list.PrintDetails();
+
+	cout << "List: " << list << endl;	//>> operator overload (uses the iterators)
 
 	cout << "---Finished Testing" << endl;
 }

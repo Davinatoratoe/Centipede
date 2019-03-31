@@ -34,6 +34,65 @@ private:
 	unsigned int size;
 
 public:
+	//https://codereview.stackexchange.com/questions/74609/custom-iterator-for-a-linked-list-class
+	template <typename T>
+	class LinkedListIterator
+	{
+	private:
+		LinkedListNode<T>* node;
+
+	public:
+		LinkedListIterator() 
+		{
+			node = nullptr;
+		}
+		
+		LinkedListIterator(LinkedListNode<T>* _node)
+		{
+			node = _node;
+		}
+
+		bool operator== (const LinkedListIterator<T>& other) const
+		{
+			return node == other.node;
+		}
+
+		bool operator!= (const LinkedListIterator<T>& other) const
+		{
+			return node != other.node;
+		}
+		
+		LinkedListIterator& operator++ ()
+		{
+			if (node != nullptr)
+			{
+				node = node->next;
+				return *this;
+			}
+		}
+
+		LinkedListIterator& operator-- ()
+		{
+			if (node != nullptr)
+			{
+				node = node->previous;
+				return *this;
+			}
+		}
+
+		T& operator* () const
+		{
+			if (node != nullptr)
+				return node->data;
+		}
+
+		T& operator-> () const
+		{
+			if (node != nullptr)
+				return node->data;
+		}
+	};
+
 	LinkedList()
 	{
 		head = nullptr;
@@ -181,6 +240,16 @@ public:
 			return tail.data;
 	}
 
+	LinkedListIterator<T> Begin() const
+	{
+		return LinkedListIterator<T>(head);
+	}
+
+	LinkedListIterator<T> End() const
+	{
+		return LinkedListIterator<T>(nullptr);
+	}
+
 	LinkedList<T>& operator= (const LinkedList<T>& other)
 	{
 		Clear();
@@ -196,17 +265,12 @@ public:
 	friend ostream& operator<< (ostream& os, const LinkedList<T>& list)
 	{
 		os << "[";
-		os << "Not implemented";
-		/*
-		LinkedListNode<T>* node = list.head;
-		while (node != nullptr)
+		for (auto i = list.Begin(); i != list.End(); ++i)
 		{
-			if (node != head)
-				os << ", ";
-			os = node.data;
-			node = node->next;
+			if (i != list.Begin())
+				cout << ", ";
+			cout << *i;
 		}
-		*/
 		os << "]";
 		return os;
 	}
