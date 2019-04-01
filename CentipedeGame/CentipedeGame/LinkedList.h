@@ -247,7 +247,7 @@ public:
 
 	LinkedListIterator<T> End() const
 	{
-		return LinkedListIterator<T>(nullptr);
+		return LinkedListIterator<T>(tail);
 	}
 
 	LinkedList<T>& operator= (const LinkedList<T>& other)
