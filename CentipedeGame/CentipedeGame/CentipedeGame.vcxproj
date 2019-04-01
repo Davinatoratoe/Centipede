@@ -172,6 +172,7 @@
     <ClCompile Include="Sprite.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="CentipedeGameApp.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />
