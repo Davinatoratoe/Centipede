@@ -38,7 +38,7 @@ public:
 	/// <param name="_data">The data to attach to this node.</param>
 	/// <param name="_left">A pointer to the left child.</param>
 	/// <param name="_right">A pointer to the right child.</param>
-	BinaryTreeNode(const T& _data, const BinaryTreeNode<T>* _left, const BinaryTreeNode<T>* _right)
+	BinaryTreeNode(const T& _data, BinaryTreeNode<T>* _left, BinaryTreeNode<T>* _right)
 	{
 		data = _data;
 		left = _left;
@@ -49,6 +49,19 @@ public:
 	/// Deconstructor.
 	/// </summary>
 	~BinaryTreeNode() {}
+
+	/// <summary>
+	/// Get a copy of this node and its children.
+	/// Uses recursion.
+	/// https://stackoverflow.com/questions/16098362/how-to-deep-copy-a-binary-tree
+	/// </summary>
+	/// <returns>A deep copy of this node and its children.</returns>
+	BinaryTreeNode<T>* Copy()
+	{
+		return new BinaryTreeNode<T>(data, 
+			left != nullptr ? left->Copy() : nullptr,		//Run on left child if it isn't a nullptr
+			right != nullptr ? right->Copy() : nullptr);	//Run on right child if it isn't a nullptr
+	}
 };
 
 //Enum for choosing how to use the depth search on the binary tree
@@ -81,7 +94,9 @@ public:
 	/// <param name="copy">The tree to copy.</param>
 	BinaryTree(const BinaryTree& copy)
 	{
-		
+		size = copy.size;
+		if (!Empty())
+			root = copy.root->Copy();
 	}
 
 	/// <summary>
@@ -175,12 +190,15 @@ public:
 				}
 				else
 				{
-					if (parent->left == node)		//Do we delete the parent's left child?
-						parent->left = node->left;
-					if (parent->right == node)		//Do we delete the parent's right child?
-						parent->right = node->left;
 					if (node == root)				//If the node to remove is the root, then delete it
 						root = node->left;
+					else
+					{
+						if (parent->left == node)		//Do we delete the parent's left child?
+							parent->left = node->left;
+						if (parent->right == node)		//Do we delete the parent's right child?
+							parent->right = node->left;
+					}
 					delete node;
 				}
 				--size;
@@ -201,9 +219,10 @@ public:
 		BinaryTreeNode<T>** ppNode = new BinaryTreeNode<T>*;
 		BinaryTreeNode<T>** ppParent = new BinaryTreeNode<T>*;
 		bool found = Find(data, ppNode, ppParent);		//Try to find the node
+		BinaryTreeNode<T>* foundNode = found ? (*ppNode) : nullptr;	//Store the pointer in a different pointer so we can delete below
 		delete ppNode;
 		delete ppParent;
-		return found ? (*ppNode) : nullptr;		//Return the node if it was found
+		return foundNode;		//Return the node if it was found
 	}
 
 	/// <summary>
@@ -251,51 +270,91 @@ public:
 	{
 		if (!Empty())
 		{
+			//Run the appropriate function depending on the search type
 			if (searchType == SEARCH_PRE_ORDER)
-				DepthFirstPreOrderSearch(root, Process);
+				DepthFirstPreOrderSearch(root, ProcessFn);
 			else if (searchType == SEARCH_POST_ORDER)
-				DepthFirstPostOrderSearch(root, Process);
+				DepthFirstPostOrderSearch(root, ProcessFn);
 			else
-				DepthFirstInOrderSearch(root, Process);
+				DepthFirstInOrderSearch(root, ProcessFn);
 		}
 	}
 
+	/// <summary>
+	/// Performs a Breadth First traversal of the tree and processes each node with the given function.
+	/// </summary>
+	/// <param name="ProcessFn">A function pointer that will process any particular node in the tree.</param>
 	void BreadthFirstSearch(ProcessFnType ProcessFn)
 	{
 		if (!Empty())
 		{
-			queue<BinaryTreeNode<T>*> list;
-			list.push(root);
-			while (!list.empty())
+			queue<BinaryTreeNode<T>*> list;		//Create a queue to contain which node to process next
+			list.push(root);					//Push the root as it will be processed first
+			while (!list.empty())				//Keep looping until the queue is empty i.e. all nodes have been processed
 			{
-				BinaryTreeNode<T>* node = list.front();
-				ProcessFn(node);
-				list.pop();
-				if (node->left != nullptr)
+				BinaryTreeNode<T>* node = list.front();		//Grab the node at the front of the queue
+				ProcessFn(node);							//Process the node
+				list.pop();									//Pop the node off the queue
+				if (node->left != nullptr)					//If a left child exists, push it to the end of the queue
 					list.push(node->left);
-				if (node->right != nullptr)
+				if (node->right != nullptr)					//If a right child exists, push it to the end of the queue
 					list.push(node->right);
 			}
 		}
 	}
 
+	/// <summary>
+	/// Getter for the root of the tree.
+	/// </summary>
+	/// <returns>The root node of the tree.</returns>
 	BinaryTreeNode<T>* GetRoot() const
 	{
 		return root;
 	}
 
+	/// <summary>
+	/// Check if the tree is empty.
+	/// </summary>
+	/// <returns>True if the tree is empty.</returns>
 	bool Empty() const
 	{
 		return size == 0;
 	}
 
+	/// <summary>
+	/// Getter for the size of the tree.
+	/// </summary>
+	/// <returns>The number of nodes in the tree.</returns>
 	unsigned int Size()
 	{
 		return size;
 	}
 
+	/// <summary>
+	/// Getter for the number of edges in the tree.
+	/// This is (the number of nodes) - 1.
+	/// </summary>
+	/// <returns>The number of edges in the tree.</returns>
+	unsigned int Edges() const
+	{
+		if (Empty())
+			return 0;
+		else
+			return size - 1;
+	}
+
+	/// <summary>
+	/// Assignment operator overload.
+	/// Performs a deep copy.
+	/// </summary>
+	/// <param name="other">The tree to copy to this tree.</param>
+	/// <returns>This tree with the same data as the given tree.</returns>
 	BinaryTree<T>& operator= (const BinaryTree<T>& other)
 	{
+		Clear();
+		size = other.size;
+		if (!Empty())
+			root = other.root->Copy();
 		return *this;
 	}
 
@@ -346,37 +405,67 @@ public:
 	/// </summary>
 	void PrintDetails() const
 	{
-		cout << "Size: " << size << endl;
-		//Call a function to recursively print the tree to std::cout
-		PrintTree(root, 0);
+		cout << "Size: " << size << "   Edges: " << Edges() << endl;
+		if (!Empty())
+		{
+			//Call a function to recursively print the tree to std::cout
+			PrintTree(root, 0);
+		}
+		else
+			cout << "Empty" << endl;
+		cout << endl;
 	}
 
 private:
+	/// <summary>
+	/// Traverse the tree using the depth first pre order search.
+	/// - Process node
+	/// - Loop through children of node
+	///   - Call pre order function on each child
+	/// </summary>
+	/// <param name="node">The current node of the recursive function.</param>
+	/// <param name="ProcessFn">The function to pointer to call on each node.</param>
 	void DepthFirstPreOrderSearch(BinaryTreeNode<T>* node, ProcessFnType ProcessFn)
 	{
 		ProcessFn(node);
 		if (node->left != nullptr)
-			DepthFirstPreOrderSearch(node->left, Process);
+			DepthFirstPreOrderSearch(node->left, ProcessFn);
 		if (node->right != nullptr)
-			DepthFirstPreOrderSearch(node->right, Process);
+			DepthFirstPreOrderSearch(node->right, ProcessFn);
 	}
 
+	/// <summary>
+	/// Traverse the tree using the depth first post order search.
+	/// - Loop through children of node
+	///   - Call post order function on each child
+	/// - Process node
+	/// </summary>
+	/// <param name="node">The current node of the recursive function.</param>
+	/// <param name="ProcessFn">The function to pointer to call on each node.</param>
 	void DepthFirstPostOrderSearch(BinaryTreeNode<T>* node, ProcessFnType ProcessFn)
 	{
 		if (node->left != nullptr)
-			DepthFirstPreOrderSearch(node->left, Process);
+			DepthFirstPostOrderSearch(node->left, ProcessFn);
 		if (node->right != nullptr)
-			DepthFirstPreOrderSearch(node->right, Process);
+			DepthFirstPostOrderSearch(node->right, ProcessFn);
 		ProcessFn(node);
 	}
 
+	/// <summary>
+	/// Traverse the tree using the depth first in order search.
+	/// - Call in order function on first child
+	/// - Process node
+	/// - Call in order function on second child
+	/// </summary>
+	/// <param name="node">The current node of the recursive function.</param>
+	/// <param name="ProcessFn">The function to pointer to call on each node.</param>
 	void DepthFirstInOrderSearch(BinaryTreeNode<T>* node, ProcessFnType ProcessFn)
 	{
 		if (node->left != nullptr)
-			DepthFirstPreOrderSearch(node->left, Process);
+			DepthFirstInOrderSearch(node->left, ProcessFn);
 		ProcessFn(node);
 		if (node->right != nullptr)
-			DepthFirstPreOrderSearch(node->right, Process);
+			DepthFirstInOrderSearch(node->right, ProcessFn);
 	}
 
 	/// <summary>
