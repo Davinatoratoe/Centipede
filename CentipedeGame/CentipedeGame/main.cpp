@@ -1,6 +1,7 @@
 #include "CentipedeGameApp.h"
 #include <iostream>
 #include "BinaryTree.h"
+#include "DynamicList.h"
 
 using namespace std;
 
@@ -13,12 +14,6 @@ void PrintNode(BinaryTreeNode<T>* node)
 void TestBinaryTree()
 {
 	cout << "---Testing Binary Tree" << endl;
-#include <iostream>
-#include "DynamicList.h"
-
-void TestDynamicList()
-{
-	cout << "--- Testing Dynamic List" << endl;
 
 	BinaryTree<int> tree;
 	tree.Insert(50);
@@ -72,10 +67,9 @@ void TestDynamicList()
 	cout << "---Finished testing Binary Tree" << endl;
 }
 
-int main() {
-	
-	TestBinaryTree();
-	return 0;
+void TestDynamicList()
+{
+	cout << "--- Testing Dynamic List" << endl;
 
 	List<int> list;						//Default constructor
 	list.Push(30);						//Push
