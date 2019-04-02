@@ -178,6 +178,7 @@
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="CentipedeGameApp.h" />
+    <ClInclude Include="Dequeue.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="DynamicList.h" />
     <ClInclude Include="ListScene.h" />
