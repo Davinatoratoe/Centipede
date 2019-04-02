@@ -7,10 +7,8 @@
 /// <param name="_texture">The texture that the player should use.</param>
 /// <param name="x">Initial starting position on the x-axis.</param>
 /// <param name="y">Initial starting position on the y-axis.</param>
-Player::Player(Texture* _texture, float x, float y)
+Player::Player(Texture* _texture)
 {
-	position.x = x;
-	position.y = y;
 	texture = _texture;
 }
 

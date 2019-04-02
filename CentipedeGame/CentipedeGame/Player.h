@@ -2,11 +2,11 @@
 #include "Sprite.h"
 #include "Input.h"
 
-class Player : Sprite
+class Player : public Sprite
 {
 public:
-	Player(Texture* _texture, float x, float y);	//Default constructor
-	~Player();										//Deconstructor
+	Player(Texture* _texture);		//Default constructor
+	~Player();						//Deconstructor
 
 	//Update the player and move according to inputs
 	void Update(float deltaTime, Input* input) override;
