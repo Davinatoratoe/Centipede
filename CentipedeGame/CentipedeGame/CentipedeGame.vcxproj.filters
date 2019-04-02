@@ -45,6 +45,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="ListScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -72,7 +75,7 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicList.h">
+    <ClInclude Include="Scene.h">
       <Filter>Header Files</Filter>
     <ClInclude Include="GameScene.h">
       <Filter>Header Files\Scenes</Filter>
@@ -83,13 +86,13 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Header Files\Scenes</Filter>
     <ClInclude Include="GameScene.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicList.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ListScene.h">
-      <Filter>Header Files\Scenes</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
