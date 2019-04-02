@@ -31,4 +31,5 @@ protected:
 
 	Scene* currentScene;
 	Scene* gameScene;
+	Scene* listScene;
 };

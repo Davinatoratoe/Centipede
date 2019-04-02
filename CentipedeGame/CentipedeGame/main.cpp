@@ -28,16 +28,15 @@ void TestDynamicList()
 	list3.Push(100);
 	list3.PrintDetails();
 
+	list.PrintDetails();
 	cout << "List: " << list << endl;	//<< operator
+	cout << "List: " << list.ToString().c_str() << endl;	//ToString
 
 	cout << "--- Finished testing Dynamic List" << endl;
 }
 
 int main() 
 {
-	TestDynamicList();
-	return 0;
-
 	// allocation
 	auto app = new CentipedeGameApp();
 

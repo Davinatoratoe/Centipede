@@ -5,6 +5,7 @@
 
 #pragma once
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -209,5 +210,16 @@ public:
 		for (unsigned int i = 0; i < size; ++i)
 			cout << data[i] << " ";
 		cout << endl;
+	}
+
+	/// <summary>
+	/// Get the list represented as a string.
+	/// </summary>
+	/// <returns>A string representation of the list.</returns>
+	string ToString() const
+	{
+		ostringstream stream;
+		stream << *this;
+		return stream.str();
 	}
 };

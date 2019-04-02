@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Input.h"
 #include "GameScene.h"
+#include "ListScene.h"
 
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
 
@@ -22,15 +23,16 @@ bool CentipedeGameApp::startup()
 
 	// TODO: remember to change this when redistributing a build!
 	// the following path would be used instead: "./font/consolas.ttf"
-	font = new Font("../bin/font/consolas.ttf", 32);
+	font = new Font("../bin/font/consolas.ttf", 30);
 
 	shipTexture = new Texture("./textures/ship.png");
 	bulletTexture = new Texture("./textures/bullet.png");
 
 	currentScene = nullptr;
 	gameScene = new GameScene(shipTexture);
+	listScene = new ListScene(font);
 	
-	ChangeScene(gameScene);
+	ChangeScene(listScene);
 
 	return true;
 }
