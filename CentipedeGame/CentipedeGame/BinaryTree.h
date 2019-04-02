@@ -416,6 +416,19 @@ public:
 		cout << endl;
 	}
 
+	/// <summary>
+	/// Get the tree represented as a string.
+	/// https://stackoverflow.com/questions/3513173/converting-ostream-into-standard-string
+	/// http://www.cplusplus.com/reference/sstream/stringstream/str/
+	/// </summary>
+	/// <returns>A string representation of the tree.</returns>
+	string ToString() const
+	{
+		ostringstream stream;
+		stream << *this;
+		return stream.str();
+	}
+
 private:
 	/// <summary>
 	/// Traverse the tree using the depth first pre order search.
