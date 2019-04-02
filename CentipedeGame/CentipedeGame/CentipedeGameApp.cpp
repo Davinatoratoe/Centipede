@@ -2,6 +2,7 @@
 #include "Texture.h"
 #include "Font.h"
 #include "Input.h"
+#include "GameScene.h"
 
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
 
@@ -26,16 +27,20 @@ bool CentipedeGameApp::startup()
 	shipTexture = new Texture("./textures/ship.png");
 	bulletTexture = new Texture("./textures/bullet.png");
 
-	player = new Player(shipTexture, 100, 100);
+	currentScene = nullptr;
+	gameScene = new GameScene(shipTexture);
+	
+	ChangeScene(gameScene);
 
 	return true;
 }
 
 void CentipedeGameApp::shutdown()
 {
-
 	delete font;
 	delete renderer;
+	delete shipTexture;
+	delete bulletTexture;
 }
 
 void CentipedeGameApp::update(float deltaTime) 
@@ -43,11 +48,12 @@ void CentipedeGameApp::update(float deltaTime)
 	//Get Input Instance
 	Input* input = Input::getInstance();
 
+	if (currentScene != nullptr)
+		currentScene->Update(deltaTime, input);
+
 	//Exit the application
 	if (input->isKeyDown(INPUT_KEY_ESCAPE))
 		quit();
-
-	player->Update(deltaTime, input);
 }
 
 void CentipedeGameApp::draw() 
@@ -59,8 +65,20 @@ void CentipedeGameApp::draw()
 	renderer->begin();
 
 	//Draw...
-	player->Draw(renderer);
+	if (currentScene != nullptr)
+		currentScene->Draw(renderer);
 
 	//Done drawing sprites
 	renderer->end();
+}
+
+void CentipedeGameApp::ChangeScene(Scene* newScene)
+{
+	if (newScene == nullptr)
+		return;
+
+	if (currentScene != nullptr)
+		currentScene->OnClose();
+	currentScene = newScene;
+	currentScene->OnStart();
 }

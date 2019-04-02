@@ -1,7 +1,7 @@
 #pragma once
 #include "Application.h"
 #include "Renderer2D.h"
-#include "Player.h"
+#include "Scene.h"
 
 using namespace aie;
 
@@ -19,11 +19,16 @@ public:
 	virtual void update(float deltaTime);
 	virtual void draw();
 
+	void ChangeScene(Scene* newScene);
+
 protected:
 	Renderer2D*	renderer;
+
 	Font* font;
+
 	Texture* shipTexture;
 	Texture* bulletTexture;
 
-	Player* player;
+	Scene* currentScene;
+	Scene* gameScene;
 };
