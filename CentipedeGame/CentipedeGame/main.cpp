@@ -2,6 +2,7 @@
 #include <iostream>
 #include "BinaryTree.h"
 #include "DynamicList.h"
+#include "Dequeue.h"
 
 using namespace std;
 
