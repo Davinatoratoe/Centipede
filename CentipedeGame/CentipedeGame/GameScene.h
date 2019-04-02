@@ -1,14 +1,22 @@
+/*
+	File: GameScene.h
+	Contains: GameScene
+*/
+
 #pragma once
 #include "Scene.h"
 #include "Player.h"
 
+/// <summary>
+/// The scene responsible for the gameplay.
+/// </summary>
 class GameScene : public Scene
 {
 public:
-	Player* player;
+	Player* player;		//Pointer to the player
 
-	GameScene(Texture* playerTexture);
-	~GameScene();
+	GameScene(Texture* playerTexture);	//Overloaded constructor
+	~GameScene();						//Deconstructor
 
 	void OnStart() override;
 	void OnClose() override;
