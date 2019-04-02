@@ -44,5 +44,6 @@ void ListScene::Update(float deltaTime, Input* input)
 void ListScene::Draw(Renderer2D* renderer)
 {
 	renderer->drawText(font, ("List: " + list.ToString()).c_str(), 20, 850);
-	renderer->drawText(font, "Size: " + list.Size(), 20, 800);
+	renderer->drawText(font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
+	renderer->drawText(font, ("Capacity: " + to_string(list.Capacity())).c_str(), 20, 750);
 }

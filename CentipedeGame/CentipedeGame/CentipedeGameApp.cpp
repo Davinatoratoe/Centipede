@@ -34,7 +34,7 @@ bool CentipedeGameApp::startup()
 	listScene = new ListScene(font);
 	menuScene = new MenuScene(font);
 	
-	ChangeScene(menuScene);
+	ChangeScene(listScene);
 
 	return true;
 }

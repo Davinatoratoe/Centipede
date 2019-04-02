@@ -20,6 +20,7 @@ public:
 	Scene* currentScene;
 	Scene* gameScene;
 	Scene* menuScene;
+	Scene* listScene;
 
 	CentipedeGameApp();
 	virtual ~CentipedeGameApp();
@@ -31,16 +32,4 @@ public:
 	virtual void draw();
 
 	void ChangeScene(Scene* newScene);
-
-protected:
-	Renderer2D*	renderer;
-
-	Font* font;
-
-	Texture* shipTexture;
-	Texture* bulletTexture;
-
-	Scene* currentScene;
-	Scene* gameScene;
-	Scene* listScene;
 };
