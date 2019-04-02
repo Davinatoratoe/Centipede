@@ -14,6 +14,12 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{18cf3c99-a8c3-4da4-bda6-7fb4b759878d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{3636470c-49fe-4b29-ab04-9dffd830f829}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{f02127c6-ac4b-4199-8cb6-d8147c10f258}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scenes">
@@ -39,7 +45,11 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ListScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
     <ClCompile Include="GameScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
@@ -62,6 +72,8 @@
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicList.h">
+      <Filter>Header Files</Filter>
     <ClInclude Include="GameScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -69,6 +81,14 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="MenuScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    <ClInclude Include="GameScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="ListScene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
