@@ -40,7 +40,12 @@ public:
 	/// <param name="_capacity">The initial capacity of this list.</param>
 	List(unsigned int _capacity)
 	{
-		capacity = _capacity;
+		if (_capacity == 0)
+			capacity = 1;
+		else if (_capacity > MAX_CAPACITY)
+			capacity = MAX_CAPACITY;
+		else
+			capacity = _capacity;
 		size = 0;
 		data = new T[capacity];
 		memset(data, 0, sizeof(T) * capacity);
@@ -101,7 +106,7 @@ public:
 	void Push(const T& value)
 	{
 		if (size == capacity)		//If there is no more capacity then double the capacity
-			Reserve(capacity * 2);
+			Reserve(capacity);
 		if (size != capacity)		//If there is more capacity now, then add the value
 		{
 			data[size] = value;
@@ -214,6 +219,8 @@ public:
 
 	/// <summary>
 	/// Get the list represented as a string.
+	/// https://stackoverflow.com/questions/3513173/converting-ostream-into-standard-string
+	/// http://www.cplusplus.com/reference/sstream/stringstream/str/
 	/// </summary>
 	/// <returns>A string representation of the list.</returns>
 	string ToString() const
