@@ -4,6 +4,7 @@
 #include "DynamicList.h"
 #include "Dequeue.h"
 #include "LinkedList.h"
+#include "Stack.h"
 
 using namespace std;
 
