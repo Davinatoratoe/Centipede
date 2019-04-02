@@ -1,5 +1,6 @@
 #include "ListScene.h"
 #include "imgui.h"
+#include "CentipedeGameApp.h"
 
 using namespace ImGui;
 
@@ -39,6 +40,9 @@ void ListScene::Update(float deltaTime, Input* input)
 
 	if (Button("Reserve", ImVec2(50, 0)))
 		list.Reserve(value);
+
+	if (Button("Menu", ImVec2(50, 0)))
+		app->ChangeScene(app->menuScene);
 }
 
 void ListScene::Draw(Renderer2D* renderer)

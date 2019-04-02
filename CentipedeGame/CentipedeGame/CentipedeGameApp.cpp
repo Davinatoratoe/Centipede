@@ -22,8 +22,6 @@ bool CentipedeGameApp::startup()
 {
 	renderer = new Renderer2D();
 
-	// TODO: remember to change this when redistributing a build!
-	// the following path would be used instead: "./font/consolas.ttf"
 	font = new Font("../bin/font/consolas.ttf", 30);
 
 	shipTexture = new Texture("./textures/ship.png");
@@ -34,7 +32,7 @@ bool CentipedeGameApp::startup()
 	listScene = new ListScene(font);
 	menuScene = new MenuScene(font);
 	
-	ChangeScene(listScene);
+	ChangeScene(menuScene);
 
 	return true;
 }
