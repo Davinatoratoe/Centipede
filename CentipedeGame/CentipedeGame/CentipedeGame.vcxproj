@@ -169,6 +169,7 @@
     <ClCompile Include="BinaryTreeScene.cpp" />
     <ClCompile Include="CentipedeGameApp.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="LinkedListScene.cpp" />
     <ClCompile Include="ListScene.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScene.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="Dequeue.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="DynamicList.h" />
+    <ClInclude Include="LinkedListScene.h" />
     <ClInclude Include="ListScene.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Player.h" />

@@ -18,14 +18,14 @@ private:
 	Font* font;						//The font to use
 	int value;						//The value to manipulate
 	double oldMouseScroll;			//How far the mouse was scrolled in the previous frame
-	int treeX;						//The amount to offset the tree draw position on the x-axis
-	int treeY;						//The amount to offset the tree draw position on the y-axis
+	float treeX;					//The amount to offset the tree draw position on the x-axis
+	float treeY;					//The amount to offset the tree draw position on the y-axis
 	
-	const double ZOOM_FACTOR = 0.1;		//The factor to zoom in and out by
+	const float ZOOM_FACTOR = 0.1f;		//The factor to zoom in and out by
 	const unsigned int MOVE_SPEED = 5;	//The speed to move the camera
 
 	//Recursive function to draw the tree graphically
-	void DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, int x, int y, int horizontalSpacing, BinaryTreeNode<int>* selected = nullptr) const;
+	void DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, float x, float y, int horizontalSpacing, BinaryTreeNode<int>* selected = nullptr) const;
 
 public:
 	BinaryTreeScene(Font* _font);	//Overloaded constructor

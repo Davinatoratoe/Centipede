@@ -28,6 +28,9 @@
     <ClCompile Include="BinaryTreeScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="LinkedListScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -70,6 +73,9 @@
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="BinaryTreeScene.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkedListScene.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

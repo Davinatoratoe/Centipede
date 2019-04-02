@@ -12,11 +12,12 @@
 /// </summary>
 class ListScene : public Scene
 {
-public:
+private:
 	List<int> list;		//The list to alter
 	Font* font;			//The font to use
 	int value;			//The value to alter
 
+public:
 	ListScene(Font* _font);		//Overloaded constructor
 	~ListScene();				//Deconstructor
 

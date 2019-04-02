@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -31,7 +32,23 @@ private:
 
 	LinkedListNode<T>* head;
 	LinkedListNode<T>* tail;
+	LinkedListNode<T>* end;
 	unsigned int size;
+
+	void Remove(LinkedListNode<T>* node)
+	{
+		if (node == head)
+			PopFront();
+		else if (node == tail)
+			PopBack();
+		else
+		{
+			node->previous->next = node->next;
+			node->next->previous = node->previous;
+			delete node;
+			--size;
+		}
+	}
 
 public:
 	//https://codereview.stackexchange.com/questions/74609/custom-iterator-for-a-linked-list-class
@@ -54,30 +71,26 @@ public:
 
 		bool operator== (const LinkedListIterator<T>& other) const
 		{
-			return node == other.node;
+			return node != nullptr && other.node != nullptr && node == other.node;
 		}
 
 		bool operator!= (const LinkedListIterator<T>& other) const
 		{
-			return node != other.node;
+			return node == nullptr || other.node == nullptr || node != other.node;
 		}
 		
 		LinkedListIterator& operator++ ()
 		{
 			if (node != nullptr)
-			{
 				node = node->next;
-				return *this;
-			}
+			return *this;
 		}
 
 		LinkedListIterator& operator-- ()
 		{
 			if (node != nullptr)
-			{
 				node = node->previous;
-				return *this;
-			}
+			return *this;
 		}
 
 		T& operator* () const
@@ -95,38 +108,37 @@ public:
 
 	LinkedList()
 	{
-		head = nullptr;
-		tail = nullptr;
+		head = new LinkedListNode<T>(nullptr, nullptr);
+		tail = head;
+		end = new LinkedListNode<T>(nullptr, tail);
+		head->next = end;
 		size = 0;
 	}
 	
 	LinkedList(const LinkedList<T>& copy)
 	{
-		head = nullptr;
-		tail = nullptr;
+		head = new LinkedListNode<T>(nullptr, nullptr);
+		tail = head;
+		end = new LinkedListNode<T>(nullptr, tail);
+		head->next = end;
 		size = 0;
 
-		LinkedListNode<T>* node = copy.head;
-		while (node != nullptr)
-		{
-			PushBack(node->data);
-			node = node->next;
-		}
+		for (auto i = copy.Begin(); i != copy.End(); ++i)
+			PushBack(*i);
 	}
 
 	~LinkedList()
 	{
-		while (head != nullptr)
+		while (size > 0)
 			PopFront();
+		delete end;
+		delete head;
 	}
 	
 	void PushFront(const T& value)
 	{
-		if (head == nullptr)
-		{
-			head = new LinkedListNode<T>(value, nullptr, nullptr);
-			tail = head;
-		}
+		if (size == 0)
+			head->data = value;
 		else
 		{
 			LinkedListNode<T>* newNode = new LinkedListNode<T>(value, head, nullptr);
@@ -138,13 +150,13 @@ public:
 
 	void PopFront()
 	{
-		if (head == nullptr)
+		if (size == 0)
 			return;
-		else if (head == tail)
+		else if (size == 1)
 		{
-			delete head;
-			head = nullptr;
-			tail = nullptr;
+			head->next = end;
+			tail = head;
+			end->previous = tail;
 		}
 		else
 		{
@@ -157,68 +169,65 @@ public:
 
 	void PushBack(const T& value)
 	{
-		if (tail == nullptr)
-		{
-			tail = new LinkedListNode<T>(value, nullptr, nullptr);
-			head = tail;
-		}
+		if (size == 0)
+			tail->data = value;
 		else
 		{
 			LinkedListNode<T>* newNode = new LinkedListNode<T>(value, nullptr, tail);
 			tail->next = newNode;
 			tail = newNode;
+			tail->next = end;
 		}
+		end->previous = tail;
 		++size;
 	}
 
 	void PopBack()
 	{
-		if (tail == nullptr)
+		if (size == 0)
 			return;
-		else if (tail == head)
+		else if (size == 1)
 		{
-			delete tail;
-			tail = nullptr;
-			head = nullptr;
+			head->next = end;
+			tail = head;
+			end->previous = tail;
 		}
-		else
+		else if (size > 1)
 		{
 			tail = tail->previous;
 			delete tail->next;
-			tail->next = nullptr;
+			tail->next = end;
+			end->previous = tail;
 		}
 		--size;
 	}
 
 	void Remove(const T& value)
 	{
-		if (head == nullptr)
+		if (size == 0)
 			return;
-		else if (head->data == value)
-			PopFront();
-		else if (tail->data == value)
-			PopBack();
 		else
 		{
 			LinkedListNode<T>* node = head;
-			while (node != nullptr)
+			LinkedList<LinkedListNode<T>*> toRemove = LinkedList<LinkedListNode<T>*>();
+			while (node != end)
 			{
 				if (node->data == value)
-				{
-					node->previous->next = node->next;
-					node->next->previous = node->previous;
-					delete node;
-					--size;
-					return;
-				}
+					toRemove.PushBack(node);
 				node = node->next;
+			}
+
+			while (toRemove.Size() > 0)
+			{
+				Remove(toRemove.Last());
+				toRemove.PopBack();
 			}
 		}
 	}
 
 	void Clear()
 	{
-		while (head != nullptr)
+		while (size > 0)
 			PopFront();
 		size = 0;
 	}
@@ -231,13 +240,13 @@ public:
 	T& First() const
 	{
 		if (head != nullptr)
-			return head.data;
+			return head->data;
 	}
 
 	T& Last() const
 	{
 		if (tail != nullptr)
-			return tail.data;
+			return tail->data;
 	}
 
 	LinkedListIterator<T> Begin() const
@@ -247,18 +256,16 @@ public:
 
 	LinkedListIterator<T> End() const
 	{
-		return LinkedListIterator<T>(tail);
+		if (size == 0)
+			return Begin();
+		return LinkedListIterator<T>(end);
 	}
 
 	LinkedList<T>& operator= (const LinkedList<T>& other)
 	{
 		Clear();
-		LinkedListNode<T>* node = other.head;
-		while (node != nullptr)
-		{
-			PushBack(node->data);
-			node = node->next;
-		}
+		for (auto i = other.Begin(); i != other.End(); ++i)
+			PushBack(*i);
 		return *this;
 	}
 
@@ -268,8 +275,8 @@ public:
 		for (auto i = list.Begin(); i != list.End(); ++i)
 		{
 			if (i != list.Begin())
-				cout << ", ";
-			cout << *i;
+				os << ", ";
+			os << *i;
 		}
 		os << "]";
 		return os;
@@ -278,14 +285,22 @@ public:
 	void PrintDetails()
 	{
 		cout << "Size: " << size << "   ";
-
-		LinkedListNode<T>* node = head;
-		while (node != nullptr)
+		for (auto i = Begin(); i != End(); ++i)
 		{
-			cout << (node->data);
+			cout << *i;
 			cout << " ";
-			node = node->next;
 		}
 		cout << endl;
+	}
+
+	/// <summary>
+	/// Get the list represented as a string.
+	/// </summary>
+	/// <returns>A string representation of the list.</returns>
+	string ToString() const
+	{
+		ostringstream stream;
+		stream << *this;
+		return stream.str();
 	}
 };

@@ -92,7 +92,7 @@ void BinaryTreeScene::Update(float deltaTime, Input* input)
 	if (Button("Menu", ImVec2(150, 0)))		//Return to the main menu
 		app->ChangeScene(app->menuScene);
 
-	double mouseScroll = (input->getMouseScroll() - oldMouseScroll) * ZOOM_FACTOR;	//Get how much the mouse scrolled since last frame
+	float mouseScroll = (float)(input->getMouseScroll() - oldMouseScroll) * ZOOM_FACTOR;	//Get how much the mouse scrolled since last frame
 	oldMouseScroll = input->getMouseScroll();	//Remember how far it was scrolled to use in next frame's calculation
 	app->renderer->setCameraScale(app->renderer->getCameraScale() + mouseScroll);	//Change the camera scale when the user scrolls
 
@@ -138,7 +138,7 @@ void BinaryTreeScene::Draw(Renderer2D* renderer)
 /// <param name="y">The y-position to draw the node.</param>
 /// <param name="horizontalSpacing">The spacing between the nodes.</param>
 /// <param name="selected">The node that is selected (highlighted).</param>
-void BinaryTreeScene::DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, int x, int y, int horizontalSpacing, BinaryTreeNode<int>* selected) const
+void BinaryTreeScene::DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, float x, float y, int horizontalSpacing, BinaryTreeNode<int>* selected) const
 {
 	horizontalSpacing /= 2;
 

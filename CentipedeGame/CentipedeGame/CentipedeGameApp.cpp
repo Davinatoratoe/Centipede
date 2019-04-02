@@ -6,6 +6,7 @@
 #include "ListScene.h"
 #include "MenuScene.h"
 #include "BinaryTreeScene.h"
+#include "LinkedListScene.h"
 
 //Initialise the static instance variable
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
@@ -49,6 +50,7 @@ bool CentipedeGameApp::startup()
 	menuScene = new MenuScene(font);
 	listScene = new ListScene(font);
 	treeScene = new BinaryTreeScene(font);
+	linkedListScene = new LinkedListScene(font);
 	
 	//Set the starting scene to the main menu
 	ChangeScene(menuScene);
