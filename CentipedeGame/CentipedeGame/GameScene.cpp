@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include "CentipedeGameApp.h"
 
 GameScene::GameScene(Texture* playerTexture)
 {
