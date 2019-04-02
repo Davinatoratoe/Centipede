@@ -1,21 +1,29 @@
+/*
+	File: ListScene.h
+	Contains: ListScene
+*/
+
 #pragma once
 #include "Scene.h"
 #include "DynamicList.h"
 
+/// <summary>
+/// The list scene allows testing the Dynamic List
+/// </summary>
 class ListScene : public Scene
 {
 public:
-	List<int> list;
-	Font* font;
-	int value;
+	List<int> list;		//The list to alter
+	Font* font;			//The font to use
+	int value;			//The value to alter
 
-	ListScene(Font* _font);
-	~ListScene();
+	ListScene(Font* _font);		//Overloaded constructor
+	~ListScene();				//Deconstructor
 
-	void OnStart() override;
-	void OnClose() override;
+	void OnStart() override;	//Called when the scene starts
+	void OnClose() override;	//Called when the scene closes
 
-	void Update(float deltaTime, Input* input) override;
-	void Draw(Renderer2D* renderer) override;
+	void Update(float deltaTime, Input* input) override;	//Called once per frame
+	void Draw(Renderer2D* renderer) override;				//Draws the graphics
 };
 

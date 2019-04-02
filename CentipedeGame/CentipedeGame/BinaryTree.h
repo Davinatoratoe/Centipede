@@ -149,63 +149,47 @@ public:
 	/// <param name="data">The data to remove from the tree.</param>
 	void Remove(const T& data)
 	{
-		if (Empty())			//If the tree is empty, then return
-			return;
-		else if (size == 1)		//If the tree only contains the root then just delete the root
+		BinaryTreeNode<T>** ppNode = new BinaryTreeNode<T>*;
+		BinaryTreeNode<T>** ppParent = new BinaryTreeNode<T>*;
+		if (Find(data, ppNode, ppParent))	//Try and find the node with the value to be removed
 		{
-			delete root;
-			root = nullptr;
-			size = 0;
-		}
-		else
-		{
-			BinaryTreeNode<T>** ppNode = new BinaryTreeNode<T>*;
-			BinaryTreeNode<T>** ppParent = new BinaryTreeNode<T>*;
-			if (Find(data, ppNode, ppParent))				//If we can find the node to be removed...
+			if ((*ppNode)->right != nullptr)	//Check if the current node has a right branch
 			{
-				BinaryTreeNode<T>* node = (*ppNode);
-				BinaryTreeNode<T>* parent = (*ppParent);
-
-				//If the the child to the right is not null,
-				//Then find the smallest value in the tree that is greater than the one we want to remove
-				if (node->right != nullptr)
+				//Find the minimum value in the right branch by iterating down the left branch of the current node's
+				//right child until there are no more left branch nodes
+				BinaryTreeNode<T>* minimumNode = (*ppNode)->right;
+				BinaryTreeNode<T>* minimumParent = (*ppNode);
+				while (minimumNode->left != nullptr)
 				{
-					BinaryTreeNode<T>* minimum = node->right;
-					BinaryTreeNode<T>* minimumParent = node;
-					
-					//Find the value by traversing the left children of the right child off the node to be removed
-					while (minimum->left != nullptr)
-					{
-						minimumParent = minimum;
-						minimum = minimum->left;
-					}
-					node->data = minimum->data;		//Copy the data from one to the other
+					minimumParent = minimumNode;
+					minimumNode = minimumNode->left;
+				}
+				
+				//Copy the value from the minimum node to the current node
+				(*ppNode)->data = minimumNode->data;
 
-					//Delete the minimum node
-					if (minimumParent->left == minimum)
-						minimumParent->left = minimum->right;
-					else
-						minimumParent->right = minimum->left;
-					delete minimum;
-				}
-				else
-				{
-					if (node == root)				//If the node to remove is the root, then delete it
-						root = node->left;
-					else
-					{
-						if (parent->left == node)		//Do we delete the parent's left child?
-							parent->left = node->left;
-						if (parent->right == node)		//Do we delete the parent's right child?
-							parent->right = node->left;
-					}
-					delete node;
-				}
-				--size;
+				//Delete the minimum node
+				if (minimumParent->left == minimumNode)
+					minimumParent->left = minimumNode->right;
+				if (minimumParent->right == minimumNode)
+					minimumParent->right = minimumNode->right;
+				delete minimumNode;
 			}
-			delete ppNode;
-			delete ppParent;
+			else	//If the current node has no right branch
+			{
+				//Delete the current node
+				if ((*ppNode) == root)
+					root = (*ppNode)->left;
+				else if ((*ppParent)->left == (*ppNode))
+					(*ppParent)->left = (*ppNode)->left;
+				else if ((*ppParent)->right == (*ppNode))
+					(*ppParent)->right = (*ppNode)->left;
+				delete (*ppNode);
+			}
+			--size;	//Decrease the size
 		}
+		delete ppNode;
+		delete ppParent;
 	}
 
 	/// <summary>
@@ -258,7 +242,6 @@ public:
 		//Loop until the tree is empty
 		while (!Empty())
 			Remove(root->data);
-		size = 0;
 	}
 
 	/// <summary>

@@ -166,6 +166,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BinaryTreeScene.cpp" />
     <ClCompile Include="CentipedeGameApp.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="ListScene.cpp" />
@@ -177,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
+    <ClInclude Include="BinaryTreeScene.h" />
     <ClInclude Include="CentipedeGameApp.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Dequeue.h" />

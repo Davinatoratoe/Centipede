@@ -21,6 +21,7 @@ public:
 	Scene* gameScene;
 	Scene* menuScene;
 	Scene* listScene;
+	Scene* treeScene;
 
 	CentipedeGameApp();
 	virtual ~CentipedeGameApp();

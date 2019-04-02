@@ -4,34 +4,60 @@
 
 using namespace ImGui;
 
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="_font">The font to use.</param>
 MenuScene::MenuScene(Font* _font)
 {
 	font = _font;
 }
 
+/// <summary>
+/// Deconstructor.
+/// </summary>
 MenuScene::~MenuScene()
 {
 
 }
 
+/// <summary>
+/// Called when the scene loads.
+/// </summary>
 void MenuScene::OnStart()
 {
 	
 }
 
+/// <summary>
+/// Called when the scene closes.
+/// </summary>
 void MenuScene::OnClose()
 {
 
 }
 
+/// <summary>
+/// Called once per frame.
+/// </summary>
+/// <param name="deltaTime">The time passed since last frame.</param>
+/// <param name="input">A pointer to the input handler.</param>
 void MenuScene::Update(float deltaTime, Input* input)
 {
-	if (Button("Play Centipede", ImVec2(150, 0)))
+	if (Button("Play Centipede", ImVec2(150, 0)))		//Button to play Centipede
 		app->ChangeScene(app->gameScene);
-	else if (Button("Test Dynamic List", ImVec2(150, 0)))
+	
+	if (Button("Test Dynamic List", ImVec2(150, 0)))	//Button to test Dynamic Lists
 		app->ChangeScene(app->listScene);
+	
+	if (Button("Test Binary Tree", ImVec2(150, 0)))		//Button to test Binary Trees
+		app->ChangeScene(app->treeScene);
 }
 
+/// <summary>
+/// Draws the graphics.
+/// </summary>
+/// <param name="renderer"></param>
 void MenuScene::Draw(Renderer2D* renderer)
 {
 	
