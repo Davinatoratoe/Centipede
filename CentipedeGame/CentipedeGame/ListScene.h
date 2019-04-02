@@ -5,17 +5,17 @@
 class ListScene : public Scene
 {
 public:
-	List<int> list;		//The list to alter
-	Font* font;			//The font to use
-	int value;			//The value to use in the imgui box
+	List<int> list;
+	Font* font;
+	int value;
 
-	ListScene(Font* _font);		//Overloaded constructor
-	~ListScene();				//Deconstructor
+	ListScene(Font* _font);
+	~ListScene();
 
-	void OnStart() override;	//Called when the scene is loaded
-	void OnClose() override;	//Called when the scene is closed
+	void OnStart() override;
+	void OnClose() override;
 
-	void Update(float deltaTime, Input* input) override;	//Called once per frame
-	void Draw(Renderer2D* renderer) override;				//Draws the sceen
+	void Update(float deltaTime, Input* input) override;
+	void Draw(Renderer2D* renderer) override;
 };
 
