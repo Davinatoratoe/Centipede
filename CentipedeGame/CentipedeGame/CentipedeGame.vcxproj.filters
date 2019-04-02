@@ -54,6 +54,9 @@
     <ClInclude Include="MenuScene.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
