@@ -3,6 +3,7 @@
 #include "Font.h"
 #include "Input.h"
 #include "GameScene.h"
+#include "MenuScene.h"
 
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
 
@@ -29,8 +30,9 @@ bool CentipedeGameApp::startup()
 
 	currentScene = nullptr;
 	gameScene = new GameScene(shipTexture);
+	menuScene = new MenuScene(font);
 	
-	ChangeScene(gameScene);
+	ChangeScene(menuScene);
 
 	return true;
 }

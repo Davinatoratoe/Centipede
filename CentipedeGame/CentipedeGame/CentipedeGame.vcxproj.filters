@@ -14,6 +14,12 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
     <Filter Include="Header Files\Scenes">
+      <UniqueIdentifier>{f02127c6-ac4b-4199-8cb6-d8147c10f258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{1024099e-c298-4245-8152-c54b3505ef5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes">
       <UniqueIdentifier>{90bf9cf3-d032-44cf-b793-5252682db4b0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Scenes">
@@ -39,6 +45,9 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -57,6 +66,9 @@
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
+      <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -9,6 +9,17 @@ class CentipedeGameApp : public Application
 {
 public:
 	static CentipedeGameApp* instance;
+	
+	Renderer2D*	renderer;
+
+	Font* font;
+
+	Texture* shipTexture;
+	Texture* bulletTexture;
+
+	Scene* currentScene;
+	Scene* gameScene;
+	Scene* menuScene;
 
 	CentipedeGameApp();
 	virtual ~CentipedeGameApp();
@@ -20,15 +31,4 @@ public:
 	virtual void draw();
 
 	void ChangeScene(Scene* newScene);
-
-protected:
-	Renderer2D*	renderer;
-
-	Font* font;
-
-	Texture* shipTexture;
-	Texture* bulletTexture;
-
-	Scene* currentScene;
-	Scene* gameScene;
 };
