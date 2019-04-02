@@ -30,7 +30,7 @@ void TestDequeue()
 	dequeue2.PopBack();
 	dequeue2.PrintDetails();
 
-	cout << "List: " << dequeue << endl;
+	cout << "List: " << dequeue << endl;	//<< operator overload
 
 	cout << "---Finished testing Dequeue" << endl;
 }
