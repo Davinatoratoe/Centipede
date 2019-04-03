@@ -1,7 +1,15 @@
+/*
+	File: StackScene.h
+	Contains: StackScene
+*/
+
 #pragma once
 #include "Scene.h"
 #include "Stack.h"
 
+/// <summary>
+/// Stack Scene is used to test and manipulate a Stack container graphically.
+/// </summary>
 class StackScene : public Scene
 {
 private:

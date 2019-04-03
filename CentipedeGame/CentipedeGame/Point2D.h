@@ -1,3 +1,8 @@
+/*
+	File: Point2D.h
+	Contains: Point2D
+*/
+
 #pragma once
 
 /// <summary>

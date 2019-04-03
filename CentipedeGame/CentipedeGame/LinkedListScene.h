@@ -1,7 +1,15 @@
+/*
+	File: LinkedListScene.h
+	Contains: LinkedListScene
+*/
+
 #pragma once
 #include "Scene.h"
 #include "LinkedList.h"
 
+/// <summary>
+/// The Linked List Scene allows manipulating and displaying a linked list
+/// </summary>
 class LinkedListScene : public Scene
 {
 private:

@@ -1,3 +1,8 @@
+/*
+	File: CentipedeGameApp.h
+	Contains: CentipedeGameApp
+*/
+
 #pragma once
 #include "Application.h"
 #include "Renderer2D.h"
@@ -5,19 +10,22 @@
 
 using namespace aie;
 
+/// <summary>
+/// The CentipedeGameApp is what runs the application.
+/// </summary>
 class CentipedeGameApp : public Application 
 {
 public:
-	static CentipedeGameApp* instance;
+	static CentipedeGameApp* instance;	//Static pointer to the one instance of this class	
 	
-	Renderer2D*	renderer;
+	Renderer2D*	renderer;	//Pointer to the renderer used for displaying graphics
 
-	Font* font;
+	Font* font;				//Pointer to the default font
 
-	Texture* shipTexture;
-	Texture* bulletTexture;
+	Texture* shipTexture;	//Pointer to the ship texture
+	Texture* bulletTexture;	//Pointer to the bullet texture
 
-	Scene* currentScene;
+	Scene* currentScene;	//Pointers to the different scenes in the application
 	Scene* gameScene;
 	Scene* menuScene;
 	Scene* listScene;
@@ -25,14 +33,14 @@ public:
 	Scene* linkedListScene;
 	Scene* stackScene;
 
-	CentipedeGameApp();
-	virtual ~CentipedeGameApp();
+	CentipedeGameApp();				//Default constructor
+	virtual ~CentipedeGameApp();	//Deconstructor
 
-	virtual bool startup();
-	virtual void shutdown();
+	virtual bool startup();			//Called when the game first starts up
+	virtual void shutdown();		//Called when the game shuts down
 
-	virtual void update(float deltaTime);
-	virtual void draw();
+	virtual void update(float deltaTime);	//Called once per frame
+	virtual void draw();		//Draw the application
 
-	void ChangeScene(Scene* newScene);
+	void ChangeScene(Scene* newScene);	//Change the active scene
 };
