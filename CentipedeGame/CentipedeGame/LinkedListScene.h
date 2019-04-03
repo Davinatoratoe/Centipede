@@ -5,18 +5,18 @@
 class LinkedListScene : public Scene
 {
 private:
-	LinkedList<int> list;
-	int value;
-	Font* font;
+	LinkedList<int> list;	//The Linked List to manipulate
+	int value;				//The value to manipulate
+	Font* font;				//The font to use
 
 public:
-	LinkedListScene(Font* _font);
-	~LinkedListScene();
+	LinkedListScene(Font* _font);	//Overloaded constructor
+	~LinkedListScene();				//Deconstructor
 
-	void OnStart() override;
-	void OnClose() override;
+	void OnStart() override;	//Called when the scene starts
+	void OnClose() override;	//Called when the scene closes
 
-	void Update(float deltaTime, Input* input) override;
-	void Draw(Renderer2D* renderer) override;
+	void Update(float deltaTime, Input* input) override;	//Called once per frame
+	void Draw(Renderer2D* renderer) override;				//Draws the graphics of the scene
 };
 
