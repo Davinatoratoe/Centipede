@@ -5,6 +5,7 @@
 
 #pragma once
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -261,5 +262,16 @@ public:
 			node = node->next;
 		}
 		cout << endl;
+	}
+
+	/// <summary>
+	/// Get the dequeue represented as a string.
+	/// </summary>
+	/// <returns>A string representation of the dequeue.</returns>
+	string ToString() const
+	{
+		ostringstream stream;
+		stream << *this;
+		return stream.str();
 	}
 };

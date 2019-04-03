@@ -53,8 +53,11 @@ void MenuScene::Update(float deltaTime, Input* input)
 	if (Button("Test Linked List", ImVec2(150, 0)))		//Button to test Linked Lists
 		app->ChangeScene(app->linkedListScene);
 
-	if (Button("Test Stack", ImVec2(150, 0)))		//Button to test Linked Lists
+	if (Button("Test Stack", ImVec2(150, 0)))			//Button to test Linked Lists
 		app->ChangeScene(app->stackScene);
+
+	if (Button("Test Dequeue", ImVec2(150, 0)))			//Button to test Dequeue
+		app->ChangeScene(app->dequeueScene);
 
 	if (Button("Test Binary Tree", ImVec2(150, 0)))		//Button to test Binary Trees
 		app->ChangeScene(app->treeScene);
