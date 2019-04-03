@@ -31,6 +31,9 @@
     <ClCompile Include="LinkedListScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="StackScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -76,6 +79,9 @@
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="LinkedListScene.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="StackScene.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
