@@ -1,5 +1,6 @@
 #include "Centipede.h"
 #include "CentipedeGameApp.h"
+#include "GameScene.h"
 #include "Point2D.h"
 #include <math.h>
 
@@ -122,6 +123,38 @@ void Centipede::CreateCentipede(float x, float y, unsigned int length)
 /// <returns>A new centipede if this one is split in two.</returns>
 Centipede* Centipede::DestroySegment(Segment* segment)
 {
+	if (segment == nullptr)
+		return;
+	
+	GameScene* gameScene = dynamic_cast<GameScene*>(segment->app);
+	gameScene->SpawnMushroom(segment->position.x, segment->position.y);
+	
+	//If there is only one segment then the centipede is no more
+	if (segments->Size() == 1)
+		segments->Clear();
+	//If the segment is the first one, then pop it
+	else if (segment == segments->First())
+	{
+		segments->PopFront();
+		segments->First()->SetHead();
+
+		moveDown = true;
+		direction *= -1;
+	}
+	//If the segment is the last one, then pop it
+	else if (segment == segments->Last())
+	{
+		segments->PopBack();
+		if (segments->Size() > 1)
+			segments->Last()->SetTail();
+	}
+	//If the segment is inbetween the head & tail
+	else
+	{
+		Centipede* centipede = new Centipede();
+		return centipede;
+	}
+
 	return nullptr;
 }
 

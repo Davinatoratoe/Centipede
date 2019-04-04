@@ -9,9 +9,9 @@
 Segment::Segment(float x, float y, bool isHead, bool isTail)
 {
 	if (isHead)
-		texture = app->headTexture;
+		SetHead();
 	else if (isTail)
-		texture = app->tailTexture;
+		SetTail();
 	else
 		texture = app->segmentTexture;
 	position.x = x;
@@ -24,6 +24,22 @@ Segment::Segment(float x, float y, bool isHead, bool isTail)
 Segment::~Segment()
 {
 
+}
+
+/// <summary>
+/// Set the texture of this segment to the head texture.
+/// </summary>
+void Segment::SetHead()
+{
+	texture = app->headTexture;
+}
+
+/// <summary>
+/// Set the texture of this segment to the tail texture.
+/// </summary>
+void Segment::SetTail()
+{
+	texture = app->tailTexture;
 }
 
 /// <summary>

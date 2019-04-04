@@ -17,6 +17,10 @@ public:
 	Segment(float x, float y, bool isHead, bool isTail);	//Overloaded constructor
 	~Segment();	//Deconstructor
 
+	void SetHead();
+
+	void SetTail();
+
 	//Rotate the segment to face the direction of movement
 	void RotateToFace();
 
