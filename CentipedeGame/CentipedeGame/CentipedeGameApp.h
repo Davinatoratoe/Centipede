@@ -24,6 +24,7 @@ public:
 
 	Texture* shipTexture;	//Pointer to the ship texture
 	Texture* bulletTexture;	//Pointer to the bullet texture
+	Texture* segmentTexture;//Pointer to the centipede segment texture
 
 	Scene* currentScene;	//Pointers to the different scenes in the application
 	Scene* gameScene;

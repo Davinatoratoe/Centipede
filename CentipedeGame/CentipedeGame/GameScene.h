@@ -6,6 +6,7 @@
 #pragma once
 #include "Scene.h"
 #include "Player.h"
+#include "Centipede.h"
 #include "DynamicList.h"
 
 /// <summary>
@@ -13,10 +14,13 @@
 /// </summary>
 class GameScene : public Scene
 {
-public:
+private:
 	Player* player;		//Pointer to the player
 	List<Sprite*>* mushrooms;
+	CentipedeController* centipedeController;
+	bool gameOver;		//True if the player lost
 
+public:
 	GameScene();	//Overloaded constructor
 	~GameScene();	//Deconstructor
 

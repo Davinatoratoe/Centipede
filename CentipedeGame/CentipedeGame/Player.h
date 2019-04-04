@@ -9,7 +9,7 @@ public:
 	List<Sprite*>* bullets;			//Pointer to a list of pointers to sprites - the bullets
 
 	Player();		//Default constructor
-	~Player();						//Deconstructor
+	~Player();		//Deconstructor
 
 	//Update the player and move according to inputs
 	void Update(float deltaTime, Input* input) override;

@@ -45,6 +45,7 @@ bool CentipedeGameApp::startup()
 	//Load the texture(s)
 	shipTexture = new Texture("./textures/ship.png");
 	bulletTexture = new Texture("./textures/bullet.png");
+	segmentTexture = new Texture("./textures/segment.png");
 
 	//Load the scenes(s)
 	currentScene = nullptr;
@@ -93,9 +94,16 @@ void CentipedeGameApp::update(float deltaTime)
 	if (currentScene != nullptr)
 		currentScene->Update(deltaTime, input);
 
-	//Exit the application
+	//Check if ESCAPE was pressed
 	if (input->isKeyDown(INPUT_KEY_ESCAPE))
-		quit();
+	{
+		//If we are on the main menu, then quit the app
+		if (currentScene == menuScene)
+			quit();
+		//Otherwise return to the main menu
+		else
+			ChangeScene(menuScene);
+	}
 }
 
 /// <summary>

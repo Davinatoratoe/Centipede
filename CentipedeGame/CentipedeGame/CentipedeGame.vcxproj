@@ -167,6 +167,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BinaryTreeScene.cpp" />
+    <ClCompile Include="Centipede.cpp" />
+    <ClCompile Include="CentipedeController.cpp" />
     <ClCompile Include="CentipedeGameApp.cpp" />
     <ClCompile Include="DequeueScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -176,12 +178,14 @@
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StackScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BinaryTreeScene.h" />
+    <ClInclude Include="Centipede.h" />
     <ClInclude Include="CentipedeGameApp.h" />
     <ClInclude Include="DequeueScene.h" />
     <ClInclude Include="LinkedList.h" />
