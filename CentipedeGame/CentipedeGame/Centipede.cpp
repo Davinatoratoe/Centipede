@@ -2,18 +2,37 @@
 #include "CentipedeGameApp.h"
 #include "Point2D.h"
 
+/// <summary>
+/// Default constructor.
+/// </summary>
 Centipede::Centipede()
 {
 	segments = new LinkedList<Segment*>();
-	headPath = new LinkedList<Point2D>();
 	direction = 1;
 	moveDown = false;
 }
 
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="x">The starting x position of the head.</param>
+/// <param name="y">The starting y position of the head.</param>
+/// <param name="length">The initial length of the centipede.</param>
+Centipede::Centipede(float x, float y, unsigned int length) 
+{
+	segments = new LinkedList<Segment*>();
+	direction = 1;
+	moveDown = false;
+
+	CreateCentipede(x, y, length);
+}
+
+/// <summary>
+/// Deconstructor.
+/// </summary>
 Centipede::~Centipede()
 {
 	delete segments;
-	delete headPath;
 }
 
 /// <summary>
@@ -69,6 +88,12 @@ void Centipede::Move(float deltaTime)
 	moveTimer = MOVE_TIME;
 }
 
+/// <summary>
+/// Create a centipede with at a location with a given length.
+/// </summary>
+/// <param name="x">The starting x position of the head.</param>
+/// <param name="y">The starting y position of the head.</param>
+/// <param name="length">The initial length of the centipede.</param>
 void Centipede::CreateCentipede(float x, float y, unsigned int length)
 {
 	//If the length is under 3 then return
@@ -83,11 +108,21 @@ void Centipede::CreateCentipede(float x, float y, unsigned int length)
 		segments->PushBack(new Segment(x - (segmentWidth * i), y));
 }
 
+/// <summary>
+/// Destroy a segment and split the centipede in half if appropriate.
+/// </summary>
+/// <param name="segment">The segment to destroy.</param>
+/// <returns>A new centipede if this one is split in two.</returns>
 Centipede* Centipede::DestroySegment(Segment* segment)
 {
 	return nullptr;
 }
 
+/// <summary>
+/// Called once per frame.
+/// </summary>
+/// <param name="deltaTime">The time that has passed since last frame.</param>
+/// <param name="input">A pointer to the input handle.</param>
 void Centipede::Update(float deltaTime, Input* input)
 {
 	if (segments->Size() == 0)
@@ -130,8 +165,13 @@ void Centipede::Update(float deltaTime, Input* input)
 		Move(deltaTime);
 }
 
+/// <summary>
+/// Draw the centipedes.
+/// </summary>
+/// <param name="renderer">A pointer to the graphics renderer.</param>
 void Centipede::Draw(Renderer2D* renderer)
 {
+	//Draw the segments
 	for (auto i = (*segments).Begin(); i != (*segments).End(); ++i)
 		(*i)->Draw(renderer);
 }
