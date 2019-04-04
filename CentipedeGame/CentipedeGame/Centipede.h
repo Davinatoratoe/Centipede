@@ -14,8 +14,11 @@
 class Segment : public Sprite
 {
 public:
-	Segment(float x, float y);	//Default constructor
+	Segment(float x, float y, bool isHead, bool isTail);	//Overloaded constructor
 	~Segment();	//Deconstructor
+
+	//Rotate the segment to face the direction of movement
+	void RotateToFace();
 
 	//Update the segment
 	void Update(float deltaTime, Input* input) override;
@@ -35,7 +38,7 @@ public:
 	bool moveDown;					//Whether to move the head down
 	float moveTimer = 0;			//Timer to delay movements
 
-	const float MOVE_TIME = 0.5f;	//The time to delay movementss
+	const float MOVE_TIME = 0.05f;	//The time to delay movements
 
 	Centipede();	//Default constructor
 	Centipede(float x, float y, unsigned int length); //Overloaded constructor

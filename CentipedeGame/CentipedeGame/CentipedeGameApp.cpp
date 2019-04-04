@@ -46,6 +46,8 @@ bool CentipedeGameApp::startup()
 	shipTexture = new Texture("./textures/ship.png");
 	bulletTexture = new Texture("./textures/bullet.png");
 	segmentTexture = new Texture("./textures/segment.png");
+	headTexture = new Texture("./textures/head.png");
+	tailTexture = new Texture("./textures/tail.png");
 
 	//Load the scenes(s)
 	currentScene = nullptr;

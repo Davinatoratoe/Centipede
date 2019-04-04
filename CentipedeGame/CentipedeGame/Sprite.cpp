@@ -12,6 +12,7 @@ Sprite::Sprite()
 	texture = nullptr;
 	position = Point2D();
 	oldPosition = Point2D();
+	rotation = 0;
 	app = CentipedeGameApp::instance;	//Static instance on the App class
 }
 
@@ -24,6 +25,7 @@ Sprite::Sprite(Texture* _texture)
 	texture = _texture;
 	position = Point2D();
 	oldPosition = Point2D();
+	rotation = 0;
 	app = CentipedeGameApp::instance;
 }
 
@@ -38,6 +40,7 @@ Sprite::Sprite(Texture* _texture, float x, float y)
 	texture = _texture;
 	position = Point2D(x, y);
 	oldPosition = Point2D();
+	rotation = 0;
 	app = CentipedeGameApp::instance;
 }
 
@@ -51,6 +54,7 @@ Sprite::Sprite(float x, float y)
 	texture = nullptr;
 	position = Point2D(x, y);
 	oldPosition = Point2D();
+	rotation = 0;
 	app = CentipedeGameApp::instance;
 }
 
@@ -99,6 +103,24 @@ bool Sprite::CollidingWith(const Sprite& other) const
 }
 
 /// <summary>
+/// Set the rotation using degrees.
+/// </summary>
+/// <param name="degrees">The degree value to set the rotation to.</param>
+float Sprite::ToRadians(float degrees) const
+{
+	return (degrees * (3.14159265358979f / 180));
+}
+
+/// <summary>
+/// Get the rotation as degrees.
+/// </summary>
+/// <returns>The rotation as degrees.</returns>
+float Sprite::ToDegrees(float radians) const
+{
+	return (radians * (180 / 3.14159265358979f));
+}
+
+/// <summary>
 /// Called once per frame to update the sprite logic and input handling.
 /// </summary>
 /// <param name="deltaTime">The time that has passed since the last update.</param>
@@ -117,5 +139,5 @@ void Sprite::Draw(Renderer2D* renderer)
 	if (texture == nullptr)
 		return;
 
-	renderer->drawSprite(texture, position.x, position.y);
+	renderer->drawSprite(texture, position.x, position.y, 0, 0, rotation, 0, 0.5f, 0.5f);
 }

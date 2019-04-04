@@ -23,6 +23,8 @@ public:
 	Texture* texture;			//Pointer to the texture that the sprite uses
 	Point2D position;			//The position that the sprite will be drawn on-screen
 	Point2D oldPosition;		//The position of the sprite on the previous frame
+	float rotation;				//The rotation of the sprite
+	float oldRotation;			//The rotation of the sprite on the previous frame
 	CentipedeGameApp* app;		//Pointer to the app
 	
 	//Get the radius of the sprite using the texture's dimensions
@@ -33,6 +35,12 @@ public:
 	
 	//Get whether this sprite is colliding with another sprite using circle collision detection
 	bool CollidingWith(const Sprite& other) const;
+
+	//Set the rotation in degrees
+	float ToRadians(float degrees) const;
+
+	//Get the rotation in degrees
+	float ToDegrees(float radians) const;
 
 	//Update the sprite and handle input if needed
 	virtual void Update(float deltaTime, Input* input);

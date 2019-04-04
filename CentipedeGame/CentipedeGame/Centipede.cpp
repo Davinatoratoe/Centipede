@@ -1,6 +1,7 @@
 #include "Centipede.h"
 #include "CentipedeGameApp.h"
 #include "Point2D.h"
+#include <math.h>
 
 /// <summary>
 /// Default constructor.
@@ -66,6 +67,7 @@ void Centipede::Move(float deltaTime)
 	if (segments->Size() == 0)
 		return;
 
+	//Store the old head position
 	Point2D oldPosition = (*segments).First()->position;
 
 	//Move the head
@@ -83,6 +85,11 @@ void Centipede::Move(float deltaTime)
 		//Move by the stored position
 		(*i)->position = position;
 	}
+
+	//Rotate the head and tail to face the direction they're moving
+	segments->First()->RotateToFace();
+	if (segments->Size() > 1)
+		segments->Last()->RotateToFace();
 
 	//Reset the move timer
 	moveTimer = MOVE_TIME;
@@ -105,7 +112,7 @@ void Centipede::CreateCentipede(float x, float y, unsigned int length)
 
 	//Loop through the desired length and keep adding segments
 	for (unsigned int i = 0; i < length; ++i)
-		segments->PushBack(new Segment(x - (segmentWidth * i), y));
+		segments->PushBack(new Segment(x - (segmentWidth * i), y, i == 0, i == length - 1));
 }
 
 /// <summary>
@@ -148,13 +155,6 @@ void Centipede::Update(float deltaTime, Input* input)
 		head->position.x = head->app->getWindowWidth() - head->Radius();
 		direction = -1;
 		moveDown = true;
-	}
-
-	//FOR TESTING
-	if (input->isKeyDown(INPUT_KEY_DOWN))
-	{
-		moveDown = true;
-		direction *= -1;
 	}
 
 	//Wait to move the segments

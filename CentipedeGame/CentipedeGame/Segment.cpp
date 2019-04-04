@@ -6,9 +6,14 @@
 /// </summary>
 /// <param name="x">The initial x position of the segment.</param>
 /// <param name="y">The initial y position of the segment.</param>
-Segment::Segment(float x, float y)
+Segment::Segment(float x, float y, bool isHead, bool isTail)
 {
-	texture = app->segmentTexture;
+	if (isHead)
+		texture = app->headTexture;
+	else if (isTail)
+		texture = app->tailTexture;
+	else
+		texture = app->segmentTexture;
 	position.x = x;
 	position.y = y;
 }
@@ -19,6 +24,23 @@ Segment::Segment(float x, float y)
 Segment::~Segment()
 {
 
+}
+
+/// <summary>
+/// Rotate the segment to face the direction of motion.
+/// </summary>
+void Segment::RotateToFace()
+{
+	Point2D movement = position - oldPosition;
+	//If moving down, face down
+	if (movement.y < 0)
+		rotation = ToRadians(270);
+	//If moving right, face right
+	else if (movement.x > 0)
+		rotation = 0;
+	//If moving left, face left
+	else
+		rotation = ToRadians(180);
 }
 
 /// <summary>
