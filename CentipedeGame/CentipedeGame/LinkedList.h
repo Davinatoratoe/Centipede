@@ -123,7 +123,7 @@ public:
 		{
 			return !(*this == other);
 		}
-		
+
 		/// <summary>
 		/// ++i operator overload.
 		/// Will move this iterator to point to the next node.

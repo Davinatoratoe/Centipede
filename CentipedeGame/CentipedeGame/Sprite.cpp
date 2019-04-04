@@ -10,6 +10,8 @@
 Sprite::Sprite()
 {
 	texture = nullptr;
+	position = Point2D();
+	oldPosition = Point2D();
 	app = CentipedeGameApp::instance;	//Static instance on the App class
 }
 
@@ -20,6 +22,8 @@ Sprite::Sprite()
 Sprite::Sprite(Texture* _texture)
 {
 	texture = _texture;
+	position = Point2D();
+	oldPosition = Point2D();
 	app = CentipedeGameApp::instance;
 }
 
@@ -32,8 +36,8 @@ Sprite::Sprite(Texture* _texture)
 Sprite::Sprite(Texture* _texture, float x, float y)
 {
 	texture = _texture;
-	position.x = x;
-	position.y = y;
+	position = Point2D(x, y);
+	oldPosition = Point2D();
 	app = CentipedeGameApp::instance;
 }
 
@@ -45,8 +49,8 @@ Sprite::Sprite(Texture* _texture, float x, float y)
 Sprite::Sprite(float x, float y)
 {
 	texture = nullptr;
-	position.x = x;
-	position.y = y;
+	position = Point2D(x, y);
+	oldPosition = Point2D();
 	app = CentipedeGameApp::instance;
 }
 
@@ -101,7 +105,7 @@ bool Sprite::CollidingWith(const Sprite& other) const
 /// <param name="input">Pointer to the input handler to allow checking user input.</param>
 void Sprite::Update(float deltaTime, Input* input)
 {
-
+	oldPosition = position;
 }
 
 /// <summary>

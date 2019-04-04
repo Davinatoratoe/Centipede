@@ -20,11 +20,12 @@ class Centipede
 {
 public:
 	LinkedList<Segment*>* segments;
+	LinkedList<Point2D>* headPath;
 	int direction;
-	float moveDown;
+	bool moveDown;
+	float moveTimer = 0;
 
-	const float MOVE_SPEED = 20;
-	const float MOVE_DOWN = 2;
+	const float MOVE_TIME = 0.5f;
 
 	Centipede();	//Default constructor
 	~Centipede();	//Deconstructor

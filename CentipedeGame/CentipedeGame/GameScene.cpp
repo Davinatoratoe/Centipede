@@ -23,7 +23,7 @@ void GameScene::OnStart()
 	gameOver = false;
 	player->position.x = 100;
 	player->position.y = 70;
-	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 2);
+	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 10);
 }
 
 void GameScene::OnClose()

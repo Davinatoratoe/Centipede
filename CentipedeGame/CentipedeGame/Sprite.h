@@ -22,6 +22,7 @@ public:
 	
 	Texture* texture;			//Pointer to the texture that the sprite uses
 	Point2D position;			//The position that the sprite will be drawn on-screen
+	Point2D oldPosition;		//The position of the sprite on the previous frame
 	CentipedeGameApp* app;		//Pointer to the app
 	
 	//Get the radius of the sprite using the texture's dimensions

@@ -5,13 +5,15 @@
 Centipede::Centipede()
 {
 	segments = new LinkedList<Segment*>();
+	headPath = new LinkedList<Point2D>();
 	direction = 1;
-	moveDown = 0;
+	moveDown = false;
 }
 
 Centipede::~Centipede()
 {
 	delete segments;
+	delete headPath;
 }
 
 /// <summary>
@@ -24,18 +26,15 @@ void Centipede::MoveHead(float deltaTime)
 		return;
 
 	//If the head should move down then move vertically
-	if (moveDown > 0)
+	if (moveDown)
 	{
 		//Move down
-		(*segments).First()->position.y -= (MOVE_SPEED * deltaTime);
-
-		//If we've gone down far enough then stop
-		if ((*segments).First()->position.y < moveDown)
-			moveDown = 0;
+		(*segments).First()->position.y -= (*segments).First()->texture->getHeight();
+		moveDown = false;
 	}
 	//Move horizontally
 	else
-		(*segments).First()->position.x += ((MOVE_SPEED * direction) * deltaTime);
+		(*segments).First()->position.x += ((int)((*segments).First()->texture->getWidth()) * direction);
 }
 
 /// <summary>
@@ -44,10 +43,10 @@ void Centipede::MoveHead(float deltaTime)
 /// <param name="deltaTime">The time that has passed since last frame.</param>
 void Centipede::Move(float deltaTime)
 {
+	//If there are no segments then return
 	if (segments->Size() == 0)
 		return;
 
-	//Remember the old head position
 	Point2D oldPosition = (*segments).First()->position;
 
 	//Move the head
@@ -59,15 +58,15 @@ void Centipede::Move(float deltaTime)
 		//Store the old position
 		Point2D position = oldPosition;
 
-		//If the segment is not the tail of the centipede
-		if (i != (--(*segments).End()))
-			//Remember the old position
-			oldPosition = (*i)->position;
+		//Set the old position
+		oldPosition = (*i)->position;
 
-		//Move the segment to the stored position
-		(*i)->position.x = position.x;
-		(*i)->position.y = position.y;
+		//Move by the stored position
+		(*i)->position = position;
 	}
+
+	//Reset the move timer
+	moveTimer = MOVE_TIME;
 }
 
 void Centipede::CreateCentipede(float x, float y, unsigned int length)
@@ -76,14 +75,11 @@ void Centipede::CreateCentipede(float x, float y, unsigned int length)
 	if (length == 0 || segments->Size() > 0)
 		return;
 
-	//Add the first segment at the given position
-	segments->PushBack(new Segment(x, y));
-
 	//Find the width of a segment for use in later calculations
-	unsigned int segmentWidth = segments->First()->texture->getWidth();
+	unsigned int segmentWidth = CentipedeGameApp::instance->segmentTexture->getWidth();
 
 	//Loop through the desired length and keep adding segments
-	for (unsigned int i = 1; i < length; ++i)
+	for (unsigned int i = 0; i < length; ++i)
 		segments->PushBack(new Segment(x - (segmentWidth * i), y));
 }
 
@@ -94,24 +90,44 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 
 void Centipede::Update(float deltaTime, Input* input)
 {
+	if (segments->Size() == 0)
+		return;
+
+	//Update all the segments
 	for (auto i = (*segments).Begin(); i != (*segments).End(); ++i)
 		(*i)->Update(deltaTime, input);
 
+	//Get the head of the centipede
 	Segment* head = (*segments).First();
-	if (head->position.x < head->Radius())
+
+	//If the head has hit the left side of the screen, then move down and switch direction
+	if (head->position.x < head->Radius())	
 	{
 		head->position.x = head->Radius();
-		direction = -1;
-		moveDown = head->position.y - head->texture->getHeight();
+		direction = 1;
+		moveDown = true;
 	}
+	//If the head has hit the right side of the screen, then mode down and switch direction
 	else if (head->position.x > head->app->getWindowWidth() - head->Radius())
 	{
 		head->position.x = head->app->getWindowWidth() - head->Radius();
 		direction = -1;
-		moveDown = head->position.y - head->texture->getHeight();
+		moveDown = true;
 	}
 
-	Move(deltaTime);
+	//FOR TESTING
+	if (input->isKeyDown(INPUT_KEY_DOWN))
+	{
+		moveDown = true;
+		direction *= -1;
+	}
+
+	//Wait to move the segments
+	if (moveTimer > 0)
+		moveTimer -= deltaTime;
+	//Move the segments
+	else
+		Move(deltaTime);
 }
 
 void Centipede::Draw(Renderer2D* renderer)
