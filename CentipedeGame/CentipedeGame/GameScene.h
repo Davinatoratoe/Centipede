@@ -15,7 +15,7 @@ class GameScene : public Scene
 public:
 	Player* player;		//Pointer to the player
 
-	GameScene(Texture* playerTexture);	//Overloaded constructor
+	GameScene(Texture* playerTexture, Texture* bulletTexture);	//Overloaded constructor
 	~GameScene();						//Deconstructor
 
 	void OnStart() override;

@@ -48,7 +48,7 @@ bool CentipedeGameApp::startup()
 
 	//Load the scenes(s)
 	currentScene = nullptr;
-	gameScene = new GameScene(shipTexture);
+	gameScene = new GameScene(shipTexture, bulletTexture);
 	menuScene = new MenuScene(font);
 	listScene = new ListScene(font);
 	treeScene = new BinaryTreeScene(font);

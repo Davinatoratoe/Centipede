@@ -7,9 +7,12 @@
 /// <param name="_texture">The texture that the player should use.</param>
 /// <param name="x">Initial starting position on the x-axis.</param>
 /// <param name="y">Initial starting position on the y-axis.</param>
-Player::Player(Texture* _texture)
+Player::Player(Texture* _texture, Texture* _bulletTexture)
 {
 	texture = _texture;
+	bulletTexture = _bulletTexture;
+	bullets = new List<Sprite*>;
+	bulletCooldown = BULLET_COOLDOWN / 2;
 }
 
 /// <summary>
@@ -17,6 +20,7 @@ Player::Player(Texture* _texture)
 /// </summary>
 Player::~Player()
 {
+	delete bullets;
 }
 
 /// <summary>
@@ -44,6 +48,45 @@ void Player::Update(float deltaTime, Input* input)
 		if (position.x > app->getWindowWidth() - Radius())
 			position.x = app->getWindowWidth() - Radius();
 	}
+
+	//If there is a cooldown on shooting bullets, then wait
+	if (bulletCooldown > 0)
+		bulletCooldown -= deltaTime;
+	//If the cooldown has expired and the shoot key is pressed, shoot a bullet
+	else if (input->isKeyDown(INPUT_KEY_SPACE))
+		Shoot();
+
+	//Iterate through the bullets and update them appropriately
+	//Instead of making a new bullet class that handles the update, we will just do it here
+	for (unsigned int i = 0; i < bullets->Size(); ++i)
+	{
+		Sprite& bullet = (*((*bullets)[i]));
+
+		//Call the default update on the bullet sprite class
+		bullet.Update(deltaTime, input);
+
+		//Move the bullet up the screen
+		bullet.position.y += BULLET_SPEED * deltaTime;
+
+		//Remove the bullet if it is over the top of the screen
+		if (bullet.position.y > app->getWindowHeight() + 50)
+		{
+			(*bullets).Remove(i);
+			--i;
+		}
+	}
+}
+
+/// <summary>
+/// Shoot a bullet from the ship.
+/// </summary>
+void Player::Shoot()
+{
+	//Add a new bullet to the bullets dynamic list
+	bullets->Push(new Sprite(bulletTexture, position.x, position.y + Radius()));
+
+	//Reset the bullet cool down
+	bulletCooldown = BULLET_COOLDOWN;
 }
 
 /// <summary>
@@ -53,4 +96,7 @@ void Player::Update(float deltaTime, Input* input)
 void Player::Draw(Renderer2D* renderer)
 {
 	Sprite::Draw(renderer);		//Call the base class to handle drawing the ship
+
+	for (unsigned int i = 0; i < bullets->Size(); ++i)
+		(*((*bullets)[i])).Draw(renderer);
 }

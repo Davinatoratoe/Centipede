@@ -1,5 +1,7 @@
 #include "Sprite.h"
 #include "CentipedeGameApp.h"
+#include "DynamicList.h"
+#include "Dequeue.h"
 
 /// <summary>
 /// Default constructor.
@@ -9,6 +11,43 @@ Sprite::Sprite()
 {
 	texture = nullptr;
 	app = CentipedeGameApp::instance;	//Static instance on the App class
+}
+
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="_texture">The texture that the sprite will use.</param>
+Sprite::Sprite(Texture* _texture)
+{
+	texture = _texture;
+	app = CentipedeGameApp::instance;
+}
+
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="_texture">The texture that the sprite will use.</param>
+/// <param name="x">The initial x position of the sprite.</param>
+/// <param name="y">The initial y position of the sprite.</param>
+Sprite::Sprite(Texture* _texture, int x, int y)
+{
+	texture = _texture;
+	position.x = x;
+	position.y = y;
+	app = CentipedeGameApp::instance;
+}
+
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="x">The initial x position of the sprite.</param>
+/// <param name="y">The initial y position of the sprite.</param>
+Sprite::Sprite(int x, int y)
+{
+	texture = nullptr;
+	position.x = x;
+	position.y = y;
+	app = CentipedeGameApp::instance;
 }
 
 /// <summary>

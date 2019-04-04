@@ -124,6 +124,31 @@ public:
 	}
 
 	/// <summary>
+	/// Remove the value at a specific index from the list.
+	/// This will remove any order from the list.
+	/// To preserve order, RemoveKeepOrder() should be used.
+	/// </summary>
+	/// <param name="index">The index of the value to be removed.</param>
+	void Remove(unsigned int index)
+	{
+		if (size > 0 && index >= 0 && index < size)
+		{
+			if (size == 1 || index == (size - 1))
+				Pop();
+			else
+			{
+				data[index] = data[size - 1];
+				--size;
+			}
+		}
+	}
+	
+	void RemoveKeepOrder(unsigned int index)
+	{
+
+	}
+
+	/// <summary>
 	/// Clear the list.
 	/// </summary>
 	void Clear()
@@ -199,7 +224,7 @@ public:
 	/// </summary>
 	/// <param name="index">The index to access.</param>
 	/// <returns>The element at the specified index.</returns>
-	T& operator[] (unsigned int index) const
+	T& operator[] (const int index) const
 	{
 		if (index >= 0 && index < size)
 			return data[index];

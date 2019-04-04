@@ -1,9 +1,9 @@
 #include "GameScene.h"
 #include "CentipedeGameApp.h"
 
-GameScene::GameScene(Texture* playerTexture)
+GameScene::GameScene(Texture* playerTexture, Texture* bulletTexture)
 {
-	player = new Player(playerTexture);
+	player = new Player(playerTexture, bulletTexture);
 }
 
 GameScene::~GameScene()
@@ -14,12 +14,12 @@ GameScene::~GameScene()
 void GameScene::OnStart()
 {
 	player->position.x = 100;
-	player->position.y = 70;
+	player->position.y = 70;	
 }
 
 void GameScene::OnClose()
 {
-
+	player->bullets->Clear();
 }
 
 void GameScene::Update(float deltaTime, Input* input) 

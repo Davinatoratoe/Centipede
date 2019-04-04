@@ -7,11 +7,17 @@
 using namespace aie;
 
 class CentipedeGameApp;
+template <typename T> class List;
+template <typename T> class Dequeue;
+template <typename T, typename G> struct Tuple;
 
 class Sprite
 {
 public:
 	Sprite();		//Default constructor
+	Sprite(Texture* _texture);						//Overloaded constructors
+	Sprite(Texture* _texture, int x, int y);
+	Sprite(int x, int y);
 	~Sprite();		//Deconstructor
 	
 	Texture* texture;			//Pointer to the texture that the sprite uses
@@ -26,7 +32,6 @@ public:
 	
 	//Get whether this sprite is colliding with another sprite using circle collision detection
 	bool CollidingWith(const Sprite& other) const;
-
 
 	//Update the sprite and handle input if needed
 	virtual void Update(float deltaTime, Input* input);
