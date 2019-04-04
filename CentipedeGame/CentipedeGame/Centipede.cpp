@@ -124,7 +124,7 @@ void Centipede::CreateCentipede(float x, float y, unsigned int length)
 Centipede* Centipede::DestroySegment(Segment* segment)
 {
 	if (segment == nullptr)
-		return;
+		return nullptr;
 	
 	GameScene* gameScene = dynamic_cast<GameScene*>(segment->app);
 	gameScene->SpawnMushroom(segment->position.x, segment->position.y);

@@ -183,6 +183,7 @@
     <ClCompile Include="StackScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BinaryHeap.h" />
     <ClInclude Include="BinaryTree.h" />
     <ClInclude Include="BinaryTreeScene.h" />
     <ClInclude Include="Centipede.h" />

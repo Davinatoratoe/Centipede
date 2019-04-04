@@ -102,6 +102,9 @@
     <ClInclude Include="Centipede.h">
       <Filter>Headers\GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="BinaryHeap.h">
+      <Filter>Headers\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
