@@ -9,9 +9,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-DequeueScene::DequeueScene(Font* _font)
+DequeueScene::DequeueScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>
@@ -78,6 +78,6 @@ void DequeueScene::Update(float deltaTime, Input* input)
 /// <param name="renderer"></param>
 void DequeueScene::Draw(Renderer2D* renderer)
 {
-	renderer->drawText(font, ("List: " + dequeue.ToString()).c_str(), 20, 850);
-	renderer->drawText(font, ("Size: " + to_string(dequeue.Size())).c_str(), 20, 800);
+	renderer->drawText(app->font, ("List: " + dequeue.ToString()).c_str(), 20, 850);
+	renderer->drawText(app->font, ("Size: " + to_string(dequeue.Size())).c_str(), 20, 800);
 }

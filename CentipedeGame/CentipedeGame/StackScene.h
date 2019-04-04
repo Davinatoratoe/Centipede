@@ -15,10 +15,9 @@ class StackScene : public Scene
 private:
 	Stack<int> stack;	//The Linked List to manipulate
 	int value;				//The value to manipulate
-	Font* font;				//The font to use
 
 public:
-	StackScene(Font* _font);	//Overloaded constructor
+	StackScene();	//Overloaded constructor
 	~StackScene();				//Deconstructor
 
 	void OnStart() override;	//Called when the scene starts

@@ -8,7 +8,7 @@ class Player : public Sprite
 public:
 	List<Sprite*>* bullets;			//Pointer to a list of pointers to sprites - the bullets
 
-	Player(Texture* _texture, Texture* _bulletTexture);		//Default constructor
+	Player();		//Default constructor
 	~Player();						//Deconstructor
 
 	//Update the player and move according to inputs

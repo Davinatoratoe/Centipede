@@ -9,9 +9,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-StackScene::StackScene(Font* _font)
+StackScene::StackScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>
@@ -78,7 +78,7 @@ void StackScene::Update(float deltaTime, Input* input)
 /// <param name="renderer"></param>
 void StackScene::Draw(Renderer2D* renderer)
 {
-	renderer->drawText(font, ("List: " + stack.ToString()).c_str(), 20, 850);
-	renderer->drawText(font, ("Size: " + to_string(stack.Size())).c_str(), 20, 800);
-	renderer->drawText(font, ("Capacity: " + to_string(stack.Capacity())).c_str(), 20, 750);
+	renderer->drawText(app->font, ("List: " + stack.ToString()).c_str(), 20, 850);
+	renderer->drawText(app->font, ("Size: " + to_string(stack.Size())).c_str(), 20, 800);
+	renderer->drawText(app->font, ("Capacity: " + to_string(stack.Capacity())).c_str(), 20, 750);
 }

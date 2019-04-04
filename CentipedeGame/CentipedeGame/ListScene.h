@@ -14,12 +14,11 @@ class ListScene : public Scene
 {
 private:
 	List<int> list;		//The list to alter
-	Font* font;			//The font to use
 	int value;			//The value to alter
 
 public:
-	ListScene(Font* _font);		//Overloaded constructor
-	~ListScene();				//Deconstructor
+	ListScene();		//Overloaded constructor
+	~ListScene();		//Deconstructor
 
 	void OnStart() override;	//Called when the scene starts
 	void OnClose() override;	//Called when the scene closes

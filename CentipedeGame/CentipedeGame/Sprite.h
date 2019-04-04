@@ -16,8 +16,8 @@ class Sprite
 public:
 	Sprite();		//Default constructor
 	Sprite(Texture* _texture);						//Overloaded constructors
-	Sprite(Texture* _texture, int x, int y);
-	Sprite(int x, int y);
+	Sprite(Texture* _texture, float x, float y);
+	Sprite(float x, float y);
 	~Sprite();		//Deconstructor
 	
 	Texture* texture;			//Pointer to the texture that the sprite uses

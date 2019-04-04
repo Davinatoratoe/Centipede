@@ -8,9 +8,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-ListScene::ListScene(Font* _font)
+ListScene::ListScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>
@@ -78,7 +78,7 @@ void ListScene::Update(float deltaTime, Input* input)
 /// <param name="renderer">A pointer to the graphics renderer.</param>
 void ListScene::Draw(Renderer2D* renderer)
 {
-	renderer->drawText(font, ("List: " + list.ToString()).c_str(), 20, 850);
-	renderer->drawText(font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
-	renderer->drawText(font, ("Capacity: " + to_string(list.Capacity())).c_str(), 20, 750);
+	renderer->drawText(app->font, ("List: " + list.ToString()).c_str(), 20, 850);
+	renderer->drawText(app->font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
+	renderer->drawText(app->font, ("Capacity: " + to_string(list.Capacity())).c_str(), 20, 750);
 }

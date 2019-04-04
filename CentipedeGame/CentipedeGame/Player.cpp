@@ -7,10 +7,10 @@
 /// <param name="_texture">The texture that the player should use.</param>
 /// <param name="x">Initial starting position on the x-axis.</param>
 /// <param name="y">Initial starting position on the y-axis.</param>
-Player::Player(Texture* _texture, Texture* _bulletTexture)
+Player::Player()
 {
-	texture = _texture;
-	bulletTexture = _bulletTexture;
+	texture = app->shipTexture;
+	bulletTexture = app->bulletTexture;
 	bullets = new List<Sprite*>;
 	bulletCooldown = BULLET_COOLDOWN / 2;
 }

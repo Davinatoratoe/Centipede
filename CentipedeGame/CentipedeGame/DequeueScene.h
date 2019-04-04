@@ -15,11 +15,10 @@ class DequeueScene : public Scene
 private:
 	Dequeue<int> dequeue;	//The Linked List to manipulate
 	int value;				//The value to manipulate
-	Font* font;				//The font to use
 
 public:
-	DequeueScene(Font* _font);	//Overloaded constructor
-	~DequeueScene();			//Deconstructor
+	DequeueScene();		//Overloaded constructor
+	~DequeueScene();	//Deconstructor
 
 	void OnStart() override;	//Called when the scene starts
 	void OnClose() override;	//Called when the scene closes

@@ -15,7 +15,7 @@ class MenuScene : public Scene
 public:
 	Font* font;		//The font to use
 
-	MenuScene(Font* _font);	//Overloaded constructor
+	MenuScene();	//Overloaded constructor
 	~MenuScene();			//Deconstructor
 
 	void OnStart() override;	//Called when the scene starts

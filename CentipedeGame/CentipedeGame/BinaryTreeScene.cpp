@@ -9,9 +9,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-BinaryTreeScene::BinaryTreeScene(Font* _font)
+BinaryTreeScene::BinaryTreeScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>
@@ -124,8 +124,8 @@ void BinaryTreeScene::Draw(Renderer2D* renderer)
 	DrawTree(renderer, tree.GetRoot(), 370 + treeX, 850 + treeY, 400, selected);
 
 	//Display the size and number of edges
-	renderer->drawText(font, ("Size: " + to_string(tree.Size())).c_str(), 50, 50);
-	renderer->drawText(font, ("Edges: " + to_string(tree.Edges())).c_str(), 50, 100);
+	renderer->drawText(app->font, ("Size: " + to_string(tree.Size())).c_str(), 50, 50);
+	renderer->drawText(app->font, ("Edges: " + to_string(tree.Edges())).c_str(), 50, 100);
 }
 
 /// <summary>
@@ -170,6 +170,6 @@ void BinaryTreeScene::DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, 
 		
 		//Draw the value in the node
 		renderer->setRenderColour(1, 1, 1);
-		renderer->drawText(font, to_string(node->data).c_str(), x - 12, y - 10);
+		renderer->drawText(app->font, to_string(node->data).c_str(), x - 12, y - 10);
 	}
 }

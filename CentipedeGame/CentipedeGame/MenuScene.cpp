@@ -8,9 +8,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-MenuScene::MenuScene(Font* _font)
+MenuScene::MenuScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>

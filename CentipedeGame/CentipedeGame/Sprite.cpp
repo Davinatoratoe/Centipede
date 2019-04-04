@@ -29,7 +29,7 @@ Sprite::Sprite(Texture* _texture)
 /// <param name="_texture">The texture that the sprite will use.</param>
 /// <param name="x">The initial x position of the sprite.</param>
 /// <param name="y">The initial y position of the sprite.</param>
-Sprite::Sprite(Texture* _texture, int x, int y)
+Sprite::Sprite(Texture* _texture, float x, float y)
 {
 	texture = _texture;
 	position.x = x;
@@ -42,7 +42,7 @@ Sprite::Sprite(Texture* _texture, int x, int y)
 /// </summary>
 /// <param name="x">The initial x position of the sprite.</param>
 /// <param name="y">The initial y position of the sprite.</param>
-Sprite::Sprite(int x, int y)
+Sprite::Sprite(float x, float y)
 {
 	texture = nullptr;
 	position.x = x;

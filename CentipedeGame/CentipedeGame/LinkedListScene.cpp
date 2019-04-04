@@ -9,9 +9,9 @@ using namespace ImGui;
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_font">The font to use.</param>
-LinkedListScene::LinkedListScene(Font* _font)
+LinkedListScene::LinkedListScene()
 {
-	font = _font;
+	
 }
 
 /// <summary>
@@ -82,6 +82,6 @@ void LinkedListScene::Update(float deltaTime, Input* input)
 /// <param name="renderer">A pointer to the graphics renderer.</param>
 void LinkedListScene::Draw(Renderer2D* renderer)
 {
-	renderer->drawText(font, ("List: " + list.ToString()).c_str(), 20, 850);
-	renderer->drawText(font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
+	renderer->drawText(app->font, ("List: " + list.ToString()).c_str(), 20, 850);
+	renderer->drawText(app->font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
 }

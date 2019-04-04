@@ -15,7 +15,6 @@ class BinaryTreeScene : public Scene
 private:
 	BinaryTree<int> tree;			//The tree to manipulate
 	BinaryTreeNode<int>* selected;	//The selected node
-	Font* font;						//The font to use
 	int value;						//The value to manipulate
 	double oldMouseScroll;			//How far the mouse was scrolled in the previous frame
 	float treeX;					//The amount to offset the tree draw position on the x-axis
@@ -28,8 +27,8 @@ private:
 	void DrawTree(Renderer2D* renderer, BinaryTreeNode<int>* node, float x, float y, int horizontalSpacing, BinaryTreeNode<int>* selected = nullptr) const;
 
 public:
-	BinaryTreeScene(Font* _font);	//Overloaded constructor
-	~BinaryTreeScene();				//Deconstructor
+	BinaryTreeScene();		//Overloaded constructor
+	~BinaryTreeScene();		//Deconstructor
 
 	void OnStart() override;		//Called when the scene is loaded
 	void OnClose() override;		//Called when the scene is closed

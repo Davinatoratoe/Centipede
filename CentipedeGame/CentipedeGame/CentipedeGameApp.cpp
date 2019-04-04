@@ -48,13 +48,13 @@ bool CentipedeGameApp::startup()
 
 	//Load the scenes(s)
 	currentScene = nullptr;
-	gameScene = new GameScene(shipTexture, bulletTexture);
-	menuScene = new MenuScene(font);
-	listScene = new ListScene(font);
-	treeScene = new BinaryTreeScene(font);
-	linkedListScene = new LinkedListScene(font);
-	stackScene = new StackScene(font);
-	dequeueScene = new DequeueScene(font);
+	gameScene = new GameScene();
+	menuScene = new MenuScene();
+	listScene = new ListScene();
+	treeScene = new BinaryTreeScene();
+	linkedListScene = new LinkedListScene();
+	stackScene = new StackScene();
+	dequeueScene = new DequeueScene();
 	
 	//Set the starting scene to the main menu
 	ChangeScene(menuScene);
