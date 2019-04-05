@@ -172,6 +172,7 @@
     <ClCompile Include="CentipedeGameApp.cpp" />
     <ClCompile Include="DequeueScene.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="HashScene.cpp" />
     <ClCompile Include="LinkedListScene.cpp" />
     <ClCompile Include="ListScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -189,6 +190,8 @@
     <ClInclude Include="Centipede.h" />
     <ClInclude Include="CentipedeGameApp.h" />
     <ClInclude Include="DequeueScene.h" />
+    <ClInclude Include="HashFunction.h" />
+    <ClInclude Include="HashScene.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Dequeue.h" />
     <ClInclude Include="GameScene.h" />

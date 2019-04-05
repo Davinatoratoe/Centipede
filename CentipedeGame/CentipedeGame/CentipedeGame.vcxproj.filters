@@ -46,6 +46,9 @@
     <ClCompile Include="Centipede.cpp">
       <Filter>Source\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="HashScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -107,6 +110,12 @@
     </ClInclude>
     <ClInclude Include="QuadTree.h">
       <Filter>Headers\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="HashFunction.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="HashScene.h">
+      <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

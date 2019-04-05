@@ -36,6 +36,7 @@ public:
 	Scene* linkedListScene;
 	Scene* stackScene;
 	Scene* dequeueScene;
+	Scene* hashScene;
 
 	CentipedeGameApp();				//Default constructor
 	virtual ~CentipedeGameApp();	//Deconstructor
