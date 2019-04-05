@@ -198,6 +198,7 @@
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />
+    <ClInclude Include="QuadTree.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stack.h" />

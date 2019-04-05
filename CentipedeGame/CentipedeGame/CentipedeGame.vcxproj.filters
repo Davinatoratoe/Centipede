@@ -105,6 +105,9 @@
     <ClInclude Include="BinaryHeap.h">
       <Filter>Headers\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="QuadTree.h">
+      <Filter>Headers\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
