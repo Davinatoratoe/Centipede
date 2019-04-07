@@ -15,12 +15,11 @@ using namespace std;
 class HashScene : public Scene
 {
 private:
-	int value;		//The value to manipulate
 	map<unsigned int, Texture*>* loadedTextures;	//Hash map of loaded textures
-	unsigned int hashToDisplay;
-	Texture* textureToDisplay;
-	unsigned char* shipTextureFileName;
-	unsigned int shipTextureFileNameLength;
+	unsigned int hashToDisplay;						//Hash number to insert into hash table
+	Texture* textureToDisplay;						//Texture loaded from hash table
+	unsigned char* shipTextureFileName;				//File name for the ship texture
+	unsigned int shipTextureFileNameLength;			//Length of the file name of the ship texture
 
 public:
 	HashScene();		//Overloaded constructor

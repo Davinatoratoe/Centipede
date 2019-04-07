@@ -31,7 +31,6 @@ HashScene::~HashScene()
 /// </summary>
 void HashScene::OnStart()
 {
-	value = 0;
 	hashToDisplay = 0;
 }
 
@@ -65,16 +64,14 @@ Texture* HashScene::GetTexture(unsigned int ID)
 /// <param name="input">A pointer to the input handler.</param>
 void HashScene::Update(float deltaTime, Input* input)
 {
-	//InputInt("Value", &value);
-
 	if (Button("Insert shipTexture file name into hash function", ImVec2(350, 0)))
 		hashToDisplay = BKDRHash(shipTextureFileName, shipTextureFileNameLength);
 
 	if (Button("Input shipTexture hash into table", ImVec2(350, 0)))
-		loadedTextures->insert(make_pair(BKDRHash(shipTextureFileName, shipTextureFileNameLength), app->shipTexture));
+		loadedTextures->insert(make_pair(hashToDisplay, app->shipTexture));
 	
-	if (Button("Retrive shipTexture from hash function", ImVec2(350, 0)))
-		textureToDisplay = GetTexture(BKDRHash(shipTextureFileName, shipTextureFileNameLength));
+	if (Button("Retrive shipTexture from hash table", ImVec2(350, 0)))
+		textureToDisplay = GetTexture(hashToDisplay);
 
 	if (Button("Menu", ImVec2(150, 0)))
 		app->ChangeScene(app->menuScene);
@@ -89,5 +86,6 @@ void HashScene::Draw(Renderer2D* renderer)
 	if (textureToDisplay != nullptr)
 		renderer->drawSprite(textureToDisplay, app->getWindowWidth() / 2, app->getWindowHeight() / 2);
 
-	renderer->drawText(app->font, "Hash Value: " + hashToDisplay, 20, 850);
+	const char* text = "Hash Value: " + hashToDisplay;
+	renderer->drawText(app->font, text, 20, 850);
 }
