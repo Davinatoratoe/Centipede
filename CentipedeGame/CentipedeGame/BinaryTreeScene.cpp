@@ -107,7 +107,7 @@ void BinaryTreeScene::Update(float deltaTime, Input* input)
 		treeX -= MOVE_SPEED;
 
 	//Alternatively, move the camera when the user clicks and drags the mouse
-	if (input->isMouseButtonDown(0))
+	if (input->isMouseButtonDown(1))
 	{
 		treeX += input->getMouseDeltaX();
 		treeY += input->getMouseDeltaY();
@@ -126,6 +126,8 @@ void BinaryTreeScene::Draw(Renderer2D* renderer)
 	//Display the size and number of edges
 	renderer->drawText(app->font, ("Size: " + to_string(tree.Size())).c_str(), 50, 50);
 	renderer->drawText(app->font, ("Edges: " + to_string(tree.Edges())).c_str(), 50, 100);
+	renderer->drawText(app->font, "Zoom with mouse scroll wheel...", 50, 150);
+	renderer->drawText(app->font, "Move with WASD or right-click & drag...", 50, 200);
 }
 
 /// <summary>

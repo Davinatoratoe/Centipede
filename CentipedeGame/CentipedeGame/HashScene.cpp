@@ -83,9 +83,11 @@ void HashScene::Update(float deltaTime, Input* input)
 /// <param name="renderer">A pointer to the graphics renderer.</param>
 void HashScene::Draw(Renderer2D* renderer)
 {
+	//Draw the texture if one was loaded
 	if (textureToDisplay != nullptr)
 		renderer->drawSprite(textureToDisplay, app->getWindowWidth() / 2, app->getWindowHeight() / 2);
 
+	//Draw the hash value generated
 	const char* text = "Hash Value: " + hashToDisplay;
 	renderer->drawText(app->font, text, 20, 850);
 }

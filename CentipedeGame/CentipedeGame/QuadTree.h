@@ -1,3 +1,8 @@
+/*
+	File: QuadTree.h
+	Contains: AABB, QuadTree
+*/
+
 #pragma once
 #include "CentipedeGameApp.h"
 #include "Sprite.h"
@@ -79,12 +84,12 @@ public:
 			for (int i = 0; i < 4; ++i)
 				if (children[i] != nullptr)
 					delete children[i];
-			delete children;
+			delete[] children;
 			children = nullptr;
 		}
 
 		if (objects != nullptr)
-			delete objects;
+			delete[] objects;
 	}
 
 	bool Insert(Sprite* sprite)

@@ -64,7 +64,7 @@ public:
 	/// </summary>
 	~Stack()
 	{
-		delete data;	//Delete the data
+		delete[] data;	//Delete the data
 	}
 
 	/// <summary>
@@ -142,7 +142,7 @@ public:
 	/// <returns>This stack with values from the other stack.</returns>
 	Stack<T>& operator= (const Stack<T>& other)
 	{
-		delete data;	//Delete the data in this stack first
+		delete[] data;	//Delete the data in this stack first
 
 		//Set the values and copy the data over
 		capacity = other.capacity;

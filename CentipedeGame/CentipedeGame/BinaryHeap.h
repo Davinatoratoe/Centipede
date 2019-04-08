@@ -19,7 +19,7 @@ public:
 	/// </summary>
 	~Heap()
 	{
-		delete data;
+		delete[] data;
 	}
 
 	/// <summary>
