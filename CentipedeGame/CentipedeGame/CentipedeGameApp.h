@@ -49,4 +49,6 @@ public:
 	virtual void draw();		//Draw the application
 
 	void ChangeScene(Scene* newScene);	//Change the active scene
+
+	int RandomRange(int min, int max) const;
 };

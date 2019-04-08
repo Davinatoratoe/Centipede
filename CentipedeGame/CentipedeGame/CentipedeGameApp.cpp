@@ -151,3 +151,14 @@ void CentipedeGameApp::ChangeScene(Scene* newScene)
 	//Start the new current scene
 	currentScene->OnStart();
 }
+
+/// <summary>
+/// Get a random integer between a min and max.
+/// </summary>
+/// <param name="min">Minimum value.</param>
+/// <param name="max">Maximum value.</param>
+/// <returns>Random number between min & max.</returns>
+int CentipedeGameApp::RandomRange(int min, int max) const
+{
+	return (int)(rand() * (float)(max - min) / RAND_MAX + min + 0.5f);
+}

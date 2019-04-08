@@ -7,7 +7,7 @@ using namespace ImGui;
 GameScene::GameScene()
 {
 	player = new Player();
-	mushrooms = new List<Sprite*>(20);
+	mushrooms = new List<Sprite*>(150);
 	centipedeController = new CentipedeController();
 }
 
@@ -24,6 +24,18 @@ void GameScene::OnStart()
 	player->position.x = 100;
 	player->position.y = 70;
 	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 20);
+
+	//Generate random mushroom placements
+	const int MAX_MUSHROOMS = 100;
+	int numberOfMushrooms = 0;
+	while (numberOfMushrooms < MAX_MUSHROOMS)
+	{
+		SpawnMushroom(
+			app->RandomRange(50, app->getWindowWidth() - 50),
+			app->RandomRange(200, app->getWindowHeight() - 50)
+		);
+		++numberOfMushrooms;
+	}
 }
 
 void GameScene::OnClose()
