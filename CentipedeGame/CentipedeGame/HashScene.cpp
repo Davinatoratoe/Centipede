@@ -2,6 +2,8 @@
 #include "imgui.h"
 #include "CentipedeGameApp.h"
 #include "HashFunction.h"
+#include <iostream>
+#include <sstream>
 
 using namespace ImGui;
 using namespace HashFunction;
@@ -16,6 +18,9 @@ HashScene::HashScene()
 
 	shipTextureFileName = (unsigned char*)"./textures/ship.png";
 	shipTextureFileNameLength = 20;
+
+	shroomTextureFileName = (unsigned char*)"./textures/mushroom.png";
+	shroomTextureFileNameLength = 24;
 }
 
 /// <summary>
@@ -64,13 +69,19 @@ Texture* HashScene::GetTexture(unsigned int ID)
 /// <param name="input">A pointer to the input handler.</param>
 void HashScene::Update(float deltaTime, Input* input)
 {
-	if (Button("Insert shipTexture file name into hash function", ImVec2(350, 0)))
+	if (Button("Hash the shipTexture file name", ImVec2(250, 0)))
 		hashToDisplay = BKDRHash(shipTextureFileName, shipTextureFileNameLength);
 
-	if (Button("Input shipTexture hash into table", ImVec2(350, 0)))
-		loadedTextures->insert(make_pair(hashToDisplay, app->shipTexture));
-	
-	if (Button("Retrive shipTexture from hash table", ImVec2(350, 0)))
+	if (Button("Hash the shroomTexture file name", ImVec2(250, 0)))
+		hashToDisplay = BKDRHash(shroomTextureFileName, shroomTextureFileNameLength);
+
+	if (Button("Input shipTexture hash into table", ImVec2(250, 0)))
+		loadedTextures->insert(make_pair(BKDRHash(shipTextureFileName, shipTextureFileNameLength), app->shipTexture));
+
+	if (Button("Input shroomTexture hash into table", ImVec2(250, 0)))
+		loadedTextures->insert(make_pair(BKDRHash(shroomTextureFileName, shroomTextureFileNameLength), app->shroomTexture));
+
+	if (Button("Retrieve texture using hash", ImVec2(250, 0)))
 		textureToDisplay = GetTexture(hashToDisplay);
 
 	if (Button("Menu", ImVec2(150, 0)))
@@ -83,11 +94,21 @@ void HashScene::Update(float deltaTime, Input* input)
 /// <param name="renderer">A pointer to the graphics renderer.</param>
 void HashScene::Draw(Renderer2D* renderer)
 {
-	//Draw the texture if one was loaded
-	if (textureToDisplay != nullptr)
-		renderer->drawSprite(textureToDisplay, app->getWindowWidth() / 2, app->getWindowHeight() / 2);
-
 	//Draw the hash value generated
-	const char* text = "Hash Value: " + hashToDisplay;
-	renderer->drawText(app->font, text, 20, 850);
+	if (hashToDisplay > 0)
+	{
+		ostringstream stream;
+		stream << "Hash Value: " << hashToDisplay;
+		renderer->drawText(app->font, stream.str().c_str(), 20, 850);
+	}
+
+	//Draw the texture and its address
+	if (textureToDisplay != nullptr)
+	{
+		renderer->drawSprite(textureToDisplay, app->getWindowWidth() / 2, (app->getWindowHeight() / 2) + (sin(app->getTime() * 0.5) * 50));
+
+		ostringstream stream;
+		stream << "Texture address: " << &textureToDisplay;
+		renderer->drawText(app->font, stream.str().c_str(), 20, 800);
+	}
 }

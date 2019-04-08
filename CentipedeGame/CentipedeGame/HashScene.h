@@ -20,6 +20,8 @@ private:
 	Texture* textureToDisplay;						//Texture loaded from hash table
 	unsigned char* shipTextureFileName;				//File name for the ship texture
 	unsigned int shipTextureFileNameLength;			//Length of the file name of the ship texture
+	unsigned char* shroomTextureFileName;			//File name for the shroom texture
+	unsigned int shroomTextureFileNameLength;		//Length of the tile name of the shroom texture
 
 public:
 	HashScene();		//Overloaded constructor
