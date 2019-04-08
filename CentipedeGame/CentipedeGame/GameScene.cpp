@@ -4,6 +4,10 @@
 
 using namespace ImGui;
 
+/// <summary>
+/// Overloaded constructor.
+/// </summary>
+/// <param name="_font">The font to use.</param>
 GameScene::GameScene()
 {
 	player = new Player();
@@ -11,6 +15,9 @@ GameScene::GameScene()
 	centipedeController = new CentipedeController();
 }
 
+/// <summary>
+/// Deconstructor.
+/// </summary>
 GameScene::~GameScene()
 {
 	delete player;
@@ -18,6 +25,9 @@ GameScene::~GameScene()
 	delete centipedeController;
 }
 
+/// <summary>
+/// Called when the scene starts.
+/// </summary>
 void GameScene::OnStart()
 {
 	gameOver = false;
@@ -38,17 +48,30 @@ void GameScene::OnStart()
 	}
 }
 
+/// <summary>
+/// Called when the scene closes.
+/// </summary>
 void GameScene::OnClose()
 {
 	player->bullets->Clear();
 	(*mushrooms).Clear();
 }
 
+/// <summary>
+/// Spawn a mushroom at the specified position.
+/// </summary>
+/// <param name="x">The x-position of the mushroom.</param>
+/// <param name="y">The y-position of the mushroom.</param>
 void GameScene::SpawnMushroom(float x, float y)
 {
 	mushrooms->Push(new Sprite(app->shroomTexture, x, y));
 }
 
+/// <summary>
+/// Called once per frame. Updates the game logic.
+/// </summary>
+/// <param name="deltaTime">The time that has passed since last frame.</param>
+/// <param name="input">Pointer to the input handler.</param>
 void GameScene::Update(float deltaTime, Input* input) 
 {
 	if (!gameOver)
@@ -77,14 +100,18 @@ void GameScene::Update(float deltaTime, Input* input)
 	}
 }
 
+/// <summary>
+/// Draw graphics.
+/// </summary>
+/// <param name="renderer">Pointer to the renderer.</param>
 void GameScene::Draw(Renderer2D* renderer)
 {
 	//Draw the player
 	player->Draw(renderer);
 
 	//Draw the mushrooms
-	for (unsigned int i = 0; i < (*mushrooms).Size(); ++i)
-		(*((*mushrooms)[i])).Draw(renderer);
+	for (unsigned int i = 0; i < mushrooms->Size(); ++i)
+		(*mushrooms)[i]->Draw(renderer);
 
 	//Draw the centipedes
 	centipedeController->Draw(renderer);
