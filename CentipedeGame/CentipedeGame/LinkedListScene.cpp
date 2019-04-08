@@ -28,6 +28,8 @@ LinkedListScene::~LinkedListScene()
 void LinkedListScene::OnStart()
 {
 	list = LinkedList<int>();
+	iterator = list.End();
+	iteratorPosition = 0;
 	value = 0;
 }
 
@@ -48,31 +50,64 @@ void LinkedListScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
-	if (Button("Push to front", ImVec2(150, 0)))
+	if (Button("Push to front", ImVec2(200, 0)))
 		list.PushFront(value);
 
-	if (Button("Push to back", ImVec2(150, 0)))
+	if (Button("Push to back", ImVec2(200, 0)))
 		list.PushBack(value);
 
-	if (Button("Pop front", ImVec2(150, 0)))
+	if (Button("Pop front", ImVec2(200, 0)))
 		list.PopFront();
 
-	if (Button("Pop back", ImVec2(150, 0)))
+	if (Button("Pop back", ImVec2(200, 0)))
 		list.PopBack();
 
-	if (Button("Remove", ImVec2(150, 0)))
+	if (Button("Set iterator to Begin()", ImVec2(200, 0)))
+	{
+		iterator = list.Begin();
+		iteratorPosition = 0;
+	}
+
+	if (Button("Set iterator to End()", ImVec2(200, 0)))
+	{
+		iterator = list.End();
+		iteratorPosition = list.Size();
+	}
+
+	if (Button("Increase iterator", ImVec2(200, 0)) && iterator != list.End())
+	{
+		++iterator;
+		++iteratorPosition;
+	}
+
+	if (Button("Decrease iterator", ImVec2(200, 0)) && iterator != list.Begin())
+	{
+		--iterator;
+		--iteratorPosition;
+	}
+
+	if (Button("Insert @ iterator", ImVec2(200, 0)))
+		list.Insert(iterator, value);
+
+	if (Button("Remove", ImVec2(200, 0)))
 		list.Remove(value);
 
-	if (Button("Clear", ImVec2(150, 0)))
+	if (Button("Erase @ iterator", ImVec2(200, 0)))
+	{
+		list.Erase(iterator);
+		iterator = list.End();	//Set to end() otherwise spews random memory
+	}
+
+	if (Button("Clear", ImVec2(200, 0)))
 		list.Clear();
 
-	if (Button("Copy", ImVec2(150, 0)))
+	if (Button("Copy", ImVec2(200, 0)))
 		list = LinkedList<int>(list);
 
-	if (Button("Assign", ImVec2(150, 0)))
+	if (Button("Assign", ImVec2(200, 0)))
 		list = list;
 
-	if (Button("Menu", ImVec2(150, 0)))
+	if (Button("Menu", ImVec2(200, 0)))
 		app->ChangeScene(app->menuScene);
 }
 
@@ -84,4 +119,13 @@ void LinkedListScene::Draw(Renderer2D* renderer)
 {
 	renderer->drawText(app->font, ("List: " + list.ToString()).c_str(), 20, 850);
 	renderer->drawText(app->font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
+	
+	ostringstream stream;
+	stream << "Iterator value: ";
+	if (iterator == list.End())
+		stream << "End()";
+	else
+		stream << *iterator;
+	stream << "    Position: " << iteratorPosition;
+	renderer->drawText(app->font, stream.str().c_str(), 20, 750);
 }

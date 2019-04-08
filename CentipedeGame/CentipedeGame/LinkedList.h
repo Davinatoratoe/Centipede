@@ -54,32 +54,6 @@ private:
 		}
 	};
 
-	LinkedListNode<T>* head;	//The head of the linked list (first node)
-	LinkedListNode<T>* tail;	//The tail of the linked list (last node)
-	LinkedListNode<T>* end;		//One past the tail used for iterating through the linked list
-	unsigned int size;			//The number of nodes in the linked list
-
-	/// <summary>
-	/// A function that removes a specific node from the linked list.
-	/// This is private because the linked list node class is also private.
-	/// </summary>
-	/// <param name="node"></param>
-	void Remove(LinkedListNode<T>* node)
-	{
-		if (node == head)		//If we are removing the head, then pop the front node
-			PopFront();
-		else if (node == tail)	//If we are removing the tail, then pop the back node
-			PopBack();
-		else
-		{
-			//Otherwise delete the node and readjust the pointers
-			node->previous->next = node->next;
-			node->next->previous = node->previous;
-			delete node;
-			--size;
-		}
-	}
-
 public:
 	/// <summary>
 	/// The Linked List Iterator class allows iterating through a linked list.
@@ -92,6 +66,14 @@ public:
 		LinkedListNode<T>* node;	//The node that this iterator is pointing to
 
 	public:
+		/// <summary>
+		/// Default constructor.
+		/// </summary>
+		LinkedListIterator()
+		{
+			node = nullptr;
+		}
+
 		/// <summary>
 		/// Overloaded constructor.
 		/// </summary>
@@ -122,6 +104,50 @@ public:
 		bool operator!= (const LinkedListIterator<T>& other) const
 		{
 			return !(*this == other);
+		}
+
+		LinkedListIterator<T> Next() const
+		{
+			LinkedListIterator<T> iter(node);
+			if (iter.node != nullptr)
+				iter.node = iter.node->next;
+			return iter;
+		}
+
+		LinkedListIterator<T> Next(unsigned int increment) const
+		{
+			LinkedListIterator<T> iter(node);
+			while (increment > 0)
+			{
+				if (iter.node != nullptr)
+					iter.node = iter.node->next;
+				else
+					break;
+				--increment;
+			}
+			return iter;
+		}
+
+		LinkedListIterator<T> Previous() const
+		{
+			LinkedListIterator<T> iter(node);
+			if (iter.node != nullptr)
+				iter.node = iter.node->previous;
+			return iter;
+		}
+
+		LinkedListIterator<T> Previous(unsigned int increment) const
+		{
+			LinkedListIterator<T> iter(node);
+			while (increment > 0)
+			{
+				if (iter.node != nullptr)
+					iter.node = iter.node->previous;
+				else
+					break;
+				--increment;
+			}
+			return iter;
 		}
 
 		/// <summary>
@@ -171,6 +197,65 @@ public:
 		}
 	};
 
+private:
+	LinkedListNode<T>* head;	//The head of the linked list (first node)
+	LinkedListNode<T>* tail;	//The tail of the linked list (last node)
+	LinkedListNode<T>* end;		//One past the tail used for iterating through the linked list
+	unsigned int size;			//The number of nodes in the linked list
+
+	/// <summary>
+	/// A function that removes a specific node from the linked list.
+	/// This is private because the linked list node class is also private.
+	/// </summary>
+	/// <param name="node"></param>
+	void Remove(LinkedListNode<T>* node)
+	{
+		if (node == head)		//If we are removing the head, then pop the front node
+			PopFront();
+		else if (node == tail)	//If we are removing the tail, then pop the back node
+			PopBack();
+		else
+		{
+			//Otherwise delete the node and readjust the pointers
+			node->previous->next = node->next;
+			node->next->previous = node->previous;
+			delete node;
+			--size;
+		}
+	}
+
+	/// <summary>
+	/// Find a node that an iterator points to.
+	/// </summary>
+	/// <param name="iter">The iterator.</param>
+	/// <returns>The node that the iterator points to.</returns>
+	LinkedListNode<T>* FindNode(LinkedListIterator<T> iter) const
+	{
+		//If the linked list is empty, then return
+		if (size == 0)
+			return nullptr;
+		//If the iterator points to the first position, return the first node
+		else if (iter == Begin())
+			return head;
+		//If the iterator points to the second last position, return the last node
+		else if (iter == End().Previous())
+			return tail;
+		else
+		{
+			//Find the node that the iterator points to and return it
+			LinkedListNode<T>* node = head->next;
+			for (auto i = Begin().Next(); i != End().Previous(); ++i)
+			{
+				if (iter == i)
+					return node;
+				node = node->next;
+			}
+		}
+
+		return nullptr;
+	}
+
+public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
@@ -304,6 +389,33 @@ public:
 	}
 
 	/// <summary>
+	/// Inserts a value before the given iterator.
+	/// </summary>
+	/// <param name="iter">The iterator to insert a node before.</param>
+	/// <param name="value">The value to insert into the linked list.</param>
+	void Insert(LinkedListIterator<T>& iter, const T& value)
+	{
+		//If the linked list is empty or the iterator points to the first position, push to the front
+		if (size == 0 || iter == Begin())
+			PushFront(value);
+		//If the iterator points to the last position, push to the back
+		else if (iter == End())
+			PushBack(value);
+		else
+		{
+			//Find the node
+			LinkedListNode<T>* node = FindNode(iter);
+			if (node != nullptr)
+			{
+				//Insert the node into the linked list
+				LinkedListNode<T>* newNode = new LinkedListNode<T>(value, node, node->previous);
+				node->previous->next = newNode;
+				node->previous = newNode;
+			}
+		}
+	}
+
+	/// <summary>
 	/// Remove all occurrences of a specific value from the linked list.
 	/// </summary>
 	/// <param name="value">The value to remove from the linked list.</param>
@@ -334,6 +446,17 @@ public:
 	}
 
 	/// <summary>
+	/// Erase a specific node from the linked list.
+	/// </summary>
+	/// <param name="iter">The position of the node to remove.</param>
+	void Erase(LinkedListIterator<T>& iter)
+	{
+		LinkedListNode<T>* node = FindNode(iter);
+		if (node != nullptr)
+			Remove(node);
+	}
+
+	/// <summary>
 	/// Clear all values from the linked list.
 	/// </summary>
 	void Clear()
@@ -350,6 +473,15 @@ public:
 	unsigned int Size() const
 	{
 		return size;
+	}
+
+	/// <summary>
+	/// Check if the linked list is empty.
+	/// </summary>
+	/// <returns>True, if empty.</returns>
+	bool Empty() const
+	{
+		return size == 0;
 	}
 
 	/// <summary>

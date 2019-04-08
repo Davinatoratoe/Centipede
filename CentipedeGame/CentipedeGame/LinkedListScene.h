@@ -15,6 +15,8 @@ class LinkedListScene : public Scene
 private:
 	LinkedList<int> list;	//The Linked List to manipulate
 	int value;				//The value to manipulate
+	LinkedList<int>::LinkedListIterator<int> iterator;	//Iterator used to traverse the linked list
+	unsigned int iteratorPosition;	//Position of the iterator
 
 public:
 	LinkedListScene();	//Overloaded constructor
