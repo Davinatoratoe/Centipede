@@ -84,7 +84,7 @@ public:
 		{
 			T* newData = new T[MAX_CAPACITY];
 			memcpy(newData, data, sizeof(T) * MAX_CAPACITY);
-			delete data;
+			delete[] data;
 			data = newData;
 			capacity = MAX_CAPACITY;
 		}	
@@ -92,9 +92,36 @@ public:
 		{
 			T* newData = new T[capacity + amount];
 			memcpy(newData, data, sizeof(T) * capacity);
-			delete data;
+			delete[] data;
 			data = newData;
 			capacity += amount;
+		}
+	}
+
+	/// <summary>
+	/// Decrease the capacity of the list by a certain amount.
+	/// </summary>
+	/// <param name="amount">The amount to decrease the capacity by.</param>
+	void Discard(unsigned int amount)
+	{
+		if (capacity - amount <= 0)
+		{
+			delete[] data;
+			data = new T[1];
+			memset(data, 0, sizeof(T));
+			capacity = 1;
+			size = 0;
+		}
+		else
+		{
+			T* newData = new T[capacity - amount];
+			memcpy(newData, data, sizeof(T) * capacity - amount);
+			delete[] data;
+			data = newData;
+			capacity -= amount;
+
+			if (size > capacity)
+				size = capacity;
 		}
 	}
 
@@ -143,17 +170,28 @@ public:
 		}
 	}
 	
+	/// <summary>
+	/// Remove all occurences of a value from the list.
+	/// This will remove any orderfrom the list.
+	/// To preserve order, RemoveKeepOrder() should be used.
+	/// </summary>
+	/// <param name="value">The value to remove from the array.</param>
 	void Remove(T& value)
 	{
 		for (unsigned int i = 0; i < size; ++i)
 			if (data[i] == value)
 			{
 				Remove(i);
-				return;
+				--i;
 			}
 	}
 
 	void RemoveKeepOrder(unsigned int index)
+	{
+
+	}
+
+	void RemoveKeepOrder(T& value)
 	{
 
 	}
@@ -163,7 +201,7 @@ public:
 	/// </summary>
 	void Clear()
 	{
-		size = 0;
+		Discard(capacity);
 	}
 
 	/// <summary>

@@ -47,28 +47,34 @@ void ListScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
-	if (Button("Push", ImVec2(150, 0)))
+	if (Button("Push", ImVec2(250, 0)))
 		list.Push(value);
 	
-	if (Button("Pop", ImVec2(150, 0)))
+	if (Button("Pop", ImVec2(250, 0)))
 		list.Pop();
 
-	if (Button("Clear", ImVec2(150, 0)))
+	if (Button("Clear", ImVec2(250, 0)))
 		list.Clear();
 
-	if (Button("Reserve", ImVec2(150, 0)))
+	if (Button("Reserve", ImVec2(250, 0)))
 		list.Reserve(value);
 
-	if (Button("List(Capacity)", ImVec2(150, 0)))
+	if (Button("Discard", ImVec2(250, 0)))
+		list.Discard(value);
+
+	if (Button("Remove index (no order)", ImVec2(250, 0)))
+		list.Remove((unsigned int)value);
+
+	if (Button("List(Capacity)", ImVec2(250, 0)))
 		list = List<int>(value);
 
-	if (Button("Copy", ImVec2(150, 0)))
+	if (Button("Copy", ImVec2(250, 0)))
 		list = List<int>(list);
 
-	if (Button("Assign", ImVec2(150, 0)))
+	if (Button("Assign", ImVec2(250, 0)))
 		list = list;
 
-	if (Button("Menu", ImVec2(150, 0)))
+	if (Button("Menu", ImVec2(250, 0)))
 		app->ChangeScene(app->menuScene);
 }
 
