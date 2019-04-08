@@ -46,7 +46,7 @@ void GameScene::OnClose()
 
 void GameScene::SpawnMushroom(float x, float y)
 {
-	mushrooms->Push(new Sprite(app->bulletTexture, x, y));
+	mushrooms->Push(new Sprite(app->shroomTexture, x, y));
 }
 
 void GameScene::Update(float deltaTime, Input* input) 

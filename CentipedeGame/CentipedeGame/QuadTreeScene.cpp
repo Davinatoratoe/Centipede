@@ -11,7 +11,7 @@ using namespace ImGui;
 QuadScene::QuadScene()
 {
 	shipTexture = app->shipTexture;
-	mushroomTexture = app->bulletTexture;
+	mushroomTexture = app->shroomTexture;
 	selectedTexture = shipTexture;
 	sprites = List<Sprite*>(100);
 	quadTree = QuadTree();
