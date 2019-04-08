@@ -53,9 +53,20 @@ void Centipede::MoveHead(float deltaTime)
 		(*segments).First()->position.y -= (*segments).First()->texture->getHeight();
 		moveDown = false;
 	}
-	//Move horizontally
 	else
-		(*segments).First()->position.x += ((int)((*segments).First()->texture->getWidth()) * direction);
+	{
+		//Move horizontally
+		float movement = ((int)((*segments).First()->texture->getWidth()) * direction);
+		(*segments).First()->position.x += movement;
+
+		//Check if the head is now on a mushroom, move back if it is and move down
+		if (CheckForMushroom())
+		{
+			(*segments).First()->position.x -= movement;
+			moveDown = true;
+			direction *= -1;
+		}
+	}
 }
 
 /// <summary>
@@ -93,7 +104,7 @@ void Centipede::Move(float deltaTime)
 		segments->Last()->RotateToFace();
 
 	//Reset the move timer
-	moveTimer = MOVE_TIME;
+	moveTimer = MOVE_TIME - (segments->Size() / 200);
 }
 
 /// <summary>
@@ -126,7 +137,7 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 	if (segment == nullptr)
 		return nullptr;
 	
-	GameScene* gameScene = dynamic_cast<GameScene*>(segment->app);
+	GameScene* gameScene = dynamic_cast<GameScene*>(segment->app->gameScene);
 	gameScene->SpawnMushroom(segment->position.x, segment->position.y);
 	
 	//If there is only one segment then the centipede is no more
@@ -137,9 +148,6 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 	{
 		segments->PopFront();
 		segments->First()->SetHead();
-
-		moveDown = true;
-		direction *= -1;
 	}
 	//If the segment is the last one, then pop it
 	else if (segment == segments->Last())
@@ -151,10 +159,111 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 	//If the segment is inbetween the head & tail
 	else
 	{
+		//Create a new centipede
 		Centipede* centipede = new Centipede();
+
+		//Iterator at the end of the segments
+		Segment* newSegment = segments->Last();
+
+		//Push the segments to the centipede from the back until we reach the destroyed segment
+		while (true)
+		{
+			if (newSegment != segment)
+				centipede->segments->PushBack(newSegment);
+			segments->PopBack();
+
+			if (newSegment == segment)
+				break;
+			newSegment = segments->Last();
+		}
+		
+		//Set the head and tail of the new centipede
+		centipede->segments->First()->SetHead();
+		if (centipede->segments->Size() > 1)
+			centipede->segments->Last()->SetTail();
+
 		return centipede;
 	}
 
+	return nullptr;
+}
+
+/// <summary>
+/// Check is the head has collided with a mushroom.
+/// </summary>
+/// <returns>True if the head has collided with a mushroom.</returns>
+bool Centipede::CheckForMushroom() const
+{
+	//Don't continue if the centipede size if 0
+	if (segments->Size() == 0)
+		return false;
+
+	//Pointer to the head
+	Segment* head = segments->First();
+
+	//Pointer to the game scene
+	GameScene* gameScene = dynamic_cast<GameScene*>(head->app->gameScene);
+
+	//Pointer to the mushrooms
+	List<Sprite*>* mushrooms = gameScene->mushrooms;
+
+	//Iterate over the mushrooms and check if they are colliding with the head
+	for (unsigned int i = 0; i < mushrooms->Size(); ++i)
+	{
+		//Pointer to a mushroom
+		Sprite* mushroom = (*mushrooms)[i];
+
+		//If the mushroom is a nullptr or is too far away from the head, continue
+		if (mushroom == nullptr || mushroom->Distance(*head) > mushroom->Radius() + head->Radius())
+			continue;
+
+		//Check if the mushroom is colliding with the head and return true if it is
+		if (mushroom->CollidingWith(*head))
+			return true;
+	}
+
+	//Otherwise return false
+	return false;
+}
+
+/// <summary>
+/// Check if a segment has collided with a bullet.
+/// </summary>
+/// <returns>The segment that collided with a bullet.</returns>
+Segment* Centipede::CheckForBullet(Sprite** _bullet) const
+{
+	//Don't continue if the centipede size if 0
+	if (segments->Size() == 0)
+		return false;
+
+	//Pointer to the game scene
+	GameScene* gameScene = dynamic_cast<GameScene*>(segments->First()->app->gameScene);
+
+	//Pointer to the mushrooms
+	List<Sprite*>* bullets = gameScene->player->bullets;
+
+	//Iterate over the mushrooms and check if they are colliding with the head
+	for (unsigned int i = 0; i < bullets->Size(); ++i)
+	{
+		for (auto segment = segments->Begin(); segment != segments->End(); ++segment)
+		{
+			//Pointer to a mushroom
+			Sprite* bullet = (*bullets)[i];
+
+			//If the mushroom is a nullptr or is too far away from the head, continue
+			if (bullet == nullptr || bullet->Distance(**segment) > bullet->Radius() + segment->Radius())
+				continue;
+
+			//Check if the mushroom is colliding with the head and return true if it is
+			if (bullet->CollidingWith(**segment))
+			{
+				*_bullet = bullet;
+				return *segment;
+			}
+		}
+	}
+
+	//Otherwise return false
 	return nullptr;
 }
 

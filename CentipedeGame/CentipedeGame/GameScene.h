@@ -15,13 +15,12 @@
 /// </summary>
 class GameScene : public Scene
 {
-private:
+public:
 	Player* player;								//Pointer to the player
 	List<Sprite*>* mushrooms;					//Pointer to the mushrooms
 	CentipedeController* centipedeController;	//Pointer to the centipede controller
 	bool gameOver;		//True if the player lost
 
-public:
 	GameScene();	//Overloaded constructor
 	~GameScene();	//Deconstructor
 

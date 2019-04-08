@@ -1,4 +1,5 @@
 #include "Centipede.h"
+#include "GameScene.h"
 
 /// <summary>
 /// Default constructor.
@@ -39,7 +40,49 @@ void CentipedeController::Reset(float x, float y, unsigned int length)
 void CentipedeController::Update(float deltaTime, Input* input)
 {
 	for (unsigned int i = 0; i < centipedes->Size(); ++i)
-		(*centipedes)[i]->Update(deltaTime, input);
+	{
+		//Pointer to the centipede
+		Centipede* centipede = (*centipedes)[i];
+
+		//Pointer to the bullet that hits the centipede
+		Sprite** bullet = new Sprite*;
+
+		//Check if a bullet hit a part of the centipede
+		Segment* segmentToDestroy = centipede->CheckForBullet(bullet);
+		if (segmentToDestroy != nullptr)
+		{
+			//Pointer to the game scene
+			GameScene* gameScene = dynamic_cast<GameScene*>(segmentToDestroy->app->gameScene);
+
+			//Destroy that segment
+			Centipede* newCentipede = centipede->DestroySegment(segmentToDestroy);
+
+			//Destroy the bullet
+			gameScene->player->bullets->Remove(*bullet);
+			
+			//If the centipede was completely destroyed
+			if (newCentipede == nullptr && centipede->segments->Size() == 0)
+			{
+				centipedes->Remove(i);
+				--i;
+				continue;
+			}
+			//If the remaining centipede was split off
+			else if (newCentipede != nullptr && centipede->segments->Size() == 0)
+			{
+				delete centipede;
+				centipede = newCentipede;
+			}
+			//Otherwise add the new centipede
+			else if (newCentipede != nullptr)
+			{
+				centipedes->Push(newCentipede);
+			}
+		}
+
+		//Update the centipede
+		centipede->Update(deltaTime, input);
+	}
 }
 
 /// <summary>

@@ -23,14 +23,13 @@ void GameScene::OnStart()
 	gameOver = false;
 	player->position.x = 100;
 	player->position.y = 70;
-	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 10);
+	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 20);
 }
 
 void GameScene::OnClose()
 {
 	player->bullets->Clear();
 	(*mushrooms).Clear();
-	collisionHandler->Clear();
 }
 
 void GameScene::SpawnMushroom(float x, float y)

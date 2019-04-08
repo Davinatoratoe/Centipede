@@ -143,6 +143,16 @@ public:
 		}
 	}
 	
+	void Remove(T& value)
+	{
+		for (unsigned int i = 0; i < size; ++i)
+			if (data[i] == value)
+			{
+				Remove(i);
+				return;
+			}
+	}
+
 	void RemoveKeepOrder(unsigned int index)
 	{
 

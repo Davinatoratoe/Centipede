@@ -57,6 +57,10 @@ public:
 
 	//Destroy a segment
 	Centipede* DestroySegment(Segment* segment);
+	
+	//Collision detection
+	bool CheckForMushroom() const;
+	Segment* CheckForBullet(Sprite** _bullet) const;
 
 	//Update the centipede
 	void Update(float deltaTime, Input* input);
