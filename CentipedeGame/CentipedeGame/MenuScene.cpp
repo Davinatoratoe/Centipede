@@ -62,6 +62,9 @@ void MenuScene::Update(float deltaTime, Input* input)
 	if (Button("Test Binary Tree", ImVec2(150, 0)))		//Button to test Binary Trees
 		app->ChangeScene(app->treeScene);
 
+	if (Button("Test Quad Tree", ImVec2(150, 0)))		//Button to test Quad Trees
+		app->ChangeScene(app->quadScene);
+
 	if (Button("Test Hash Functions", ImVec2(150, 0)))	//Button to test Hash Function & Hash Tables
 		app->ChangeScene(app->hashScene);
 

@@ -178,6 +178,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="QuadTreeScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />
     <ClInclude Include="QuadTree.h" />
+    <ClInclude Include="QuadTreeScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stack.h" />

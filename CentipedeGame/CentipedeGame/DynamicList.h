@@ -69,7 +69,7 @@ public:
 	/// </summary>
 	~List()
 	{
-		delete data;
+		delete[] data;
 	}
 
 	/// <summary>
@@ -200,7 +200,7 @@ public:
 	/// <returns>This list with copied data.</returns>
 	List& operator= (const List& other)
 	{
-		delete data;
+		delete[] data;
 		capacity = other.capacity;
 		size = other.size;
 		data = new T[capacity];

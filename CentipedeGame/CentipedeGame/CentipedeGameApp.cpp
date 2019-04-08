@@ -10,6 +10,7 @@
 #include "StackScene.h"
 #include "DequeueScene.h"
 #include "HashScene.h"
+#include "QuadTreeScene.h"
 
 //Initialise the static instance variable
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
@@ -60,6 +61,7 @@ bool CentipedeGameApp::startup()
 	stackScene = new StackScene();
 	dequeueScene = new DequeueScene();
 	hashScene = new HashScene();
+	quadScene = new QuadScene();
 	
 	//Set the starting scene to the main menu
 	ChangeScene(menuScene);
