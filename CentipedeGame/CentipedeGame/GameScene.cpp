@@ -30,11 +30,12 @@ void GameScene::OnClose()
 {
 	player->bullets->Clear();
 	(*mushrooms).Clear();
+	collisionHandler->Clear();
 }
 
 void GameScene::SpawnMushroom(float x, float y)
 {
-	(*mushrooms).Push(new Sprite(app->bulletTexture, x, y));
+	mushrooms->Push(new Sprite(app->bulletTexture, x, y));
 }
 
 void GameScene::Update(float deltaTime, Input* input) 
@@ -50,6 +51,10 @@ void GameScene::Update(float deltaTime, Input* input)
 
 		//Update the centipedes
 		centipedeController->Update(deltaTime, input);
+
+		//TESTING
+		if (input->wasMouseButtonPressed(0))
+			SpawnMushroom(input->getMouseX(), input->getMouseY());
 	}
 	else
 	{

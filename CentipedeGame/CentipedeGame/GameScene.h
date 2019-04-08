@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Centipede.h"
 #include "DynamicList.h"
+#include "QuadTree.h"
 
 /// <summary>
 /// The scene responsible for the gameplay.
@@ -15,9 +16,9 @@
 class GameScene : public Scene
 {
 private:
-	Player* player;		//Pointer to the player
-	List<Sprite*>* mushrooms;
-	CentipedeController* centipedeController;
+	Player* player;								//Pointer to the player
+	List<Sprite*>* mushrooms;					//Pointer to the mushrooms
+	CentipedeController* centipedeController;	//Pointer to the centipede controller
 	bool gameOver;		//True if the player lost
 
 public:

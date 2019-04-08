@@ -44,13 +44,12 @@ public:
 	}
 };
 
-template <typename T>
 class QuadTree
 {
 private:
 	QuadTree** children;
 	AABB boundary;
-	T** objects;
+	Sprite** objects;
 
 public:
 	static const int CAPACITY = 2;
@@ -139,7 +138,7 @@ public:
 		qCenter = vec2(boundary.center.x + qSize.x, boundary.center.y + qSize.y);
 		children[BOTTOM_RIGHT] = new QuadTree(AABB(qCenter, qSize));
 
-		if (objects !- nullptr)
+		if (objects != nullptr)
 		{
 			for (int i = 0; i < CAPACITY; ++i)
 			{
@@ -158,31 +157,44 @@ public:
 		}
 	}
 
+	void Clear()
+	{
+		*this = QuadTree();
+	}
+
 	void Draw(Renderer2D* renderer)
 	{
 		renderer->setRenderColour(1, 0, 0);
-		renderer->drawLine(
+		renderer->drawLine
+		(
 			boundary.center.x - boundary.halfSize.x,
 			boundary.center.y - boundary.halfSize.y,
 			boundary.center.x + boundary.halfSize.x,
-			boundary.center.y - boundary.halfSize.y);
-		renderer->drawLine(
+			boundary.center.y - boundary.halfSize.y
+		);
+		renderer->drawLine
+		(
 			boundary.center.x - boundary.halfSize.x,
 			boundary.center.y + boundary.halfSize.y - 1,
 			boundary.center.x + boundary.halfSize.x,
-			boundary.center.y + boundary.halfSize.y - 1);
-		renderer->drawLine(
+			boundary.center.y + boundary.halfSize.y - 1
+		);
+		renderer->drawLine
+		(
 			boundary.center.x - boundary.halfSize.x + 1,
 			boundary.center.y + boundary.halfSize.y,
 			boundary.center.x - boundary.halfSize.x + 1,
-			boundary.center.y - boundary.halfSize.y);
-		renderer->drawLine(
+			boundary.center.y - boundary.halfSize.y
+		);
+		renderer->drawLine
+		(
 			boundary.center.x + boundary.halfSize.x,
 			boundary.center.y + boundary.halfSize.y,
 			boundary.center.x + boundary.halfSize.x,
-			boundary.center.y - boundary.halfSize.y);
+			boundary.center.y - boundary.halfSize.y
+		);
 
-		for (children != nullptr)
+		if (children != nullptr)
 			for (int i = 0; i < 4; ++i)
 				children[i]->Draw(renderer);
 	}
