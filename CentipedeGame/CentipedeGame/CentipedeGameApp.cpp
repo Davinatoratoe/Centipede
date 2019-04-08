@@ -47,7 +47,7 @@ bool CentipedeGameApp::startup()
 	//Load the texture(s)
 	shipTexture = new Texture("./textures/ship.png");
 	bulletTexture = new Texture("./textures/bullet.png");
-	shroomTexture = new Texture("./textures/bullet.png");
+	shroomTexture = new Texture("./textures/mushroom.png");
 	segmentTexture = new Texture("./textures/segment.png");
 	headTexture = new Texture("./textures/head.png");
 	tailTexture = new Texture("./textures/tail.png");
