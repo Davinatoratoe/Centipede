@@ -38,15 +38,15 @@ private:
 	}
 
 	/// <summary>
-	/// Swap two references.
+	/// Swap two pointers.
 	/// </summary>
-	/// <param name="a">Reference A.</param>
-	/// <param name="b">Reference B.</param>
-	void Swap(T& a, T& b)
+	/// <param name="a">Pointer A.</param>
+	/// <param name="b">Pointer B.</param>
+	void Swap(T* a, T* b)
 	{
-		T& temp = a;
-		a = b;
-		b = a;
+		T temp = *a;
+		*a = *b;
+		*b = temp;
 	}
 	
 	/// <summary>
@@ -58,6 +58,36 @@ private:
 	int Min(int x, int y) const
 	{
 		return ((x <= y) ? x : y);
+	}
+
+	/// <summary>
+	/// Takes last element as pivot and places the pivot element at its correct position in the sorted list.
+	/// Places all smaller elements to the left and all greater elements to the right of the pivot.
+	/// </summary>
+	/// <param name="low">Lowest point of the list.</param>
+	/// <param name="high">Highest point of the list.</param>
+	/// <returns>Partitioning index.</returns>
+	int Partition(int low, int high)
+	{
+		//Pivot (last element)
+		T pivot = data[high];
+
+		//Index of smaller element
+		int i = (low - 1);
+
+		for (int j = low; j <= high - 1; ++j)
+		{
+			//If the current element is smaller than or equal to the pivot
+			if (data[j] <= pivot)
+			{
+				//Increase the index of the smaller element
+				++i;
+				Swap(&data[i], &data[j]);
+			}
+		}
+
+		Swap(&data[i + 1], &data[high]);
+		return (i + 1);
 	}
 
 public:
@@ -201,7 +231,7 @@ public:
 
 			//Move the value down the list to the desired index
 			for (unsigned int i = size - 1; i != index; --i)
-				Swap(data[i], data[i - 1]);
+				Swap(&data[i], &data[i - 1]);
 
 			//Set the value at the index (dunno why)
 			data[index] = value;
@@ -311,6 +341,23 @@ public:
 	void Clear()
 	{
 		Discard(capacity);
+	}
+
+	/// <summary>
+	/// Quick sort chooses an element as a pivot and partitions around the pivot.
+	/// This implementation chooses the last element as the pivot.
+	/// https://www.geeksforgeeks.org/quick-sort/
+	/// </summary>
+	/// <param name="low">The starting index of the sort.</param>
+	/// <param name="high">The ending index of the sort.</param>
+	void QuickSort(int low, int high)
+	{
+		if (low < high)
+		{
+			int partitionIndex = Partition(low, high);	//Partitioning index
+			QuickSort(low, partitionIndex - 1);		//Before partition
+			QuickSort(partitionIndex + 1, high);	//After partition
+		}
 	}
 
 	/// <summary>
