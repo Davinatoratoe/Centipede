@@ -516,6 +516,47 @@ public:
 	}
 
 	/// <summary>
+	/// Perform a jump search on the list to find a value.
+	/// https://www.geeksforgeeks.org/jump-search/
+	/// </summary>
+	/// <param name="value">The value to search for.</param>
+	/// <returns>The index of the value in the list, or -1 if not found.</returns>
+	int JumpSearch(const T& value) const
+	{
+		if (size == 0)
+			return -1;
+
+		//Find a block size to be jumped
+		int step = sqrt(size);
+
+		//Find the block where the search value is present
+		int prev = 0;
+		while (data[Min(step, size) - 1] < value)
+		{
+			prev = step;
+			step += sqrt(size);
+			if (prev >= size)
+				return -1;
+		}
+
+		//Perform a linear search in the block beginning with prev
+		while (data[prev] < value)
+		{
+			++prev;
+
+			//If we reached the next block of the end of the array, then the value is not present
+			if (prev == Min(step, size))
+				return -1;
+		}
+
+		//Check if the value is found
+		if (data[prev] == value)
+			return prev;
+
+		return -1;
+	}
+
+	/// <summary>
 	/// Getter for the size of the list.
 	/// </summary>
 	/// <returns>The number of elements in the list.</returns>

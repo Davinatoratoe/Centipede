@@ -97,6 +97,9 @@ void ListScene::Update(float deltaTime, Input* input)
 	if (Button("Binary Search(value)", ImVec2(250, 0)))
 		searchResult = list.BinarySearch(value);
 
+	if (Button("Jump Search(value)", ImVec2(250, 0)))
+		searchResult = list.JumpSearch(value);
+
 	if (Button("List(Capacity)", ImVec2(250, 0)))
 		list = List<int>(value);
 
