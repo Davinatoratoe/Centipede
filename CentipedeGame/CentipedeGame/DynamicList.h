@@ -48,6 +48,17 @@ private:
 		a = b;
 		b = a;
 	}
+	
+	/// <summary>
+	/// Returns the minimum of two numbers.
+	/// </summary>
+	/// <param name="x">First number.</param>
+	/// <param name="y">Second number.</param>
+	/// <returns>The minimum of the two given numbers.</returns>
+	int Min(int x, int y) const
+	{
+		return ((x <= y) ? x : y);
+	}
 
 public:
 	/// <summary>
@@ -300,6 +311,62 @@ public:
 	void Clear()
 	{
 		Discard(capacity);
+	}
+
+	/// <summary>
+	/// Return the index of the value if present.
+	/// https://www.geeksforgeeks.org/fibonacci-search/
+	/// </summary>
+	/// <param name="value">Value to search for.</param>
+	/// <returns>Index of the value, -1 if not found.</returns>
+	int FibonacciSearch(T& value) const
+	{
+		int fibMMm2 = 0;				//(m-2)'th Fibonnaci number
+		int fibMMm1 = 1;				//(m-1)'th Fibonnaci number
+		int fibM = fibMMm1 + fibMMm2;	// m'th Fibonacci number
+
+		//Store the smallest Fibonacci number greater than or equal to the size of the list in fibM
+		while (fibM < size)
+		{
+			fibMMm2 = fibMMm1;
+			fibMMm1 = fibM;
+			fibM = fibMMm1 + fibMMm2;
+		}
+
+		//Marks the eliminated range from the front
+		int offset = -1;
+
+		//While there are elements to be searched
+		while (fibM > 1)
+		{
+			int i = Min(offset + fibMMm2, size - 1);
+
+			//If the value is greater than the value at index fibMMm2, cut the list from offset to i
+			if (data[i] < value)
+			{
+				fibM = fibMMm1;
+				fibMMm1 = fibMMm2;
+				fibMMm2 = fibM - fibMMm1;
+				offset = i;
+			}
+			//If the value is greater than the value at index fibMMm2, cut the list after i + 1
+			else if (data[i] > value)
+			{
+				fibM = fibMMm2;
+				fibMMm1 = fibMMm1 - fibMMm2;
+				fibMMm2 = fibM - fibMMm1;
+			}
+			//Value was found
+			else
+				return i;
+		}
+
+		//Compare the last element
+		if (fibMMm1 && data[offset + 1] == value) 
+			return offset + 1;
+
+		//Value not found
+		return -1;
 	}
 
 	/// <summary>

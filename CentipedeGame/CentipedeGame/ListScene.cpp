@@ -28,6 +28,7 @@ void ListScene::OnStart()
 {
 	list = List<int>();
 	value = 0;
+	searchResult = -1;
 }
 
 /// <summary>
@@ -81,6 +82,9 @@ void ListScene::Update(float deltaTime, Input* input)
 	if (Button("Remove index (order)", ImVec2(250, 0)))
 		list.RemoveKeepOrder((unsigned int)value);
 
+	if (Button("Search for value", ImVec2(250, 0)))
+		searchResult = list.FibonacciSearch(value);
+
 	if (Button("List(Capacity)", ImVec2(250, 0)))
 		list = List<int>(value);
 
@@ -103,4 +107,5 @@ void ListScene::Draw(Renderer2D* renderer)
 	renderer->drawText(app->font, ("List: " + list.ToString()).c_str(), 20, 850);
 	renderer->drawText(app->font, ("Size: " + to_string(list.Size())).c_str(), 20, 800);
 	renderer->drawText(app->font, ("Capacity: " + to_string(list.Capacity())).c_str(), 20, 750);
+	renderer->drawText(app->font, ("Search result: " + to_string(searchResult)).c_str(), 20, 700);
 }

@@ -15,6 +15,7 @@ class ListScene : public Scene
 private:
 	List<int> list;		//The list to alter
 	int value;			//The value to alter
+	int searchResult;	//Result of a search function
 
 public:
 	ListScene();		//Overloaded constructor
