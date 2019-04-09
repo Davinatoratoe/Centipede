@@ -436,7 +436,7 @@ public:
 	/// </summary>
 	/// <param name="value">Value to search for.</param>
 	/// <returns>Index of the value, -1 if not found.</returns>
-	int FibonacciSearch(T& value) const
+	int FibonacciSearch(const T& value) const
 	{
 		int fibMMm2 = 0;				//(m-2)'th Fibonnaci number
 		int fibMMm1 = 1;				//(m-1)'th Fibonnaci number
@@ -483,6 +483,35 @@ public:
 			return offset + 1;
 
 		//Value not found
+		return -1;
+	}
+
+	/// <summary>
+	/// Perform a binary search for a value in the list.
+	/// </summary>
+	/// <param name="value">The value to search for.</param>
+	/// <returns>The index of the value in the list, or -1 if not found.</returns>
+	int BinarySearch(const T& value) const
+	{
+		if (size == 0)
+			return -1;
+
+		unsigned int startIndex = 0;
+		unsigned int endIndex = size - 1;
+
+		while (startIndex <= endIndex)
+		{
+			unsigned int pivot = (startIndex + endIndex) / 2;
+
+			if (data[pivot] == value)
+				return pivot;
+
+			if (value < data[pivot])
+				endIndex = pivot - 1;
+			else
+				startIndex = pivot + 1;
+		}
+
 		return -1;
 	}
 

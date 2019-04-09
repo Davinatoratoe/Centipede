@@ -29,6 +29,7 @@ void LinkedListScene::OnStart()
 {
 	list = LinkedList<int>();
 	iterator = list.End();
+	searchResult = list.End();
 	iteratorPosition = 0;
 	value = 0;
 }
@@ -111,6 +112,9 @@ void LinkedListScene::Update(float deltaTime, Input* input)
 	if (Button("Bubble Sort", ImVec2(200, 0)))
 		list.BubbleSort();
 
+	if (Button("Linear Search(value)", ImVec2(200, 0)))
+		searchResult = list.LinearSearch(value);
+
 	if (Button("Copy", ImVec2(200, 0)))
 		list = LinkedList<int>(list);
 
@@ -138,4 +142,12 @@ void LinkedListScene::Draw(Renderer2D* renderer)
 		stream << *iterator;
 	stream << "    Position: " << iteratorPosition;
 	renderer->drawText(app->font, stream.str().c_str(), 20, 750);
+
+	stream = ostringstream();
+	stream << "Search result: ";
+	if (searchResult == list.End())
+		stream << "End() (Not Found)";
+	else
+		stream << (*searchResult) << " (Found)";
+	renderer->drawText(app->font, stream.str().c_str(), 20, 700);
 }

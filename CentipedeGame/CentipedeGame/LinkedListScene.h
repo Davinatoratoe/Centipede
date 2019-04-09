@@ -17,6 +17,7 @@ private:
 	int value;				//The value to manipulate
 	LinkedList<int>::LinkedListIterator<int> iterator;	//Iterator used to traverse the linked list
 	unsigned int iteratorPosition;	//Position of the iterator
+	LinkedList<int>::LinkedListIterator<int> searchResult;	//Iterator used for searching the linked list
 
 public:
 	LinkedListScene();	//Overloaded constructor

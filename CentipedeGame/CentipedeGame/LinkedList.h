@@ -525,6 +525,19 @@ public:
 	}
 
 	/// <summary>
+	/// Performa basic linear search for a value.
+	/// </summary>
+	/// <param name="value">The value to search for.</param>
+	/// <returns>The iterator pointing to the value if found, otherwise points to End().</returns>
+	LinkedListIterator<T> LinearSearch(const T& value) const
+	{
+		for (LinkedListIterator<T> iter = Begin(); iter != End(); ++iter)
+			if (*iter == value)
+				return iter;
+		return End();
+	}
+
+	/// <summary>
 	/// Getter for the first value in the linked list.
 	/// </summary>
 	/// <returns>The first value in the linked list.</returns>
