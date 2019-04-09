@@ -47,6 +47,13 @@ void DequeueScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
+	if (Button("Generate dequeue", ImVec2(150, 0)))
+	{
+		dequeue.Clear();
+		for (unsigned int i = 0; i < 10; ++i)
+			dequeue.PushFront(rand() % 10);
+	}
+
 	if (Button("Push Front", ImVec2(150, 0)))
 		dequeue.PushFront(value);
 

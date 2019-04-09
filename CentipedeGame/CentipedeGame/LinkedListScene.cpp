@@ -50,6 +50,13 @@ void LinkedListScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
+	if (Button("Generate list", ImVec2(200, 0)))
+	{
+		list.Clear();
+		for (unsigned int i = 0; i < 10; ++i)
+			list.PushFront(rand() % 10);
+	}
+
 	if (Button("Push to front", ImVec2(200, 0)))
 		list.PushFront(value);
 

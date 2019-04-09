@@ -63,6 +63,18 @@ void QuadScene::Update(float deltaTime, Input* input)
 	if (Button("Select mushroom texture", ImVec2(150, 0)))
 		selectedTexture = mushroomTexture;
 
+	if (Button("Scatter sprites", ImVec2(150, 0)))
+	{
+		quadTree.Clear();
+		sprites.Clear();
+		for (unsigned int i = 0; i < 80; ++i)
+		{
+			Sprite* sprite = new Sprite(mushroomTexture, app->RandomRange(0, app->getWindowWidth()), app->RandomRange(0, app->getWindowHeight()));
+			sprites.Push(sprite);
+			quadTree.Insert(sprite);
+		}
+	}
+
 	if (Button("Clear all", ImVec2(150, 0)))
 	{
 		sprites.Clear();

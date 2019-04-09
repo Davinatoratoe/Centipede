@@ -55,17 +55,11 @@ void BinaryTreeScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
-	if (Button("Template", ImVec2(150, 0)))	//Create a template tree to mess around with
+	if (Button("Generate tree", ImVec2(150, 0)))	//Create a template tree to mess around with
 	{
 		tree.Clear();
-		tree.Insert(50);
-		tree.Insert(75);
-		tree.Insert(25);
-		tree.Insert(5);
-		tree.Insert(20);
-		tree.Insert(90);
-		tree.Insert(80);
-		tree.Insert(100);
+		for (unsigned int i = 0; i < 10; ++i)
+			tree.Insert(rand() % 100);
 	}
 
 	if (Button("Insert", ImVec2(150, 0)))	//Insert a value into the tree

@@ -47,6 +47,13 @@ void StackScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
+	if (Button("Generate stack", ImVec2(150, 0)))
+	{
+		stack.Clear();
+		for (unsigned int i = 0; i < 10; ++i)
+			stack.Push(rand() % 10);
+	}
+
 	if (Button("Default", ImVec2(150, 0)))
 		stack = Stack<int>();
 
