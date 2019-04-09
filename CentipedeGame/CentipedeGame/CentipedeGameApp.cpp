@@ -102,7 +102,7 @@ void CentipedeGameApp::update(float deltaTime)
 		currentScene->Update(deltaTime, input);
 
 	//Check if ESCAPE was pressed
-	if (input->isKeyDown(INPUT_KEY_ESCAPE))
+	if (input->wasKeyPressed(INPUT_KEY_ESCAPE))
 	{
 		//If we are on the main menu, then quit the app
 		if (currentScene == menuScene)

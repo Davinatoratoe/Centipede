@@ -56,7 +56,13 @@ void ListScene::Update(float deltaTime, Input* input)
 
 	if (Button("Push", ImVec2(250, 0)))
 		list.Push(value);
+
+	if (Button("Insert #size @ value", ImVec2(250, 0)))
+		list.Insert(value, list.Size());
 	
+	if (Button("Insert list @ value", ImVec2(250, 0)))
+		list.Insert(value, List<int>(list));
+
 	if (Button("Pop", ImVec2(250, 0)))
 		list.Pop();
 
@@ -78,10 +84,10 @@ void ListScene::Update(float deltaTime, Input* input)
 	if (Button("List(Capacity)", ImVec2(250, 0)))
 		list = List<int>(value);
 
-	if (Button("Copy", ImVec2(250, 0)))
+	if (Button("Copy constructor", ImVec2(250, 0)))
 		list = List<int>(list);
 
-	if (Button("Assign", ImVec2(250, 0)))
+	if (Button("Assignment operator", ImVec2(250, 0)))
 		list = list;
 
 	if (Button("Menu", ImVec2(250, 0)))

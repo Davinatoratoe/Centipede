@@ -37,6 +37,18 @@ private:
 			Discard(capacity / 2);
 	}
 
+	/// <summary>
+	/// Swap two references.
+	/// </summary>
+	/// <param name="a">Reference A.</param>
+	/// <param name="b">Reference B.</param>
+	void Swap(T& a, T& b)
+	{
+		T& temp = a;
+		a = b;
+		b = a;
+	}
+
 public:
 	/// <summary>
 	/// Default constructor.
@@ -156,6 +168,48 @@ public:
 			data[size] = value;
 			++size;
 		}
+	}
+
+	/// <summary>
+	/// Insert a value at a specified index in the list.
+	/// </summary>
+	/// <param name="index">The index to insert at.</param>
+	/// <param name="value">The value to insert.</param>
+	void Insert(unsigned int index, const T& value)
+	{
+		//If an invalid index, return
+		if (index < 0 || index > size)
+			return;
+		//If the index is the size, push to the back (handles if the size is 0)
+		else if (index == size)
+			Push(value);
+		else
+		{
+			//Push the value to the back
+			Push(value);
+
+			//Move the value down the list to the desired index
+			for (unsigned int i = size - 1; i != index; --i)
+				Swap(data[i], data[i - 1]);
+
+			//Set the value at the index (dunno why)
+			data[index] = value;
+		}
+	}
+	
+	/// <summary>
+	/// Insert another list at a specific index in this list.
+	/// </summary>
+	/// <param name="index">The index to insert the list.</param>
+	/// <param name="values">The list.</param>
+	void Insert(unsigned int index, const List<T>& values)
+	{
+		if (values.Size() == 0)
+			return;
+		else
+			//Iterate through the values and insert them into our list
+			for (unsigned int i = 0; i < values.Size(); ++i)
+				Insert(index + i, values[i]);
 	}
 
 	/// <summary>

@@ -88,6 +88,10 @@ void TestDynamicList()
 	list2.Push(70);						//Increases the capacity
 	list2.PrintDetails();
 
+	list2.Insert(1, list);				//Insert list
+	cout << "INSERT: ";
+	list2.PrintDetails();
+
 	List<int> list3(list);				//Copy constructor
 	list3.Push(200);
 	list3.PrintDetails();
