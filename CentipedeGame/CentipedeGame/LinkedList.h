@@ -255,6 +255,18 @@ private:
 		return nullptr;
 	}
 
+	/// <summary>
+	/// Swap two pointers.
+	/// </summary>
+	/// <param name="a">Pointer A.</param>
+	/// <param name="b">Pointer B.</param>
+	void Swap(T* a, T* b)
+	{
+		T temp = *a;
+		*a = *b;
+		*b = temp;
+	}
+
 public:
 	/// <summary>
 	/// Default constructor.
@@ -482,6 +494,34 @@ public:
 	bool Empty() const
 	{
 		return size == 0;
+	}
+
+	/// <summary>
+	/// Sort the linked list using a bubble sort.
+	/// </summary>
+	void BubbleSort()
+	{
+		if (size < 2)
+			return;
+
+		bool sorted = false;
+		while (!sorted)
+		{
+			sorted = true;
+
+			LinkedListNode<T>* node = head;
+			while (node != tail)
+			{
+				//If this node's data is greater than the next node's data,
+				//swap the data
+				if (node->data > node->next->data)
+				{
+					Swap(&node->data, &node->next->data);
+					sorted = false;
+				}
+				node = node->next;
+			}
+		}
 	}
 
 	/// <summary>

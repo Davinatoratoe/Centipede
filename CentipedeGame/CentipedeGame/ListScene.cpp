@@ -83,9 +83,15 @@ void ListScene::Update(float deltaTime, Input* input)
 		list.RemoveKeepOrder((unsigned int)value);
 
 	if (Button("Quick Sort", ImVec2(250, 0)))
-		list.QuickSort(0, list.Size() - 1);
+		list.QuickSort();
 
-	if (Button("Search for value", ImVec2(250, 0)))
+	if (Button("Cocktail Shaker Sort", ImVec2(250, 0)))
+		list.CocktailShakerSort();
+
+	if (Button("Insertion Sort", ImVec2(250, 0)))
+		list.InsertionSort();
+
+	if (Button("Fibonacci Search(value)", ImVec2(250, 0)))
 		searchResult = list.FibonacciSearch(value);
 
 	if (Button("List(Capacity)", ImVec2(250, 0)))

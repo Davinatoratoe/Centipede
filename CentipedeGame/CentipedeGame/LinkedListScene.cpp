@@ -108,6 +108,9 @@ void LinkedListScene::Update(float deltaTime, Input* input)
 	if (Button("Clear", ImVec2(200, 0)))
 		list.Clear();
 
+	if (Button("Bubble Sort", ImVec2(200, 0)))
+		list.BubbleSort();
+
 	if (Button("Copy", ImVec2(200, 0)))
 		list = LinkedList<int>(list);
 

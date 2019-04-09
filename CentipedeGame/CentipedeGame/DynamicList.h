@@ -61,6 +61,23 @@ private:
 	}
 
 	/// <summary>
+	/// Quick sort chooses an element as a pivot and partitions around the pivot.
+	/// This implementation chooses the last element as the pivot.
+	/// https://www.geeksforgeeks.org/quick-sort/
+	/// </summary>
+	/// <param name="low">The starting index of the sort.</param>
+	/// <param name="high">The ending index of the sort.</param>
+	void QuickSort(int low, int high)
+	{
+		if (low < high)
+		{
+			int partitionIndex = Partition(low, high);	//Partitioning index
+			QuickSort(low, partitionIndex - 1);		//Before partition
+			QuickSort(partitionIndex + 1, high);	//After partition
+		}
+	}
+
+	/// <summary>
 	/// Takes last element as pivot and places the pivot element at its correct position in the sorted list.
 	/// Places all smaller elements to the left and all greater elements to the right of the pivot.
 	/// </summary>
@@ -344,19 +361,72 @@ public:
 	}
 
 	/// <summary>
-	/// Quick sort chooses an element as a pivot and partitions around the pivot.
-	/// This implementation chooses the last element as the pivot.
-	/// https://www.geeksforgeeks.org/quick-sort/
+	/// Perform a recursive quick sort of the list.
 	/// </summary>
-	/// <param name="low">The starting index of the sort.</param>
-	/// <param name="high">The ending index of the sort.</param>
-	void QuickSort(int low, int high)
+	void QuickSort()
 	{
-		if (low < high)
+		QuickSort(0, size - 1);
+	}
+
+	/// <summary>
+	/// Sort the list using an optimised cocktail shaker sort algorithm.
+	/// </summary>
+	void CocktailShakerSort()
+	{
+		if (size < 2)
+			return;
+
+		int passes = 0;	//Keep track of the number of times the list has been traversed to reduce the next traversal
+		bool sorted = false;
+		
+		//Sort the list by traversing it and swapping values
+		while (!sorted)
 		{
-			int partitionIndex = Partition(low, high);	//Partitioning index
-			QuickSort(low, partitionIndex - 1);		//Before partition
-			QuickSort(partitionIndex + 1, high);	//After partition
+			sorted = true;
+
+			//Traverse forwards through the list
+			for (unsigned int i = 0; i < size - (passes + 1); ++i)
+			{
+				if (data[i] > data[i + 1])
+				{
+					Swap(&data[i], &data[i + 1]);
+					sorted = false;
+				}
+			}
+
+			//Traverse backwards through the list
+			for (unsigned int i = size - 1; i > 0; --i)
+			{
+				if (data[i - 1] > data[i])
+				{
+					Swap(&data[i], &data[i - 1]);
+					sorted = false;
+				}
+			}
+
+			++passes;
+		}
+	}
+
+	/// <summary>
+	/// Perform an insertion sort on the list.
+	/// https://www.geeksforgeeks.org/insertion-sort/
+	/// </summary>
+	void InsertionSort()
+	{
+		T key;
+		int j;
+		for (unsigned int i = 1; i < size; ++i)
+		{
+			key = data[i];
+			j = i - 1;
+
+			while (j >= 0 && data[j] > key)
+			{
+				data[j + 1] = data[j];
+				j = j - 1;
+			}
+			data[j + 1] = key;
 		}
 	}
 
