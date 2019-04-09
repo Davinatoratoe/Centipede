@@ -47,6 +47,13 @@ void ListScene::Update(float deltaTime, Input* input)
 {
 	InputInt("Value", &value);
 
+	if (Button("Generate list", ImVec2(250, 0)))
+	{
+		list.Clear();
+		for (unsigned int i = 0; i < 10; ++i)
+			list.Push(rand() % 10);
+	}
+
 	if (Button("Push", ImVec2(250, 0)))
 		list.Push(value);
 	
@@ -64,6 +71,9 @@ void ListScene::Update(float deltaTime, Input* input)
 
 	if (Button("Remove index (no order)", ImVec2(250, 0)))
 		list.Remove((unsigned int)value);
+
+	if (Button("Remove index (order)", ImVec2(250, 0)))
+		list.RemoveKeepOrder((unsigned int)value);
 
 	if (Button("List(Capacity)", ImVec2(250, 0)))
 		list = List<int>(value);

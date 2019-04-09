@@ -21,6 +21,22 @@ private:
 	unsigned int capacity;	//The current capacity of the list
 	const unsigned int MAX_CAPACITY = 500;	//The maximum capacity allowed to be reserved for the list
 
+	/// <summary>
+	/// Reduce the size of the list.
+	/// Also checks if space should be freed in memory.
+	/// </summary>
+	/// <param name="amount">The amount to reduce the size by.</param>
+	void ReduceSize(unsigned int amount)
+	{
+		if (amount > size)
+			size = 0;
+		else
+			size -= amount;
+		
+		if (capacity > 5 && size < (capacity / 2) - 2)
+			Discard(capacity / 2);
+	}
+
 public:
 	/// <summary>
 	/// Default constructor.
@@ -104,6 +120,7 @@ public:
 	/// <param name="amount">The amount to decrease the capacity by.</param>
 	void Discard(unsigned int amount)
 	{
+		//If the reduced capacity would be below or equal to zero, set the capacity to 1
 		if (capacity - amount <= 0)
 		{
 			delete[] data;
@@ -115,7 +132,7 @@ public:
 		else
 		{
 			T* newData = new T[capacity - amount];
-			memcpy(newData, data, sizeof(T) * capacity - amount);
+			memcpy(newData, data, sizeof(T) * (capacity - amount));
 			delete[] data;
 			data = newData;
 			capacity -= amount;
@@ -147,7 +164,7 @@ public:
 	void Pop()
 	{
 		if (size > 0)
-			--size;
+			ReduceSize(1);
 	}
 
 	/// <summary>
@@ -165,7 +182,7 @@ public:
 			else
 			{
 				data[index] = data[size - 1];
-				--size;
+				ReduceSize(1);
 			}
 		}
 	}
@@ -186,14 +203,41 @@ public:
 			}
 	}
 
+	/// <summary>
+	/// Remove the value at a specific index from the list.
+	/// This will keep any order in the list.
+	/// </summary>
+	/// <param name="index">The index of the value to be removed.</param>
 	void RemoveKeepOrder(unsigned int index)
 	{
-
+		if (size == 0)
+			return;
+		else if (index == (size - 1) || size == 1)
+			Pop();
+		else
+		{
+			//Move each value past the given index back by one position
+			for (unsigned int i = index; i < size - 1; ++i)
+				data[i] = data[i + 1];
+			
+			//Reduce the size
+			ReduceSize(1);
+		}
 	}
 
+	/// <summary>
+	/// Remove all occurences of a specific value from the list.
+	/// This will keep any order in the list.
+	/// </summary>
+	/// <param name="value">Value to remove.</param>
 	void RemoveKeepOrder(T& value)
 	{
-
+		for (unsigned int i = 0; i < size; ++i)
+			if (data[i] == value)
+			{
+				RemoveKeepOrder(i);
+				--i;
+			}
 	}
 
 	/// <summary>
