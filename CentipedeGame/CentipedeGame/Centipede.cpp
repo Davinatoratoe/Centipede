@@ -56,7 +56,7 @@ void Centipede::MoveHead(float deltaTime)
 	else
 	{
 		//Move horizontally
-		float movement = ((int)((*segments).First()->texture->getWidth()) * direction);
+		float movement = (float)((int)((*segments).First()->texture->getWidth()) * direction);
 		(*segments).First()->position.x += movement;
 
 		//Check if the head is now on a mushroom, move back if it is and move down

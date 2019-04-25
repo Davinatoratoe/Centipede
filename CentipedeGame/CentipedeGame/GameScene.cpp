@@ -33,7 +33,7 @@ void GameScene::OnStart()
 	gameOver = false;
 	player->position.x = 100;
 	player->position.y = 70;
-	centipedeController->Reset(app->getWindowWidth() / 2, app->getWindowHeight() - 50, 20);
+	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20);
 
 	//Generate random mushroom placements
 	const int MAX_MUSHROOMS = 25;
@@ -41,8 +41,8 @@ void GameScene::OnStart()
 	while (numberOfMushrooms < MAX_MUSHROOMS)
 	{
 		SpawnMushroom(
-			app->RandomRange(50, app->getWindowWidth() - 50),
-			app->RandomRange(200, app->getWindowHeight() - 50)
+			(float)app->RandomRange(50, app->getWindowWidth() - 50),
+			(float)app->RandomRange(200, app->getWindowHeight() - 50)
 		);
 		++numberOfMushrooms;
 	}
@@ -88,7 +88,7 @@ void GameScene::Update(float deltaTime, Input* input)
 
 		//TESTING
 		if (input->wasMouseButtonPressed(0))
-			SpawnMushroom(input->getMouseX(), input->getMouseY());
+			SpawnMushroom((float)input->getMouseX(), (float)input->getMouseY());
 	}
 	else
 	{

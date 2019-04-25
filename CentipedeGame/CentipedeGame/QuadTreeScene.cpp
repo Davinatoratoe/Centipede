@@ -52,7 +52,7 @@ void QuadScene::Update(float deltaTime, Input* input)
 	//Place a sprite if the right-mouse button is pressed
 	if (input->wasMouseButtonPressed(1))
 	{
-		Sprite* sprite = new Sprite(selectedTexture, input->getMouseX(), input->getMouseY());
+		Sprite* sprite = new Sprite(selectedTexture, (float)input->getMouseX(), (float)input->getMouseY());
 		sprites.Push(sprite);
 		quadTree.Insert(sprite);
 	}
@@ -69,7 +69,7 @@ void QuadScene::Update(float deltaTime, Input* input)
 		sprites.Clear();
 		for (unsigned int i = 0; i < 80; ++i)
 		{
-			Sprite* sprite = new Sprite(mushroomTexture, app->RandomRange(0, app->getWindowWidth()), app->RandomRange(0, app->getWindowHeight()));
+			Sprite* sprite = new Sprite(mushroomTexture, (float)app->RandomRange(0, app->getWindowWidth()), (float)app->RandomRange(0, app->getWindowHeight()));
 			sprites.Push(sprite);
 			quadTree.Insert(sprite);
 		}

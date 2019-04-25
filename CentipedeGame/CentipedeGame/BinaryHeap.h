@@ -142,7 +142,7 @@ public:
 			Pop();
 		else if (Contains(value))
 		{
-			int index = Find(value);				//Find the index of the value to be removed
+			unsigned int index = Find(value);		//Find the index of the value to be removed
 			Swap(&data[index], &data[size - 1]);	//Swap the value to be removed with the last value
 			Pop();									//Pop the last value (reduces the size)
 
@@ -202,7 +202,7 @@ public:
 	/// <returns>The index of the first child, -1 if there isn't one.</returns>
 	int GetFirstChild(unsigned int index) const
 	{
-		int result = (2 * index) + 1;
+		unsigned int result = (2 * index) + 1;
 		if (result >= size)
 			return -1;
 		return result;
@@ -215,7 +215,7 @@ public:
 	/// <returns>The index of the second child, -1 if there isn't one.</returns>
 	int GetSecondChild(unsigned int index) const
 	{
-		int result = (2 * index) + 2;
+		unsigned int result = (2 * index) + 2;
 		if (result >= size)
 			return -1;
 		return result;

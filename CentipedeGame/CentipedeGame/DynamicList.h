@@ -443,7 +443,7 @@ public:
 		int fibM = fibMMm1 + fibMMm2;	// m'th Fibonacci number
 
 		//Store the smallest Fibonacci number greater than or equal to the size of the list in fibM
-		while (fibM < size)
+		while (fibM < (int)size)
 		{
 			fibMMm2 = fibMMm1;
 			fibMMm1 = fibM;
@@ -527,15 +527,15 @@ public:
 			return -1;
 
 		//Find a block size to be jumped
-		int step = sqrt(size);
+		int step = (int)sqrt(size);
 
 		//Find the block where the search value is present
 		int prev = 0;
 		while (data[Min(step, size) - 1] < value)
 		{
 			prev = step;
-			step += sqrt(size);
-			if (prev >= size)
+			step += (int)sqrt(size);
+			if (prev >= (int)size)
 				return -1;
 		}
 
@@ -624,7 +624,7 @@ public:
 	/// </summary>
 	/// <param name="index">The index to access.</param>
 	/// <returns>The element at the specified index.</returns>
-	T& operator[] (const int index) const
+	T& operator[] (const unsigned int index) const
 	{
 		if (index >= 0 && index < size)
 			return data[index];

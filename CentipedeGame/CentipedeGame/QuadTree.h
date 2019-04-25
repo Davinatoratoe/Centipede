@@ -89,8 +89,8 @@ public:
 	{
 		children = nullptr;
 		objects = nullptr;
-		boundary.halfSize.x = CentipedeGameApp::instance->getWindowWidth() / 2;
-		boundary.halfSize.y = CentipedeGameApp::instance->getWindowHeight() / 2;
+		boundary.halfSize.x = (float)CentipedeGameApp::instance->getWindowWidth() / 2;
+		boundary.halfSize.y = (float)CentipedeGameApp::instance->getWindowHeight() / 2;
 		boundary.center = boundary.halfSize;
 	}
 

@@ -105,7 +105,7 @@ void HashScene::Draw(Renderer2D* renderer)
 	//Draw the texture and its address
 	if (textureToDisplay != nullptr)
 	{
-		renderer->drawSprite(textureToDisplay, app->getWindowWidth() / 2, (app->getWindowHeight() / 2) + (sin(app->getTime() * 0.5) * 50));
+		renderer->drawSprite(textureToDisplay, (float)app->getWindowWidth() / 2, (app->getWindowHeight() / 2) + (float)(sin(app->getTime() * 0.5) * 50));
 
 		ostringstream stream;
 		stream << "Texture address: " << &textureToDisplay;
