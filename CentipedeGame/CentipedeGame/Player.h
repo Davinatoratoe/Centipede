@@ -20,7 +20,7 @@ public:
 	void Draw(Renderer2D* renderer) override;
 
 private:
-	const float MAX_SPEED = 350;		//The movement speed of the player
+	const float MAX_SPEED = 400;		//The movement speed of the player
 	const float BULLET_SPEED = 650;		//The movement speed of bullets
 	const float BULLET_COOLDOWN = 0.3f;	//The cooldown between firing bullets (in seconds)
 	float bulletCooldown;				//The timer used to track whether the player can shoot again (in seconds)

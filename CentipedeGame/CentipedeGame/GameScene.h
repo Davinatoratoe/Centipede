@@ -20,6 +20,8 @@ public:
 	List<Sprite*>* mushrooms;					//Pointer to the mushrooms
 	CentipedeController* centipedeController;	//Pointer to the centipede controller
 	bool gameOver;		//True if the player lost
+	unsigned int score;	//The score
+	unsigned int wave;	//The wave - increases when all centipedes are defeated
 
 	GameScene();	//Overloaded constructor
 	~GameScene();	//Deconstructor

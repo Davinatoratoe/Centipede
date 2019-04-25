@@ -59,12 +59,16 @@ void CentipedeController::Update(float deltaTime, Input* input)
 
 			//Destroy the bullet
 			gameScene->player->bullets->Remove(*bullet);
+
+			//Add to score
+			gameScene->score += 50;
 			
 			//If the centipede was completely destroyed
 			if (newCentipede == nullptr && centipede->segments->Size() == 0)
 			{
 				centipedes->Remove(i);
 				--i;
+				gameScene->score += 200; //Add to score
 				continue;
 			}
 			//If the remaining centipede was split off
