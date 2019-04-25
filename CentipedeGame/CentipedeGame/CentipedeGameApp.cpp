@@ -11,6 +11,7 @@
 #include "DequeueScene.h"
 #include "HashScene.h"
 #include "QuadTreeScene.h"
+#include "HeapScene.h"
 
 //Initialise the static instance variable
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
@@ -63,6 +64,7 @@ bool CentipedeGameApp::startup()
 	dequeueScene = new DequeueScene();
 	hashScene = new HashScene();
 	quadScene = new QuadScene();
+	heapScene = new HeapScene();
 	
 	//Set the starting scene to the main menu
 	ChangeScene(menuScene);

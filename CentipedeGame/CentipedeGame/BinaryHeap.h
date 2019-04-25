@@ -10,31 +10,13 @@ class Heap
 private:
 	T* data;				//Array
 	unsigned int size;		//Size of the heap
-	const unsigned int MAX_SIZE = 100;
+	const unsigned int MAX_SIZE = 100;	//Maximum size of the heap
 
-	int GetParent(unsigned int index)
-	{
-		if (index == 0)
-			return -1;
-		return (int)floor((index - 1) / 2);
-	}
-
-	int GetFirstChild(unsigned int index)
-	{
-		int result = (2 * index) + 1;
-		if (result > size)
-			return -1;
-		return result;
-	}
-
-	int GetSecondChild(unsigned int index)
-	{
-		int result = (2 * index) + 2;
-		if (result > size)
-			return -1;
-		return result;
-	}
-
+	/// <summary>
+	/// Swap two values in the heap.
+	/// </summary>
+	/// <param name="a">Value A.</param>
+	/// <param name="b">Value B.</param>
 	void Swap(T* a, T* b)
 	{
 		T temp = *a;
@@ -129,7 +111,7 @@ public:
 		while (index > 0 && data[parentIndex] < data[index])
 		{
 			//Swap the value and its parent
-			Swap(data[parentIndex], data[index]);
+			Swap(&data[parentIndex], &data[index]);
 
 			//Set the index to the parent's index
 			index = parentIndex;
@@ -144,7 +126,8 @@ public:
 	/// </summary>
 	void Pop()
 	{
-
+		if (size > 0)
+			--size;
 	}
 
 	/// <summary>
@@ -153,7 +136,43 @@ public:
 	/// <param name="value">The value to remove from the heap.</param>
 	void Remove(const T& value)
 	{
+		if (size == 0)
+			return;
+		else if (data[size - 1] == value)
+			Pop();
+		else if (Contains(value))
+		{
+			int index = Find(value);				//Find the index of the value to be removed
+			Swap(&data[index], &data[size - 1]);	//Swap the value to be removed with the last value
+			Pop();									//Pop the last value (reduces the size)
 
+			//Swap the value with its child if the value is larger - pick the larger child
+			//Repeat until there are no more swaps required
+			while (index < size										//Index is in the bounds of the heap. and
+				&& ((HasFirstChild(index) && data[index] < data[GetFirstChild(index)])		//The value is larger than the first child, or
+					|| (HasSecondChild(index) && data[index] < data[GetSecondChild(index)])))	//The value is larger than the second child
+			{
+				//Get the larger child
+				int largerIndex = (data[GetFirstChild(index)] > data[GetSecondChild(index)])
+					? GetFirstChild(index) : GetSecondChild(index);
+
+				//Swap the value and the larger child
+				Swap(&data[index], &data[largerIndex]);
+
+				//Set the index to the larger child's index
+				index = largerIndex;
+			}
+		}
+	}
+
+	/// <summary>
+	/// Check if the heap contains a given value.
+	/// </summary>
+	/// <param name="value">The value to check is in the heap.</param>
+	/// <returns>True if the value is contained in the heap.</returns>
+	bool Contains(const T& value) const
+	{
+		return Find(value) != -1;
 	}
 
 	/// <summary>
@@ -161,7 +180,97 @@ public:
 	/// </summary>
 	void Clear()
 	{
+		size = 0;
+	}
 
+	/// <summary>
+	/// Get the parent index of the given index.
+	/// </summary>
+	/// <param name="index">The index to get the parent index of.</param>
+	/// <returns>The index of the parent, -1 if there isn't one.</returns>
+	int GetParent(unsigned int index) const
+	{
+		if (index == 0)
+			return -1;
+		return (int)floor((index - 1) / 2);
+	}
+
+	/// <summary>
+	/// Get the first child index of the given index.
+	/// </summary>
+	/// <param name="index">The index to get the first child of.</param>
+	/// <returns>The index of the first child, -1 if there isn't one.</returns>
+	int GetFirstChild(unsigned int index) const
+	{
+		int result = (2 * index) + 1;
+		if (result >= size)
+			return -1;
+		return result;
+	}
+
+	/// <summary>
+	/// Get the second child index of the given index.
+	/// </summary>
+	/// <param name="index">The index to get the second child of.</param>
+	/// <returns>The index of the second child, -1 if there isn't one.</returns>
+	int GetSecondChild(unsigned int index) const
+	{
+		int result = (2 * index) + 2;
+		if (result >= size)
+			return -1;
+		return result;
+	}
+
+	/// <summary>
+	/// Check if the given index has a parent.
+	/// </summary>
+	/// <param name="index">The index to check.</param>
+	/// <returns>True if a parent exists for the given index.</returns>
+	bool HasParent(unsigned int index) const
+	{
+		return GetParent(index) != -1;
+	}
+
+	/// <summary>
+	/// Check if the given index has a first child.
+	/// </summary>
+	/// <param name="index">The index to check.</param>
+	/// <returns>True if a first child exists for the given index.</returns>
+	bool HasFirstChild(unsigned int index) const
+	{
+		return GetFirstChild(index) != -1;
+	}
+
+	/// <summary>
+	/// Check if the given index has a first second.
+	/// </summary>
+	/// <param name="index">The index to check.</param>
+	/// <returns>True if a second child exists for the given index.</returns>
+	bool HasSecondChild(unsigned int index) const
+	{
+		return GetSecondChild(index) != -1;
+	}
+
+	/// <summary>
+	/// Find the index of a value in the heap.
+	/// </summary>
+	/// <param name="value">The value to search for.</param>
+	/// <returns>The index of the value, -1 otherwise.</returns>
+	int Find(const T& value) const
+	{
+		for (unsigned int i = 0; i < size; ++i)
+			if (data[i] == value)
+				return i;
+		return -1;
+	}
+
+	/// <summary>
+	/// Get the index of the root of the heap.
+	/// </summary>
+	/// <returns>The index of the root, -1 if the tree is empty.</returns>
+	int GetRootIndex() const
+	{
+		return size == 0 ? -1 : 0;
 	}
 
 	/// <summary>

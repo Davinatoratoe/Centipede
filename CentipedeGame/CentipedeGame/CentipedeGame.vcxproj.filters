@@ -52,6 +52,9 @@
     <ClCompile Include="QuadTreeScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="HeapScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -121,6 +124,9 @@
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="QuadTreeScene.h">
+      <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="HeapScene.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,6 +5,7 @@
 #include "Dequeue.h"
 #include "LinkedList.h"
 #include "Stack.h"
+#include "BinaryHeap.h"
 
 using namespace std;
 
@@ -216,8 +217,23 @@ void TestStack()
 	cout << "---Finished testing Stack" << endl;
 }
 
+void TestBinaryHeap()
+{
+	Heap<int> heap;
+	heap.Push(20);
+	heap.Push(60);
+	heap.Push(100);
+	heap.Push(10);
+	heap.Push(40);
+	heap.Push(70);
+	heap.PrintDetails();
+}
+
 int main() 
 {
+	//TestBinaryHeap();
+	//return 0;
+
 	// allocation
 	auto app = new CentipedeGameApp();
 
