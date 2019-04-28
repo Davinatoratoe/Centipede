@@ -183,6 +183,9 @@ public:
 		{
 			if (node != nullptr)
 				return node->data;
+
+			//Throw an error if the node does not exist
+			throw out_of_range("Node at this iterator does not exist.");
 		}
 
 		/// <summary>
@@ -194,6 +197,9 @@ public:
 		{
 			if (node != nullptr)
 				return node->data;
+			
+			//Throw an error if the node does not exist
+			throw out_of_range("Node at this iterator does not exist.");
 		}
 	};
 
@@ -545,6 +551,9 @@ public:
 	{
 		if (head != nullptr)
 			return head->data;
+
+		//Throw an error if the head does not exist
+		throw out_of_range("Head value does not exist.");
 	}
 
 	/// <summary>
@@ -555,6 +564,9 @@ public:
 	{
 		if (tail != nullptr)
 			return tail->data;
+		
+		//Throw an error if the tail does not exist
+		throw out_of_range("Tail value does not exist.");
 	}
 
 	/// <summary>

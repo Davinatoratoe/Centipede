@@ -628,6 +628,9 @@ public:
 	{
 		if (index >= 0 && index < size)
 			return data[index];
+
+		//Throw an error if the index is outside the range of the list
+		throw out_of_range("Index out of range.");
 	}
 
 	/// <summary>

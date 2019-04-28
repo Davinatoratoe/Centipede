@@ -132,6 +132,9 @@ public:
 	{
 		if (size > 0)
 			return data[size - 1];
+
+		//Throw an error if the top value doesn't exist
+		throw out_of_range("Top value does not exist.");
 	}
 
 	/// <summary>

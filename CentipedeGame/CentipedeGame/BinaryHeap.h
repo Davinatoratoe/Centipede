@@ -301,6 +301,9 @@ public:
 	{
 		if (index >= 0 && index < size)
 			return data[index];
+		
+		//Throw an exception if the index is not within the range of the heap
+		throw out_of_range("Index out of range.");
 	}
 
 	/// <summary>
