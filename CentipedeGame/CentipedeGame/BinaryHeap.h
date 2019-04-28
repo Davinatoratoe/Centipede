@@ -321,6 +321,49 @@ public:
 	}
 
 	/// <summary>
+	/// Recursively prints the heap to an ostream.
+	/// https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/
+	/// </summary>
+	/// <param name="os">The ostream the print the heap to.</param>
+	/// <param name="node">The current node to process. (Initially root)</param>
+	/// <param name="space">The space between the levels. (Initially 0)</param>
+	friend void PrintTree(ostream& os, unsigned int index, int space) const
+	{
+		//Exit if the index isn't valid
+		if (index == -1)
+			return;
+
+		//Increase the distance between the levels
+		space += 5;
+
+		//Process the right child
+		PrintTree(os, GetSecondChild(index), space);
+
+		//Print the current node
+		os << endl;
+		for (int i = 5; i < space; ++i)
+			os << " ";
+		os << data[index] << endl;
+
+		//Process the left child
+		PrintTree(os, GetFirstChild(index), space);
+	}
+
+	/// <summary>
+	/// Overloaded << operator.
+	/// Displays the heap to an ostream.
+	/// </summary>
+	/// <param name="os">The ostream to print the heap to.</param>
+	/// <param name="tree">The heap to print.</param>
+	/// <returns>The ostream with the heap printed to it.</returns>
+	friend ostream& operator<< (ostream& os, const Heap<T>& heap)
+	{
+		//Call the other friend function to recursively print the tree
+		PrintTreeF(os, heap.GetRootIndex(), 0);
+		return os;
+	}
+
+	/// <summary>
 	/// Print details about the tree.
 	/// </summary>
 	void PrintDetails() const
@@ -329,10 +372,23 @@ public:
 		if (size > 0)
 		{
 			//Call a function to recursively print the heap to std::cout
-			PrintTree(0, 0);
+			PrintTree(GetRootIndex(), 0);
 		}
 		else
 			cout << "Empty" << endl;
 		cout << endl;
+	}
+
+	/// <summary>
+	/// Get the heap represented as a string.
+	/// https://stackoverflow.com/questions/3513173/converting-ostream-into-standard-string
+	/// http://www.cplusplus.com/reference/sstream/stringstream/str/
+	/// </summary>
+	/// <returns>A string representation of the heap.</returns>
+	string ToString() const
+	{
+		ostringstream stream;
+		stream << *this;
+		return stream.str();
 	}
 };

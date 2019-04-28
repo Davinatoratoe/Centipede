@@ -219,6 +219,8 @@ void TestStack()
 
 void TestBinaryHeap()
 {
+	cout << "---Testing Heap" << endl;
+
 	Heap<int> heap;
 	heap.Push(20);
 	heap.Push(60);
@@ -227,6 +229,10 @@ void TestBinaryHeap()
 	heap.Push(40);
 	heap.Push(70);
 	heap.PrintDetails();
+
+	cout << "Heap: " << heap << endl;
+
+	cout << "---Finished testing Heap" << endl;
 }
 
 int main() 
