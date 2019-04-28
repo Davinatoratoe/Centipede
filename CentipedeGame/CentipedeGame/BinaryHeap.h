@@ -327,7 +327,7 @@ public:
 	/// <param name="os">The ostream the print the heap to.</param>
 	/// <param name="node">The current node to process. (Initially root)</param>
 	/// <param name="space">The space between the levels. (Initially 0)</param>
-	friend void PrintTree(ostream& os, unsigned int index, int space) const
+	friend void PrintTreeF(ostream& os, const Heap<T>& heap, unsigned int index, int space)
 	{
 		//Exit if the index isn't valid
 		if (index == -1)
@@ -337,16 +337,16 @@ public:
 		space += 5;
 
 		//Process the right child
-		PrintTree(os, GetSecondChild(index), space);
+		PrintTreeF(os, heap, heap.GetSecondChild(index), space);
 
 		//Print the current node
 		os << endl;
 		for (int i = 5; i < space; ++i)
 			os << " ";
-		os << data[index] << endl;
+		os << heap[index] << endl;
 
 		//Process the left child
-		PrintTree(os, GetFirstChild(index), space);
+		PrintTreeF(os, heap, heap.GetFirstChild(index), space);
 	}
 
 	/// <summary>
@@ -359,7 +359,7 @@ public:
 	friend ostream& operator<< (ostream& os, const Heap<T>& heap)
 	{
 		//Call the other friend function to recursively print the tree
-		PrintTreeF(os, heap.GetRootIndex(), 0);
+		PrintTreeF(os, heap, heap.GetRootIndex(), 0);
 		return os;
 	}
 

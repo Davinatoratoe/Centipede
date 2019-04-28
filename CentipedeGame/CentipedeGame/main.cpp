@@ -9,12 +9,19 @@
 
 using namespace std;
 
+/// <summary>
+/// Print the given tree node.
+/// </summary>
+/// <param name="node">The node to print.</param>
 template <typename T>
 void PrintNode(BinaryTreeNode<T>* node)
 {
 	cout << node->data << " ";
 }
 
+/// <summary>
+/// Test the Binary Tree.
+/// </summary>
 void TestBinaryTree()
 {
 	cout << "---Testing Binary Tree" << endl;
@@ -71,6 +78,9 @@ void TestBinaryTree()
 	cout << "---Finished testing Binary Tree" << endl;
 }
 
+/// <summary>
+/// Test the Dynamic List.
+/// </summary>
 void TestDynamicList()
 {
 	cout << "--- Testing Dynamic List" << endl;
@@ -108,6 +118,9 @@ void TestDynamicList()
 	cout << "--- Finished testing Dynamic List" << endl;
 }
 
+/// <summary>
+/// Test the Dequeue.
+/// </summary>
 void TestDequeue()
 {
 	cout << "---Testing Dequeue" << endl;
@@ -139,6 +152,9 @@ void TestDequeue()
 	cout << "---Finished testing Dequeue" << endl;
 }
 
+/// <summary>
+/// Test the Linked List.
+/// </summary>
 void TestLinkedList()
 {
 	cout << "---Testing Linked List" << endl;
@@ -184,6 +200,9 @@ void TestLinkedList()
 	cout << "---Finished Testing" << endl;
 }
 
+/// <summary>
+/// Test the Stack.
+/// </summary>
 void TestStack()
 {
 	cout << "---Testing Stack" << endl;
@@ -217,28 +236,68 @@ void TestStack()
 	cout << "---Finished testing Stack" << endl;
 }
 
+/// <summary>
+/// Try accessing the heap by a given index to see if an exception is thrown correctly.
+/// </summary>
+/// <param name="heap">The heap to access.</param>
+/// <param name="index">The index to access the heap at.</param>
+void TryAccessHeap(Heap<int>& heap, unsigned int index)
+{
+	cout << "Try index " << index << ": ";
+	try
+	{
+		cout << heap[index];
+	}
+	catch (const out_of_range& e)
+	{
+		cout << e.what();
+	}
+	cout << endl;
+}
+
+/// <summary>
+/// Test the Binary Heap.
+/// </summary>
 void TestBinaryHeap()
 {
 	cout << "---Testing Heap" << endl;
 
-	Heap<int> heap;
-	heap.Push(20);
+	Heap<int> heap;				//Default constructor
+	heap.Push(20);				//Push
 	heap.Push(60);
 	heap.Push(100);
 	heap.Push(10);
 	heap.Push(40);
 	heap.Push(70);
+	heap.PrintDetails();		//Print details
+
+	heap.Pop();					//Pop
 	heap.PrintDetails();
 
-	cout << "Heap: " << heap << endl;
+	heap.Remove(100);			//Remove
+	heap.PrintDetails();
+
+	cout << "Contains 40? " << heap.Contains(40) << endl;	//Contains
+	cout << "Find 40: " << heap.Find(40) << endl;			//Find
+	cout << "Contains 12? " << heap.Contains(12) << endl;
+	cout << "Find 12: " << heap.Find(12) << endl;
+	cout << endl << "Root: " << heap.Peek() << endl;		//Peek
+	cout << "Root index: " << heap.GetRootIndex() << endl;	//Root Index
+	cout << "Root's first child: " << heap[heap.GetFirstChild(heap.GetRootIndex())] << endl;	//Get first child
+	cout << "Root's second child: " << heap[heap.GetSecondChild(heap.GetRootIndex())] << endl;	//Get second child
+	cout << "Size: " << heap.Size() << endl << endl;	//Size
+
+	TryAccessHeap(heap, 2);
+	TryAccessHeap(heap, 20);
+	TryAccessHeap(heap, -10);
 
 	cout << "---Finished testing Heap" << endl;
 }
 
 int main() 
 {
-	//TestBinaryHeap();
-	//return 0;
+	TestBinaryHeap();
+	return 0;
 
 	// allocation
 	auto app = new CentipedeGameApp();
