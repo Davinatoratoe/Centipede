@@ -287,9 +287,23 @@ void TestBinaryHeap()
 	cout << "Root's second child: " << heap[heap.GetSecondChild(heap.GetRootIndex())] << endl;	//Get second child
 	cout << "Size: " << heap.Size() << endl << endl;	//Size
 
-	TryAccessHeap(heap, 2);
+	TryAccessHeap(heap, 2);		//Exceptions
 	TryAccessHeap(heap, 20);
 	TryAccessHeap(heap, -10);
+	cout << endl;
+
+	Heap<int> heap2(heap);		//Copy constructor
+	heap2.Clear();				//Clear
+	heap2.PrintDetails();
+
+	heap2 = heap;				//Assignment operator
+	heap2.Push(200);
+	heap2.PrintDetails();
+
+	heap2 = Heap<int>(40);		//Overloaded constructor
+	cout << "Root: " << heap2.Peek() << endl;
+
+	cout << "Heap: " << heap << endl;	//<< operator
 
 	cout << "---Finished testing Heap" << endl;
 }

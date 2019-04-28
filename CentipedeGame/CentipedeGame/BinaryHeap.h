@@ -64,6 +64,18 @@ public:
 	}
 
 	/// <summary>
+	/// Overloaded constructor.
+	/// </summary>
+	/// <param name="rootValue">The value of the root.</param>
+	Heap(const T& rootValue)
+	{
+		size = 0;
+		data = new T[MAX_SIZE];
+		memset(data, 0, sizeof(T) * MAX_SIZE);
+		Push(rootValue);
+	}
+
+	/// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="copy"></param>
@@ -281,6 +293,9 @@ public:
 	{
 		if (size > 0)
 			return data[0];
+
+		//Throw an exception if the root does not exist
+		throw out_of_range("Root value does not exist.");
 	}
 
 	/// <summary>
