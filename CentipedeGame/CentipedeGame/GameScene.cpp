@@ -30,6 +30,9 @@ GameScene::~GameScene()
 /// </summary>
 void GameScene::OnStart()
 {
+	//Input a seed for the random number generator
+	srand((unsigned int)app->getTime());
+
 	//Set the window size
 	app->setWindowSize(app->DEFAULT_WINDOW_WIDTH, app->DEFAULT_WINDOW_HEIGHT);
 
