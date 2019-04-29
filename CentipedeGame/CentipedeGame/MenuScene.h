@@ -13,10 +13,8 @@
 class MenuScene : public Scene
 {
 public:
-	Font* font;		//The font to use
-
 	MenuScene();	//Overloaded constructor
-	~MenuScene();			//Deconstructor
+	~MenuScene();	//Deconstructor
 
 	void OnStart() override;	//Called when the scene starts
 	void OnClose() override;	//Called when the scene closes

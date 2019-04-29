@@ -30,6 +30,9 @@ GameScene::~GameScene()
 /// </summary>
 void GameScene::OnStart()
 {
+	//Set the window size
+	app->setWindowSize(app->DEFAULT_WINDOW_WIDTH, app->DEFAULT_WINDOW_HEIGHT);
+
 	//Set values to initial state
 	gameOver = false;
 	score = 0;
@@ -86,6 +89,10 @@ void GameScene::Update(float deltaTime, Input* input)
 	//If the game is running
 	if (!gameOver)
 	{
+		//Check that the window hasn't been resized, and if so, resize it back
+		if (app->getWindowWidth() != app->DEFAULT_WINDOW_WIDTH || app->getWindowHeight() != app->DEFAULT_WINDOW_HEIGHT)
+			app->setWindowSize(app->DEFAULT_WINDOW_WIDTH, app->DEFAULT_WINDOW_HEIGHT);
+
 		//Update the player
 		player->Update(deltaTime, input);
 

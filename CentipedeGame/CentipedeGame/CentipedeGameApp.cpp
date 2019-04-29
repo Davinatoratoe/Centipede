@@ -39,6 +39,9 @@ CentipedeGameApp::~CentipedeGameApp()
 /// <returns>True if the application loaded correctly successfully.</returns>
 bool CentipedeGameApp::startup() 
 {
+	//Set the window size
+	setWindowSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
+
 	//Create the Renderer
 	renderer = new Renderer2D();
 
@@ -88,6 +91,11 @@ void CentipedeGameApp::shutdown()
 	delete menuScene;
 	delete listScene;
 	delete treeScene;
+	delete linkedListScene;
+	delete stackScene;
+	delete hashScene;
+	delete quadScene;
+	delete heapScene;
 }
 
 /// <summary>

@@ -51,6 +51,9 @@ public:
 	// returns the width / height of the game window
 	unsigned int getWindowWidth() const;
 	unsigned int getWindowHeight() const;
+
+	// sets the width / height of the game window
+	void setWindowSize(unsigned int w, unsigned int h);
 	
 	// returns time since application started
 	float getTime() const;

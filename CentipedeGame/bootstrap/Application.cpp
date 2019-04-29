@@ -159,6 +159,11 @@ unsigned int Application::getWindowHeight() const {
 	return h;
 }
 
+void Application::setWindowSize(unsigned int w, unsigned int h)
+{
+	glfwSetWindowSize(m_window, w, h);
+}
+
 float Application::getTime() const {
 	return (float)glfwGetTime();
 }

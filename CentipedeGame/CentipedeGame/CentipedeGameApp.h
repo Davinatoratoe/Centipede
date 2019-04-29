@@ -16,6 +16,9 @@ using namespace aie;
 class CentipedeGameApp : public Application 
 {
 public:
+	const unsigned int DEFAULT_WINDOW_WIDTH = 720;
+	const unsigned int DEFAULT_WINDOW_HEIGHT = 900;
+
 	static CentipedeGameApp* instance;	//Static pointer to the one instance of this class	
 	
 	Renderer2D*	renderer;	//Pointer to the renderer used for displaying graphics
