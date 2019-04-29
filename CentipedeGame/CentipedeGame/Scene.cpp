@@ -28,6 +28,9 @@ Scene::~Scene()
 /// <param name="sizeY">Size of the menu.</param>
 void Scene::CreateGUI(const char* name, float width)
 {
+	//Create a new menu that will automatically resize to fit elements added
 	Begin(name, (bool*)0, ImVec2(width, 0), -1.0F, ImGuiWindowFlags_AlwaysAutoResize);
+
+	//Set the position of the window only for the first time in the program's lifetime
 	SetWindowPos(ImVec2(app->getWindowWidth() - width - 20, 20), ImGuiSetCond_Once);
 }
