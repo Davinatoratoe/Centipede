@@ -45,6 +45,8 @@ void StackScene::OnClose()
 /// <param name="input">A pointer to the input handler.</param>
 void StackScene::Update(float deltaTime, Input* input)
 {
+	CreateGUI("Stack");
+
 	InputInt("Value", &value);
 
 	if (Button("Generate stack", ImVec2(150, 0)))
@@ -77,6 +79,8 @@ void StackScene::Update(float deltaTime, Input* input)
 
 	if (Button("Menu", ImVec2(150, 0)))
 		app->ChangeScene(app->menuScene);
+
+	End();
 }
 
 /// <summary>

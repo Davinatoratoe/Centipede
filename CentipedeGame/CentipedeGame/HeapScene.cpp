@@ -53,6 +53,8 @@ void HeapScene::OnClose()
 /// <param name="input">A pointer to the input handler.</param>
 void HeapScene::Update(float deltaTime, Input* input)
 {
+	CreateGUI("Binary Heap");
+
 	InputInt("Value", &value);
 
 	if (Button("Generate heap", ImVec2(150, 0)))	//Create a template heap to mess around with
@@ -91,6 +93,8 @@ void HeapScene::Update(float deltaTime, Input* input)
 
 	if (Button("Menu", ImVec2(150, 0)))		//Return to the main menu
 		app->ChangeScene(app->menuScene);
+
+	End();
 
 	float mouseScroll = (float)(input->getMouseScroll() - oldMouseScroll) * ZOOM_FACTOR;	//Get how much the mouse scrolled since last frame
 	oldMouseScroll = input->getMouseScroll();	//Remember how far it was scrolled to use in next frame's calculation

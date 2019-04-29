@@ -57,6 +57,8 @@ void QuadScene::Update(float deltaTime, Input* input)
 		quadTree.Insert(sprite);
 	}
 
+	CreateGUI("Quad Tree");
+
 	if (Button("Select ship texture", ImVec2(150, 0)))
 		selectedTexture = shipTexture;
 
@@ -83,6 +85,8 @@ void QuadScene::Update(float deltaTime, Input* input)
 
 	if (Button("Menu", ImVec2(150, 0)))
 		app->ChangeScene(app->menuScene);
+
+	End();
 }
 
 /// <summary>

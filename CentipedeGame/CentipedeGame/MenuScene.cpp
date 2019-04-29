@@ -44,6 +44,8 @@ void MenuScene::OnClose()
 /// <param name="input">A pointer to the input handler.</param>
 void MenuScene::Update(float deltaTime, Input* input)
 {
+	CreateGUI("Main Menu");
+
 	if (Button("Play Centipede", ImVec2(150, 0)))		//Button to play Centipede
 		app->ChangeScene(app->gameScene);
 	
@@ -73,6 +75,8 @@ void MenuScene::Update(float deltaTime, Input* input)
 
 	if (Button("Exit", ImVec2(150, 0)))					//Quit the game
 		app->quit();
+
+	End();
 }
 
 /// <summary>

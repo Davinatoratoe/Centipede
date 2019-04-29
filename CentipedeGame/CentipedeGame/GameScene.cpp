@@ -121,6 +121,8 @@ void GameScene::Update(float deltaTime, Input* input)
 	//If the game was lost
 	else
 	{
+		CreateGUI("Game Over");
+
 		//Button to play the game again
 		if (Button("Play again", ImVec2(150, 0)))
 			app->ChangeScene(app->gameScene);
@@ -128,6 +130,8 @@ void GameScene::Update(float deltaTime, Input* input)
 		//Button to return to the main menu
 		if (Button("Menu", ImVec2(150, 0)))
 			app->ChangeScene(app->menuScene);
+
+		End();
 	}
 }
 

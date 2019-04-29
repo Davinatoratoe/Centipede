@@ -27,4 +27,7 @@ public:
 	virtual void OnClose() = 0;									//Called when the scene closes
 	virtual void Update(float deltaTime, Input* input) = 0;		//Called once per frame to update the scene
 	virtual void Draw(Renderer2D* renderer) = 0;				//Called to draw the scene
+
+protected:
+	void CreateGUI(const char *name, float width = 280);
 };
