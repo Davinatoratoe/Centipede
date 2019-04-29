@@ -108,7 +108,7 @@ void GameScene::Update(float deltaTime, Input* input)
 		{
 			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 2));
 			++wave;
-			score += (1000 + (500 * wave));
+			score += SCORE_WAVE_COMPLETE * wave;
 		}
 
 		//Check through the centipede's heads to see if they are below the player

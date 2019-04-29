@@ -104,7 +104,8 @@ void Centipede::Move(float deltaTime)
 		segments->Last()->RotateToFace();
 
 	//Reset the move timer
-	moveTimer = MOVE_TIME - (MOVE_TIME / segments->Size());
+	unsigned int moveFactor = segments->Size() > 2 ? segments->Size() : 3;
+	moveTimer = MOVE_TIME - (MOVE_TIME / moveFactor);
 }
 
 /// <summary>

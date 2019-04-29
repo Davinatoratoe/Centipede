@@ -314,7 +314,7 @@ int main()
 	auto app = new CentipedeGameApp();
 
 	// initialise and loop
-	app->run("Centipede", 720, 900, false);
+	app->run("Centipede", 800, 600, false);
 
 	// deallocation
 	delete app;

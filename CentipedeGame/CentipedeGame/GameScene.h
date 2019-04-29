@@ -23,6 +23,9 @@ public:
 	unsigned int wave;	//The wave, increases when all centipedes are defeated
 
 	unsigned int CENTIPEDE_INITIAL_LENGTH = 20;	//The initial length of the first centipede
+	unsigned int SCORE_SEGMENT_KILLED = 50;		//The points gained when a segment is killed
+	unsigned int SCORE_CENTIPEDE_KILLED = 200;	//The points gained when a centipede is killed
+	unsigned int SCORE_WAVE_COMPLETE = 1000;	//The points gained when the first wave is completed (incremental)
 
 	GameScene();	//Overloaded constructor
 	~GameScene();	//Deconstructor
