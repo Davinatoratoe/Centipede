@@ -1,5 +1,5 @@
-#include "CentipedeGameApp.h"
 #include <iostream>
+#include "CentipedeGameApp.h"
 #include "BinaryTree.h"
 #include "DynamicList.h"
 #include "Dequeue.h"
@@ -310,9 +310,6 @@ void TestBinaryHeap()
 
 int main() 
 {
-	TestBinaryHeap();
-	return 0;
-
 	// allocation
 	auto app = new CentipedeGameApp();
 

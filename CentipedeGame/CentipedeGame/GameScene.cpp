@@ -30,23 +30,30 @@ GameScene::~GameScene()
 /// </summary>
 void GameScene::OnStart()
 {
+	//Set values to initial state
 	gameOver = false;
 	score = 0;
 	wave = 0;
+
+	//Set the starting position of the player ship
 	player->position.x = 100;
 	player->position.y = 70;
-	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20);
+
+	//Create the centipede at the top of the screen with an initial length of 20
+	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, CENTIPEDE_INITIAL_LENGTH);
 
 	//Generate random mushroom placements
-	const int MAX_MUSHROOMS = 25;
-	int numberOfMushrooms = 0;
+	const int MAX_MUSHROOMS = 25;	//The number of mushrooms to generate
+	int numberOfMushrooms = 0;		//The number of mushrooms that have been generated
+
+	//While the number of mushrooms that have been generated does not exceed the max number, spawn mushrooms
 	while (numberOfMushrooms < MAX_MUSHROOMS)
 	{
 		SpawnMushroom(
-			(float)app->RandomRange(50, app->getWindowWidth() - 50),
-			(float)app->RandomRange(200, app->getWindowHeight() - 50)
+			(float)app->RandomRange(50, app->getWindowWidth() - 50),	//Choose a random x-position
+			(float)app->RandomRange(200, app->getWindowHeight() - 50)	//Choose a random y-position
 		);
-		++numberOfMushrooms;
+		++numberOfMushrooms;	//Increment the number of mushrooms generated
 	}
 }
 
@@ -76,6 +83,7 @@ void GameScene::SpawnMushroom(float x, float y)
 /// <param name="input">Pointer to the input handler.</param>
 void GameScene::Update(float deltaTime, Input* input) 
 {
+	//If the game is running
 	if (!gameOver)
 	{
 		//Update the player
@@ -93,6 +101,7 @@ void GameScene::Update(float deltaTime, Input* input)
 		{
 			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 2));
 			++wave;
+			score += (1000 + (500 * wave));
 		}
 
 		//Check through the centipede's heads to see if they are below the player
@@ -109,11 +118,14 @@ void GameScene::Update(float deltaTime, Input* input)
 			}
 		}
 	}
+	//If the game was lost
 	else
 	{
+		//Button to play the game again
 		if (Button("Play again", ImVec2(150, 0)))
 			app->ChangeScene(app->gameScene);
 
+		//Button to return to the main menu
 		if (Button("Menu", ImVec2(150, 0)))
 			app->ChangeScene(app->menuScene);
 	}

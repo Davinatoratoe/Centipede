@@ -7,9 +7,6 @@
 using namespace aie;
 
 class CentipedeGameApp;
-template <typename T> class List;
-template <typename T> class Dequeue;
-template <typename T, typename G> struct Tuple;
 
 class Sprite
 {

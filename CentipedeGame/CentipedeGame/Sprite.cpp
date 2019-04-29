@@ -1,7 +1,5 @@
 #include "Sprite.h"
 #include "CentipedeGameApp.h"
-#include "DynamicList.h"
-#include "Dequeue.h"
 
 /// <summary>
 /// Default constructor.

@@ -1,5 +1,6 @@
 #include "Centipede.h"
 #include "GameScene.h"
+#include "CentipedeGameApp.h"
 
 /// <summary>
 /// Default constructor.

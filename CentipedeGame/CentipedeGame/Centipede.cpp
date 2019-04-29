@@ -104,7 +104,7 @@ void Centipede::Move(float deltaTime)
 		segments->Last()->RotateToFace();
 
 	//Reset the move timer
-	moveTimer = MOVE_TIME;
+	moveTimer = MOVE_TIME - (MOVE_TIME / segments->Size());
 }
 
 /// <summary>
@@ -137,6 +137,7 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 	if (segment == nullptr)
 		return nullptr;
 	
+	//Get a pointer to the game scene so we can spawn a mushroom
 	GameScene* gameScene = dynamic_cast<GameScene*>(segment->app->gameScene);
 	gameScene->SpawnMushroom(segment->position.x, segment->position.y);
 	
@@ -168,12 +169,18 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 		//Push the segments to the centipede from the back until we reach the destroyed segment
 		while (true)
 		{
+			//Push segments behind the hit segment to the new centipede
 			if (newSegment != segment)
 				centipede->segments->PushBack(newSegment);
+			
+			//Pop the segment off this centipede (because it was added to the new one, or is the one that was hit)
 			segments->PopBack();
 
+			//Break out of the loop if we are at the segment that was hit
 			if (newSegment == segment)
 				break;
+
+			//Otherwise set the segment to the new last segment on the centipede
 			newSegment = segments->Last();
 		}
 		
@@ -185,6 +192,7 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 		return centipede;
 	}
 
+	//Return a nullptr - should never execute
 	return nullptr;
 }
 
@@ -274,6 +282,7 @@ Segment* Centipede::CheckForBullet(Sprite** _bullet) const
 /// <param name="input">A pointer to the input handle.</param>
 void Centipede::Update(float deltaTime, Input* input)
 {
+	//Don't update if the centipede has no segments
 	if (segments->Size() == 0)
 		return;
 

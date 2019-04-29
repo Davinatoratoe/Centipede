@@ -17,8 +17,10 @@ public:
 	Segment(float x, float y, bool isHead, bool isTail);	//Overloaded constructor
 	~Segment();	//Deconstructor
 
+	//Set this segment as the head (change the sprite)
 	void SetHead();
 
+	//Set this segment as the tail (change the sprite)
 	void SetTail();
 
 	//Rotate the segment to face the direction of movement
@@ -42,7 +44,7 @@ public:
 	bool moveDown;					//Whether to move the head down
 	float moveTimer = 0;			//Timer to delay movements
 
-	const float MOVE_TIME = 0.03f;	//The time to delay movements
+	const float MOVE_TIME = 0.025f;	//The time to delay movements
 
 	Centipede();	//Default constructor
 	Centipede(float x, float y, unsigned int length); //Overloaded constructor
