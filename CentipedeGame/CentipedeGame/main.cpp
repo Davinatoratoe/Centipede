@@ -308,6 +308,10 @@ void TestBinaryHeap()
 	cout << "---Finished testing Heap" << endl;
 }
 
+/// <summary>
+/// Main entry point for the program.
+/// </summary>
+/// <returns></returns>
 int main() 
 {
 	// allocation

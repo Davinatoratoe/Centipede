@@ -5,7 +5,7 @@ using namespace std;
 
 namespace HashFunction
 {
-	typedef function<unsigned int(const char*, unsigned int)> HashFunc;
+	typedef function<unsigned int(const unsigned char*, unsigned int)> HashFunc;
 
 	/// <summary>
 	/// Basic hashing.
@@ -13,7 +13,7 @@ namespace HashFunction
 	/// <param name="data">Data to be hashed.</param>
 	/// <param name="length">Length of the data.</param>
 	/// <returns>Hash value.</returns>
-	unsigned int BadHash(const char* data, unsigned int length)
+	unsigned int BadHash(const unsigned char* data, unsigned int length)
 	{
 		unsigned int hash = 0;
 		for (unsigned int i = 0; i < length; ++i)
@@ -59,6 +59,6 @@ namespace HashFunction
 		return (hash & 0x7FFFFFFF);
 	}
 	
-	static HashFunc default = BadHash;
+	static HashFunc default = BKDRHash;
 }
 

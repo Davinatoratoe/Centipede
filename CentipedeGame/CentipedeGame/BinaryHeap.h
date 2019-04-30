@@ -8,8 +8,8 @@ template <typename T>
 class Heap
 {
 private:
-	T* data;				//Array
-	unsigned int size;		//Size of the heap
+	T* data;							//Array
+	unsigned int size;					//Size of the heap
 	const unsigned int MAX_SIZE = 100;	//Maximum size of the heap
 
 	/// <summary>
