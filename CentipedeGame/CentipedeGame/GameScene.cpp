@@ -79,7 +79,14 @@ void GameScene::OnClose()
 /// <param name="y">The y-position of the mushroom.</param>
 void GameScene::SpawnMushroom(float x, float y)
 {
-	mushrooms->Push(new Sprite(app->shroomTexture, x, y));
+	//Create the mushroom
+	Sprite* mushroom = new Sprite(app->shroomTexture, x, y);
+
+	//Give the mushroom a random rotation
+	mushroom->rotation = (float)rand();
+
+	//Spawn the mushroom
+	mushrooms->Push(mushroom);
 }
 
 /// <summary>
@@ -101,7 +108,12 @@ void GameScene::Update(float deltaTime, Input* input)
 
 		//Update the mushrooms
 		for (unsigned int i = 0; i < (*mushrooms).Size(); ++i)
+		{
 			(*((*mushrooms)[i])).Update(deltaTime, input);
+
+			//Spin the mushrooms because now they're asteroids
+			(*((*mushrooms)[i])).rotation += 0.2F * deltaTime;
+		}
 
 		//Update the centipedes
 		centipedeController->Update(deltaTime, input);

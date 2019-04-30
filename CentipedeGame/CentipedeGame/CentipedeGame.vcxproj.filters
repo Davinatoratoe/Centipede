@@ -55,6 +55,9 @@
     <ClCompile Include="HeapScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Word.cpp">
+      <Filter>Source\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -128,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="HeapScene.h">
       <Filter>Headers\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Word.h">
+      <Filter>Headers\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -184,6 +184,7 @@
     <ClCompile Include="Segment.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StackScene.cpp" />
+    <ClCompile Include="Word.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BinaryHeap.h" />
@@ -210,6 +211,7 @@
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StackScene.h" />
+    <ClInclude Include="Word.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

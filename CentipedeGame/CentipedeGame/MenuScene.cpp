@@ -11,7 +11,7 @@ using namespace ImGui;
 MenuScene::MenuScene()
 {
 	//Create the title
-	title = new Word("CENTIPEDE", 9, app->font, 50, app->getWindowHeight() - 100);
+	title = new Word("CENTIPEDE", 9, app->font, 40, 50, app->getWindowHeight() - 100);
 }
 
 /// <summary>
