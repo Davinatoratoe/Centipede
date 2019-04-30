@@ -22,6 +22,8 @@ private:
 	unsigned int wave;	//The wave, increases when all centipedes are defeated
 	bool gameOver;		//True if the player lost
 	Word* gameOverTitle;	//Word displaying that the game was lost
+	bool cheatWindow;	//Whether to show the cheat window
+	int cheatValue;		//Value to manipulate the game
 
 public:
 	Player* player;								//Pointer to the player

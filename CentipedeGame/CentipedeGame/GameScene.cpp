@@ -44,6 +44,8 @@ void GameScene::OnStart()
 	displayScore = 0;
 	addDisplayScore = 1;
 	wave = 0;
+	cheatWindow = false;
+	cheatValue = 0;
 
 	//Set the starting position of the player ship
 	player->position.x = 100;
@@ -131,6 +133,37 @@ void GameScene::Update(float deltaTime, Input* input)
 	//If the game is running
 	if (!gameOver)
 	{
+		//Check whether to activate the cheat window
+		if (input->wasKeyPressed(INPUT_KEY_D))
+			cheatWindow = !cheatWindow;
+
+		//Cheat window
+		if (cheatWindow)
+		{
+			CreateGUI("Cheats");
+
+			//Get an input value
+			InputInt("Value: ", &cheatValue);
+
+			//Create a new centipede with a certain length
+			if (Button("Set length", ImVec2(150, 0)))
+				centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, cheatValue);
+
+			//Add points
+			else if (Button("Add points", ImVec2(150, 0)))
+				AddScore(cheatValue);
+
+			//Change the wave
+			else if (Button("Wave #", ImVec2(150, 0)))
+				wave = cheatValue;
+
+			//Beat wave
+			else if (Button("Beat wave", ImVec2(150, 0)))
+				centipedeController->centipedes->Clear();
+
+			End();
+		}
+
 		//Check if the displayed score isn't the same as the real score, and increase if so
 		if (displayScore < score)
 			displayScore += addDisplayScore;
