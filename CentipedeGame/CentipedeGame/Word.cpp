@@ -31,7 +31,7 @@ Letter::Letter(const char _letter, float _x, float _y)
 /// <param name="font">The font to use to draw the letter.</param>
 void Letter::Draw(Renderer2D* renderer, Font* font)
 {
-	renderer->drawText(font, &letter, x, y);
+	renderer->drawText(font, &letter + '\0', x, y);
 }
 
 /// <summary>

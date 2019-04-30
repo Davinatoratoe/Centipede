@@ -49,12 +49,12 @@ bool CentipedeGameApp::startup()
 	font = new Font("../bin/font/consolas.ttf", 30);
 
 	//Load the texture(s)
-	shipTexture = new Texture("./textures/ship.png");
-	bulletTexture = new Texture("./textures/bullet.png");
-	shroomTexture = new Texture("./textures/mushroom.png");
-	segmentTexture = new Texture("./textures/segment.png");
-	headTexture = new Texture("./textures/head.png");
-	tailTexture = new Texture("./textures/tail.png");
+	shipTexture = new Texture("../bin/textures/ship.png");
+	bulletTexture = new Texture("../bin/textures/bullet.png");
+	shroomTexture = new Texture("../bin/textures/mushroom.png");
+	segmentTexture = new Texture("../bin/textures/segment.png");
+	headTexture = new Texture("../bin/textures/head.png");
+	tailTexture = new Texture("../bin/textures/tail.png");
 
 	//Load the scenes(s)
 	currentScene = nullptr;
