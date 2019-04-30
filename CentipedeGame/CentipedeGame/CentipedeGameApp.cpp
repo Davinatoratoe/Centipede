@@ -44,17 +44,17 @@ bool CentipedeGameApp::startup()
 
 	//Create the Renderer
 	renderer = new Renderer2D();
-
+	
 	//Load the font(s)
-	font = new Font("../bin/font/consolas.ttf", 30);
+	font = GetFont("consolas.ttf", 30);
 
 	//Load the texture(s)
-	shipTexture = new Texture("../bin/textures/ship.png");
-	bulletTexture = new Texture("../bin/textures/bullet.png");
-	shroomTexture = new Texture("../bin/textures/mushroom.png");
-	segmentTexture = new Texture("../bin/textures/segment.png");
-	headTexture = new Texture("../bin/textures/head.png");
-	tailTexture = new Texture("../bin/textures/tail.png");
+	shipTexture = GetTexture("ship.png");
+	bulletTexture = GetTexture("bullet.png");
+	shroomTexture = GetTexture("mushroom.png");
+	segmentTexture = GetTexture("segment.png");
+	headTexture = GetTexture("head.png");
+	tailTexture = GetTexture("tail.png");
 
 	//Load the scenes(s)
 	currentScene = nullptr;
@@ -140,6 +140,35 @@ void CentipedeGameApp::draw()
 
 	//Done drawing sprites
 	renderer->end();
+}
+
+/// <summary>
+/// Load a texture from file.
+/// </summary>
+/// <param name="resourceName">The name of the texture.</param>
+/// <returns>A pointer to the texture.</returns>
+Texture* CentipedeGameApp::GetTexture(string resourceName)
+{
+	string path = ".";
+	if (DEBUG)
+		path += ".";
+	path += "/bin/textures/" + resourceName;
+	return new Texture(path.c_str());
+}
+
+/// <summary>
+/// Load a font from file.
+/// </summary>
+/// <param name="resourceName">The name of the font.</param>
+/// <param name="fontHeight">The height of the font.</param>
+/// <returns>A pointer to the font.</returns>
+Font* CentipedeGameApp::GetFont(string resourceName, unsigned short fontHeight)
+{
+	string path = ".";
+	if (DEBUG)
+		path += ".";
+	path += "/bin/font/" + resourceName;
+	return new Font(path.c_str(), fontHeight);
 }
 
 /// <summary>

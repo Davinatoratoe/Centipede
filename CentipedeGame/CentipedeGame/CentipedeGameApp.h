@@ -7,8 +7,10 @@
 #include "Application.h"
 #include "Renderer2D.h"
 #include "Scene.h"
+#include <string>
 
 using namespace aie;
+using namespace std;
 
 /// <summary>
 /// The CentipedeGameApp is what runs the application.
@@ -16,8 +18,16 @@ using namespace aie;
 class CentipedeGameApp : public Application 
 {
 public:
-	const unsigned int DEFAULT_WINDOW_WIDTH = 720;
-	const unsigned int DEFAULT_WINDOW_HEIGHT = 900;
+	const unsigned int DEFAULT_WINDOW_WIDTH = 720;	//The default window width
+	const unsigned int DEFAULT_WINDOW_HEIGHT = 900;	//The default window height
+	
+	//Set whether the build is DEBUG or RELEASE
+	//https://stackoverflow.com/questions/2249282/c-c-portable-way-to-detect-debug-release
+#ifdef NDEBUG
+	const bool DEBUG = false;
+#else
+	const bool DEBUG = true;
+#endif
 
 	static CentipedeGameApp* instance;	//Static pointer to the one instance of this class	
 	
@@ -32,7 +42,10 @@ public:
 	Texture* headTexture;	//Pointer to the centipede head texture
 	Texture* tailTexture;	//Pointer to the centipede tail texture
 
-	Scene* currentScene;	//Pointers to the different scenes in the application
+	//The currently active scene
+	Scene* currentScene;
+
+	//Pointers to the different scenes available
 	Scene* gameScene;
 	Scene* menuScene;
 	Scene* listScene;
@@ -53,7 +66,13 @@ public:
 	virtual void update(float deltaTime);	//Called once per frame
 	virtual void draw();		//Draw the application
 
-	void ChangeScene(Scene* newScene);	//Change the active scene
+	//Get a resource
+	Texture* GetTexture(string resourceName);
+	Font* GetFont(string resourceName, unsigned short fontHeight);
 
+	//Change the active scene
+	void ChangeScene(Scene* newScene);	
+
+	//Choose a random number between min and max
 	int RandomRange(int min, int max) const;
 };
