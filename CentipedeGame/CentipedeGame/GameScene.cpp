@@ -52,7 +52,7 @@ void GameScene::OnStart()
 	player->position.y = 70;
 
 	//Create the centipede at the top of the screen with an initial length of 20
-	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, CENTIPEDE_INITIAL_LENGTH);
+	SpawnCentipede(CENTIPEDE_INITIAL_LENGTH);
 
 	//Generate mushrooms
 	GenerateMushrooms(25);
@@ -65,6 +65,15 @@ void GameScene::OnClose()
 {
 	player->bullets->Clear();
 	(*mushrooms).Clear();
+}
+
+/// <summary>
+/// Spawn a centipede at the top of the screen.
+/// </summary>
+/// <param name="length">The length of the centipede.</param>
+void GameScene::SpawnCentipede(unsigned int length)
+{
+	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, length);
 }
 
 /// <summary>
@@ -147,7 +156,7 @@ void GameScene::Update(float deltaTime, Input* input)
 
 			//Create a new centipede with a certain length
 			if (Button("Set length", ImVec2(150, 0)))
-				centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, cheatValue);
+				SpawnCentipede(cheatValue);
 
 			//Add points
 			else if (Button("Add points", ImVec2(150, 0)))
@@ -193,7 +202,7 @@ void GameScene::Update(float deltaTime, Input* input)
 		if (centipedeController->centipedes->Size() == 0)
 		{
 			//Create a new centipede
-			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 3));
+			SpawnCentipede(CENTIPEDE_INITIAL_LENGTH + (wave * 3));
 
 			//Generate more mushrooms
 			GenerateMushrooms(mushrooms->Size() / 3);

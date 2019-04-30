@@ -25,6 +25,12 @@ private:
 	bool cheatWindow;	//Whether to show the cheat window
 	int cheatValue;		//Value to manipulate the game
 
+	//Spawn the centipede
+	void SpawnCentipede(unsigned int length);
+
+	//Generate a field of mushrooms
+	void GenerateMushrooms(unsigned int amount);
+
 public:
 	Player* player;								//Pointer to the player
 	List<Sprite*>* mushrooms;					//Pointer to the mushrooms
@@ -44,9 +50,6 @@ public:
 
 	//Called when the game ends
 	void OnClose() override;
-
-	//Generate a field of mushrooms
-	void GenerateMushrooms(unsigned int amount);
 
 	//Spawn a mushroom in the game at a given position
 	void SpawnMushroom(float x, float y);
