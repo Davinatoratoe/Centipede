@@ -44,7 +44,7 @@ public:
 	unsigned int moveDown;			//Whether to move the head down
 	float moveTimer = 0;			//Timer to delay movements
 
-	const float MOVE_TIME = 0.03f;	//The time to delay movements
+	const float MOVE_TIME = 0.032f;	//The time to delay movements
 
 	Centipede();	//Default constructor
 	Centipede(float x, float y, unsigned int length); //Overloaded constructor
