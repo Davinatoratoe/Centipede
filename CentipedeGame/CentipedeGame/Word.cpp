@@ -35,6 +35,21 @@ void Letter::Draw(Renderer2D* renderer, Font* font)
 }
 
 /// <summary>
+/// Default constructor.
+/// </summary>
+Word::Word()
+{
+	letterSpacing = 40;
+	speed = 2.0F;
+	scale = 0.2F;
+	counter = 0;
+	x = 0;
+	y = 0;
+	font = nullptr;
+	word = nullptr;
+}
+
+/// <summary>
 /// Overloaded constructor.
 /// </summary>
 /// <param name="_word">The word.</param>
@@ -79,6 +94,9 @@ Word::~Word()
 /// <param name="deltaTime">Time that has passed since last frame.</param>
 void Word::Update(float deltaTime)
 {
+	if (word == nullptr)
+		return;
+
 	//Increase the counter
 	counter += 0.02F;
 
@@ -97,6 +115,9 @@ void Word::Update(float deltaTime)
 /// <param name="renderer">The renderer to draw the word.</param>
 void Word::Draw(Renderer2D* renderer)
 {
+	if (renderer == nullptr || word == nullptr || font == nullptr)
+		return;
+
 	for (unsigned int i = 0; i < length; ++i)
 		word[i].Draw(renderer, font);
 }

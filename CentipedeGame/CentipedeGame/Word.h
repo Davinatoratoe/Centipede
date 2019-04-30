@@ -44,6 +44,9 @@ public:
 	float speed;	//The speed that the word bobs
 	float scale;	//The scale at which the word bobs
 
+	//Default constructor
+	Word();
+
 	//Overloaded constructor
 	Word(const char* _word, unsigned int _length, Font* _font, unsigned int _letterSpacing, float _x, float _y);
 	
