@@ -12,6 +12,7 @@ Centipede::Centipede()
 	segments = new LinkedList<Segment*>();
 	direction = 1;
 	moveDown = false;
+	moveTimer = 0;
 }
 
 /// <summary>
@@ -46,25 +47,41 @@ void Centipede::MoveHead(float deltaTime)
 	if (segments->Size() == 0)
 		return;
 
+	Segment* head = (*segments).First();
+
 	//If the head should move down then move vertically
 	if (moveDown > 0)
 	{
 		//Move down
-		(*segments).First()->position.y -= (*segments).First()->texture->getHeight();
+		head->position.y -= head->texture->getHeight();
 		--moveDown;
 	}
 	else
 	{
 		//Move horizontally
-		float movement = (float)((int)((*segments).First()->texture->getWidth()) * direction);
-		(*segments).First()->position.x += movement;
+		float movement = (float)((int)(head->texture->getWidth()) * direction);
+		head->position.x += movement;
 
 		//Check if the head is now on a mushroom, move back if it is and move down
 		if (CheckForMushroom(segments->Size() > 3))
 		{
-			(*segments).First()->position.x -= movement;
-			moveDown = 2;
+			head->position.x -= movement;
+			moveDown = 1;
 			direction *= -1;
+		}
+		//If the head has hit the left side of the screen, then move down and switch direction
+		else if (head->position.x < head->Radius())
+		{
+			head->position.x = head->Radius();
+			direction = 1;
+			moveDown = 2;
+		}
+		//If the head has hit the right side of the screen, then mode down and switch direction
+		else if (head->position.x > head->app->getWindowWidth() - head->Radius())
+		{
+			head->position.x = head->app->getWindowWidth() - head->Radius();
+			direction = -1;
+			moveDown = 2;
 		}
 	}
 }
@@ -298,21 +315,6 @@ void Centipede::Update(float deltaTime, Input* input)
 
 	//Get the head of the centipede
 	Segment* head = (*segments).First();
-
-	//If the head has hit the left side of the screen, then move down and switch direction
-	if (head->position.x < head->Radius())	
-	{
-		head->position.x = head->Radius();
-		direction = 1;
-		moveDown = 2;
-	}
-	//If the head has hit the right side of the screen, then mode down and switch direction
-	else if (head->position.x > head->app->getWindowWidth() - head->Radius())
-	{
-		head->position.x = head->app->getWindowWidth() - head->Radius();
-		direction = -1;
-		moveDown = 2;
-	}
 
 	//Wait to move the segments
 	if (moveTimer > 0)

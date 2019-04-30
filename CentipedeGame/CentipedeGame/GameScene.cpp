@@ -159,10 +159,20 @@ void GameScene::Update(float deltaTime, Input* input)
 		//If the centipede was destroyed, spawn another
 		if (centipedeController->centipedes->Size() == 0)
 		{
+			//Create a new centipede
 			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 3));
-			GenerateMushrooms(mushrooms->Size() / 2);
+
+			//Generate more mushrooms
+			GenerateMushrooms(mushrooms->Size() / 3);
+
+			//Clear the player's bullets
+			player->bullets->Clear();
+
+			//Increment the wave
 			++wave;
-			score += SCORE_WAVE_COMPLETE * wave;
+
+			//Add to the score
+			AddScore(SCORE_WAVE_COMPLETE * wave);
 		}
 
 		//Check through the centipede's heads to see if they are below the player
