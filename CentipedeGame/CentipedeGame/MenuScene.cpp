@@ -10,7 +10,8 @@ using namespace ImGui;
 /// <param name="_font">The font to use.</param>
 MenuScene::MenuScene()
 {
-	
+	//Create the title
+	title = new Word("CENTIPEDE", 9, app->font, 50, app->getWindowHeight() - 100);
 }
 
 /// <summary>
@@ -18,7 +19,7 @@ MenuScene::MenuScene()
 /// </summary>
 MenuScene::~MenuScene()
 {
-
+	delete title;
 }
 
 /// <summary>
@@ -26,11 +27,7 @@ MenuScene::~MenuScene()
 /// </summary>
 void MenuScene::OnStart()
 {
-	counter = 0;
-	r = false;
-	g = false;
-	b = true;
-	colourCounter = 0;
+
 }
 
 /// <summary>
@@ -38,7 +35,7 @@ void MenuScene::OnStart()
 /// </summary>
 void MenuScene::OnClose()
 {
-	app->setBackgroundColour(0, 0, 0);
+
 }
 
 /// <summary>
@@ -48,49 +45,8 @@ void MenuScene::OnClose()
 /// <param name="input">A pointer to the input handler.</param>
 void MenuScene::Update(float deltaTime, Input* input)
 {
-	//Counter for inputting to the sin wave when changing colours
-	counter += deltaTime * 0.75F;
-	if (counter > 3)
-	{
-		counter = 0;
-		++colourCounter;
-
-		r = false;
-		g = false;
-		b = false;
-
-		//Choose a new colour to fade to
-		switch (colourCounter)
-		{
-		case 1:
-			r = true;
-			break;
-		case 2:
-			r = true;
-			g = true;
-			break;
-		case 3:
-			r = true;
-			b = true;
-			break;
-		case 4:
-			g = true;
-			break;
-		case 5:
-			g = true;
-			b = true;
-			break;
-		case 6:
-			b = true;
-			break;
-		default:
-			colourCounter = 0;
-			r = true;
-			g = true;
-			b = true;
-			break;
-		}
-	}
+	//Update the title word
+	title->Update(deltaTime);
 
 	CreateGUI("Main Menu");
 
@@ -133,10 +89,7 @@ void MenuScene::Update(float deltaTime, Input* input)
 /// <param name="renderer"></param>
 void MenuScene::Draw(Renderer2D* renderer)
 {
-	//Set background colour
-	app->setBackgroundColour(
-		abs(r ? sin(counter) : 0.2F), 
-		abs(g ? sin(counter) : 0.2F),
-		abs(b ? sin(counter) : 0.2F)
-	);
+	//Draw the title word
+	title->Draw(renderer);
+	return;
 }
