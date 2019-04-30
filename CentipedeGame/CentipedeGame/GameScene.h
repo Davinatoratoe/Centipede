@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Centipede.h"
 #include "DynamicList.h"
+#include "Word.h"
 
 /// <summary>
 /// The scene responsible for the gameplay.
@@ -20,6 +21,7 @@ private:
 	unsigned int addDisplayScore;	//The speed to add to the display score (larger for larger scores)
 	unsigned int wave;	//The wave, increases when all centipedes are defeated
 	bool gameOver;		//True if the player lost
+	Word* gameOverTitle;	//Word displaying that the game was lost
 
 public:
 	Player* player;								//Pointer to the player

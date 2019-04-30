@@ -13,6 +13,7 @@ GameScene::GameScene()
 	player = new Player();
 	mushrooms = new List<Sprite*>(50);
 	centipedeController = new CentipedeController();
+	gameOverTitle = new Word("Game Over!", 11, app->font, 40, 20, 850);
 }
 
 /// <summary>
@@ -23,6 +24,7 @@ GameScene::~GameScene()
 	delete player;
 	delete mushrooms;
 	delete centipedeController;
+	delete gameOverTitle;
 }
 
 /// <summary>
@@ -180,6 +182,10 @@ void GameScene::Update(float deltaTime, Input* input)
 	//If the game was lost
 	else
 	{
+		//Update the game over title so that it bobs
+		gameOverTitle->Update(deltaTime);
+
+		//Create the menu GUI
 		CreateGUI("Game Over");
 
 		//Button to play the game again
@@ -213,7 +219,8 @@ void GameScene::Draw(Renderer2D* renderer)
 	//Draw final score and game over text
 	if (gameOver)
 	{
-		renderer->drawText(app->font, "Game over!", 20, 850);
+		//renderer->drawText(app->font, "Game over!", 20, 850);
+		gameOverTitle->Draw(renderer);
 		renderer->drawText(app->font, ("Final score: " + to_string(score)).c_str(), 20, 800);
 		renderer->drawText(app->font, ("Wave: " + to_string(wave + 1)).c_str(), 20, 750);
 	}
