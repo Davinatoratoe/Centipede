@@ -41,7 +41,7 @@ class Centipede
 public:
 	LinkedList<Segment*>* segments;	//The segments of the centipede
 	int direction;					//The horizontal direction to move the head
-	bool moveDown;					//Whether to move the head down
+	unsigned int moveDown;			//Whether to move the head down
 	float moveTimer = 0;			//Timer to delay movements
 
 	const float MOVE_TIME = 0.03f;	//The time to delay movements
@@ -61,7 +61,7 @@ public:
 	Centipede* DestroySegment(Segment* segment);
 	
 	//Collision detection
-	bool CheckForMushroom() const;
+	bool CheckForMushroom(bool destroy);
 	Segment* CheckForBullet(Sprite** _bullet) const;
 
 	//Update the centipede

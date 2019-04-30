@@ -24,7 +24,7 @@ Centipede::Centipede(float x, float y, unsigned int length)
 {
 	segments = new LinkedList<Segment*>();
 	direction = 1;
-	moveDown = false;
+	moveDown = 0;
 
 	CreateCentipede(x, y, length);
 }
@@ -47,11 +47,11 @@ void Centipede::MoveHead(float deltaTime)
 		return;
 
 	//If the head should move down then move vertically
-	if (moveDown)
+	if (moveDown > 0)
 	{
 		//Move down
 		(*segments).First()->position.y -= (*segments).First()->texture->getHeight();
-		moveDown = false;
+		--moveDown;
 	}
 	else
 	{
@@ -60,10 +60,10 @@ void Centipede::MoveHead(float deltaTime)
 		(*segments).First()->position.x += movement;
 
 		//Check if the head is now on a mushroom, move back if it is and move down
-		if (CheckForMushroom())
+		if (CheckForMushroom(segments->Size() > 3))
 		{
 			(*segments).First()->position.x -= movement;
-			moveDown = true;
+			moveDown = 2;
 			direction *= -1;
 		}
 	}
@@ -200,8 +200,9 @@ Centipede* Centipede::DestroySegment(Segment* segment)
 /// <summary>
 /// Check is the head has collided with a mushroom.
 /// </summary>
+/// <param name="destroy">Whether to destroy the mushroom if it was hit.</param>
 /// <returns>True if the head has collided with a mushroom.</returns>
-bool Centipede::CheckForMushroom() const
+bool Centipede::CheckForMushroom(bool destroy)
 {
 	//Don't continue if the centipede size if 0
 	if (segments->Size() == 0)
@@ -228,7 +229,11 @@ bool Centipede::CheckForMushroom() const
 
 		//Check if the mushroom is colliding with the head and return true if it is
 		if (mushroom->CollidingWith(*head))
+		{
+			if (destroy)
+				gameScene->mushrooms->Remove(mushroom);
 			return true;
+		}
 	}
 
 	//Otherwise return false
@@ -299,14 +304,14 @@ void Centipede::Update(float deltaTime, Input* input)
 	{
 		head->position.x = head->Radius();
 		direction = 1;
-		moveDown = true;
+		moveDown = 2;
 	}
 	//If the head has hit the right side of the screen, then mode down and switch direction
 	else if (head->position.x > head->app->getWindowWidth() - head->Radius())
 	{
 		head->position.x = head->app->getWindowWidth() - head->Radius();
 		direction = -1;
-		moveDown = true;
+		moveDown = 2;
 	}
 
 	//Wait to move the segments

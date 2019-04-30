@@ -35,7 +35,7 @@ void Player::Update(float deltaTime, Input* input)
 	Sprite::Update(deltaTime, input);
 
 	//Slightly move the player up and down
-	position.y += sin(app->getTime()) * 0.1F;
+	position.y += sin(app->getTime()) * BOB_AMOUNT;
 
 	//Check if the LEFT or RIGHT key is being pressed and move the ship accordingly
 	//Stop the ship from moving off the edge of the screen

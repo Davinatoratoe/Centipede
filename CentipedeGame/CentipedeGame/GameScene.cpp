@@ -39,6 +39,8 @@ void GameScene::OnStart()
 	//Set values to initial state
 	gameOver = false;
 	score = 0;
+	displayScore = 0;
+	addDisplayScore = 1;
 	wave = 0;
 
 	//Set the starting position of the player ship
@@ -48,19 +50,8 @@ void GameScene::OnStart()
 	//Create the centipede at the top of the screen with an initial length of 20
 	centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, CENTIPEDE_INITIAL_LENGTH);
 
-	//Generate random mushroom placements
-	const int MAX_MUSHROOMS = 25;	//The number of mushrooms to generate
-	int numberOfMushrooms = 0;		//The number of mushrooms that have been generated
-
-	//While the number of mushrooms that have been generated does not exceed the max number, spawn mushrooms
-	while (numberOfMushrooms < MAX_MUSHROOMS)
-	{
-		SpawnMushroom(
-			(float)app->RandomRange(50, app->getWindowWidth() - 50),	//Choose a random x-position
-			(float)app->RandomRange(200, app->getWindowHeight() - 50)	//Choose a random y-position
-		);
-		++numberOfMushrooms;	//Increment the number of mushrooms generated
-	}
+	//Generate mushrooms
+	GenerateMushrooms(25);
 }
 
 /// <summary>
@@ -70,6 +61,26 @@ void GameScene::OnClose()
 {
 	player->bullets->Clear();
 	(*mushrooms).Clear();
+}
+
+/// <summary>
+/// Generate mushrooms on the field.
+/// </summary>
+/// <param name="amount">The number of mushrooms to generate.</param>
+void GameScene::GenerateMushrooms(unsigned int amount)
+{
+	//Generate random mushroom placements
+	unsigned int numberOfMushrooms = 0;		//The number of mushrooms that have been generated
+
+	//While the number of mushrooms that have been generated does not exceed the max number, spawn mushrooms
+	while (numberOfMushrooms < amount)
+	{
+		SpawnMushroom(
+			(float)app->RandomRange(50, app->getWindowWidth() - 50),	//Choose a random x-position
+			(float)app->RandomRange(200, app->getWindowHeight() - 50)	//Choose a random y-position
+		);
+		++numberOfMushrooms;	//Increment the number of mushrooms generated
+	}
 }
 
 /// <summary>
@@ -90,6 +101,25 @@ void GameScene::SpawnMushroom(float x, float y)
 }
 
 /// <summary>
+/// Add points to the score.
+/// </summary>
+/// <param name="amount">The points to add.</param>
+void GameScene::AddScore(unsigned int amount)
+{
+	//Add the amount to the real score
+	score += amount;
+
+	//If the difference between the real score and the displayed score is large,
+	//Then increase the displayed score faster
+	if (score - displayScore > 1000)
+		addDisplayScore = 100;
+	else if (score - displayScore > 100)
+		addDisplayScore = 5;
+	else
+		addDisplayScore = 1;
+}
+
+/// <summary>
 /// Called once per frame. Updates the game logic.
 /// </summary>
 /// <param name="deltaTime">The time that has passed since last frame.</param>
@@ -99,6 +129,12 @@ void GameScene::Update(float deltaTime, Input* input)
 	//If the game is running
 	if (!gameOver)
 	{
+		//Check if the displayed score isn't the same as the real score, and increase if so
+		if (displayScore < score)
+			displayScore += addDisplayScore;
+		else
+			displayScore = score;
+
 		//Check that the window hasn't been resized, and if so, resize it back
 		if (app->getWindowWidth() != app->DEFAULT_WINDOW_WIDTH || app->getWindowHeight() != app->DEFAULT_WINDOW_HEIGHT)
 			app->setWindowSize(app->DEFAULT_WINDOW_WIDTH, app->DEFAULT_WINDOW_HEIGHT);
@@ -112,7 +148,7 @@ void GameScene::Update(float deltaTime, Input* input)
 			(*((*mushrooms)[i])).Update(deltaTime, input);
 
 			//Spin the mushrooms because now they're asteroids
-			(*((*mushrooms)[i])).rotation += 0.2F * deltaTime;
+			(*((*mushrooms)[i])).rotation += MUSHROOM_ROTATE_SPEED * deltaTime;
 		}
 
 		//Update the centipedes
@@ -121,7 +157,8 @@ void GameScene::Update(float deltaTime, Input* input)
 		//If the centipede was destroyed, spawn another
 		if (centipedeController->centipedes->Size() == 0)
 		{
-			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 2));
+			centipedeController->Reset((float)app->getWindowWidth() / 2, (float)app->getWindowHeight() - 50, 20 + (wave * 3));
+			GenerateMushrooms(mushrooms->Size() / 2);
 			++wave;
 			score += SCORE_WAVE_COMPLETE * wave;
 		}
@@ -183,7 +220,7 @@ void GameScene::Draw(Renderer2D* renderer)
 	else
 	{
 		//Draw details
-		renderer->drawText(app->font, ("Score: " + to_string(score)).c_str(), 20, 850);
+		renderer->drawText(app->font, ("Score: " + to_string(displayScore)).c_str(), 20, 850);
 		renderer->drawText(app->font, ("Wave: " + to_string(wave + 1)).c_str(), 20, 800);
 	}
 }
