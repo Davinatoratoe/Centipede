@@ -259,4 +259,4 @@ paket-files/
 __pycache__/
 *.pyc
 /CentipedeGame/Submission/Binary Release
-/bin/imgui.ini
+/Centipede/bin/imgui.ini
