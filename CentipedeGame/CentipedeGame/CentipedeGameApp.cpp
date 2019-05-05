@@ -84,9 +84,15 @@ void CentipedeGameApp::shutdown()
 	delete renderer;
 	delete font;
 	
+	//Delete textures
 	delete shipTexture;
 	delete bulletTexture;
+	delete shroomTexture;
+	delete segmentTexture;
+	delete headTexture;
+	delete tailTexture;
 
+	//Delete scenes
 	delete gameScene;
 	delete menuScene;
 	delete listScene;
@@ -150,8 +156,11 @@ void CentipedeGameApp::draw()
 Texture* CentipedeGameApp::GetTexture(string resourceName)
 {
 	string path = ".";
+	
+	//Change the path if the build is in DEBUG mode
 	if (DEBUG)
 		path += ".";
+
 	path += "/bin/textures/" + resourceName;
 	return new Texture(path.c_str());
 }
@@ -165,8 +174,11 @@ Texture* CentipedeGameApp::GetTexture(string resourceName)
 Font* CentipedeGameApp::GetFont(string resourceName, unsigned short fontHeight)
 {
 	string path = ".";
+
+	//Change the path if the build is in DEBUG mode
 	if (DEBUG)
 		path += ".";
+	
 	path += "/bin/font/" + resourceName;
 	return new Font(path.c_str(), fontHeight);
 }
