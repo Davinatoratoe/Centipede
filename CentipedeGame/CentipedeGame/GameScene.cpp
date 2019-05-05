@@ -189,10 +189,13 @@ void GameScene::Update(float deltaTime, Input* input)
 		//Update the mushrooms
 		for (unsigned int i = 0; i < (*mushrooms).Size(); ++i)
 		{
-			(*((*mushrooms)[i])).Update(deltaTime, input);
+			Sprite* mushroom = ((*mushrooms)[i]);
+
+			//Update the mushrooms
+			mushroom->Update(deltaTime, input);
 
 			//Spin the mushrooms because now they're asteroids
-			(*((*mushrooms)[i])).rotation += MUSHROOM_ROTATE_SPEED * deltaTime;
+			mushroom->rotation += MUSHROOM_ROTATE_SPEED * deltaTime;
 		}
 
 		//Update the centipedes

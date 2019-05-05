@@ -91,5 +91,6 @@ void MenuScene::Draw(Renderer2D* renderer)
 {
 	//Draw the title word
 	title->Draw(renderer);
+
 	return;
 }
