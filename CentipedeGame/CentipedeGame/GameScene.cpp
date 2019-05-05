@@ -143,7 +143,7 @@ void GameScene::Update(float deltaTime, Input* input)
 	if (!gameOver)
 	{
 		//Check whether to activate the cheat window
-		if (input->wasKeyPressed(INPUT_KEY_D))
+		if (input->wasKeyPressed(INPUT_KEY_D) && app->DEBUG)
 			cheatWindow = !cheatWindow;
 
 		//Cheat window
