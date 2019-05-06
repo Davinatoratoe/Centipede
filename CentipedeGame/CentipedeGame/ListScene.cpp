@@ -93,6 +93,9 @@ void ListScene::Update(float deltaTime, Input* input)
 	if (Button("Insertion Sort", ImVec2(250, 0)))
 		list.InsertionSort();
 
+	if (Button("Heap Sort", ImVec2(250, 0)))
+		list.HeapSort();
+
 	if (Button("Fibonacci Search(value)", ImVec2(250, 0)))
 		searchResult = list.FibonacciSearch(value);
 

@@ -107,6 +107,37 @@ private:
 		return (i + 1);
 	}
 
+	/// <summary>
+	/// Heapify a sub-tree.
+	/// https://www.geeksforgeeks.org/heap-sort/
+	/// </summary>
+	/// <param name="_size">Size of the heap.</param>
+	/// <param name="index">Index in the heap.</param>
+	void Heapify(int _size, int index)
+	{
+		int largest = index;	//Initialise largest as the root
+		int left = 2 * index + 1;	//Left child
+		int right = 2 * index + 2;	//Right child
+
+		//If the left child is larger than the root, then set as largest
+		if (left < _size && data[left] > data[largest])
+			largest = left;
+
+		//If the right child is larger than the root, then set as largest
+		if (right < _size && data[right] > data[largest])
+			largest = right;
+
+		//If the largest is not the root
+		if (largest != index)
+		{
+			//Swap the index and the largest
+			Swap(&data[index], &data[largest]);
+
+			//Recursively heapify the affected sub-tree
+			Heapify(_size, largest);
+		}
+	}
+
 public:
 	/// <summary>
 	/// Default constructor.
@@ -427,6 +458,27 @@ public:
 				j = j - 1;
 			}
 			data[j + 1] = key;
+		}
+	}
+
+	/// <summary>
+	/// Perform a heap sort on the list.
+	/// https://www.geeksforgeeks.org/heap-sort/
+	/// </summary>
+	void HeapSort()
+	{
+		//Build a heap (rearrange array)
+		for (int i = size / 2 - 1; i >= 0; --i)
+			Heapify(size, i);
+
+		//One by one extract an element from the heap
+		for (int i = size - 1; i >= 0; --i)
+		{
+			//Move current root to end
+			Swap(&data[0], &data[i]);
+
+			//Call max heapify on the reduced heap
+			Heapify(i, 0);
 		}
 	}
 
