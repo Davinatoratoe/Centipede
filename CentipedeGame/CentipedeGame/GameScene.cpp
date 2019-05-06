@@ -208,7 +208,7 @@ void GameScene::Update(float deltaTime, Input* input)
 			SpawnCentipede(CENTIPEDE_INITIAL_LENGTH + (wave * 3));
 
 			//Generate more mushrooms
-			GenerateMushrooms(mushrooms->Size() / 3);
+			GenerateMushrooms(mushrooms->Size() / 4);
 
 			//Clear the player's bullets
 			player->bullets->Clear();
