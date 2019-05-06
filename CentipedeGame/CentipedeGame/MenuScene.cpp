@@ -92,5 +92,13 @@ void MenuScene::Draw(Renderer2D* renderer)
 	//Draw the title word
 	title->Draw(renderer);
 
+	//Display instructions on how to play Centipede
+	renderer->drawText(app->font, "How to play:", 20, 180);
+	renderer->drawText(app->font, " Use <- and -> to move the ship", 20, 150);
+	renderer->drawText(app->font, " Use SPACE to fire bullets", 20, 120);
+	renderer->drawText(app->font, " Destroy the centipede", 20, 90);
+	renderer->drawText(app->font, " You lose if the centipede", 20, 60);
+	renderer->drawText(app->font, "   reaches the bottom", 20, 30);
+
 	return;
 }
