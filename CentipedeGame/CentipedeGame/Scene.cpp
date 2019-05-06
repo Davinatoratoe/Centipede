@@ -32,5 +32,8 @@ void Scene::CreateGUI(const char* name, float width)
 	Begin(name, (bool*)0, ImVec2(width, 0), -1.0F, ImGuiWindowFlags_AlwaysAutoResize);
 
 	//Set the position of the window only for the first time in the program's lifetime
-	SetWindowPos(ImVec2(app->getWindowWidth() - width - 20, 20), ImGuiSetCond_Once);
+	SetWindowPos(ImVec2(app->getWindowWidth() - width - 20, 20), sceneStarted ? ImGuiSetCond_Always : ImGuiSetCond_Once);
+
+	//Scene started flag no longer needed
+	sceneStarted = false;
 }

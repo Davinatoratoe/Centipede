@@ -27,7 +27,7 @@ MenuScene::~MenuScene()
 /// </summary>
 void MenuScene::OnStart()
 {
-
+	
 }
 
 /// <summary>

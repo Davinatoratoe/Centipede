@@ -19,6 +19,7 @@ class Scene
 {
 public:
 	CentipedeGameApp* app;		//Pointer to the app
+	bool sceneStarted;			//Did the scene just start?
 
 	Scene();	//Default constructor
 	~Scene();	//Deconstructor

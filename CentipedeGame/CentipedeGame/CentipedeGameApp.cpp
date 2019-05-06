@@ -195,10 +195,15 @@ void CentipedeGameApp::ChangeScene(Scene* newScene)
 
 	//Close the current scene if it exists
 	if (currentScene != nullptr)
+	{
 		currentScene->OnClose();
+		currentScene->sceneStarted = false;
+	}
 
 	//Set the new current scene
 	currentScene = newScene;
+
+	currentScene->sceneStarted = true;
 
 	//Start the new current scene
 	currentScene->OnStart();
