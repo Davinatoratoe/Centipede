@@ -31,7 +31,13 @@ Letter::Letter(char _letter, float _x, float _y)
 /// <param name="font">The font to use to draw the letter.</param>
 void Letter::Draw(Renderer2D* renderer, Font* font)
 {
-	renderer->drawText(font, &letter, x, y);
+	//Create a buffer to add a termination character to the letter
+	char buff[2];
+	buff[0] = letter;
+	buff[1] = '\0';
+
+	//Draw the buffer
+	renderer->drawText(font, buff, x, y);
 }
 
 /// <summary>
@@ -69,11 +75,8 @@ Word::Word(const char* _word, unsigned int _length, Font* _font, unsigned int _l
 	font = _font;
 	length = _length;
 
-	//Allocate memory for the letters
-	word = new Letter[length + 1];
-
-	//Add an extra empty letter to the end to avoid displaying garbage memory
-	memset(word + length, 0, sizeof(Letter));
+	//Allocate memory for the letters and empty characters
+	word = new Letter[length];
 
 	//Create the letters
 	for (unsigned int i = 0; i < length; ++i)
@@ -85,7 +88,8 @@ Word::Word(const char* _word, unsigned int _length, Font* _font, unsigned int _l
 /// </summary>
 Word::~Word()
 {
-	delete[] word;
+	if (word != nullptr)
+		delete[] word;
 }
 
 /// <summary>
