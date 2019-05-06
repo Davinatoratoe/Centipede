@@ -112,7 +112,7 @@ void HashScene::Draw(Renderer2D* renderer)
 		renderer->drawSprite(textureToDisplay, (float)app->getWindowWidth() / 2, (app->getWindowHeight() / 2) + (float)(sin(app->getTime() * 0.5) * 50));
 
 		ostringstream stream;
-		stream << "Texture address: " << &textureToDisplay;
+		stream << "Texture address: " << &(*textureToDisplay);
 		renderer->drawText(app->font, stream.str().c_str(), 20, 800);
 	}
 }

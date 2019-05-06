@@ -7,6 +7,10 @@
 #include "Stack.h"
 #include "BinaryHeap.h"
 
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
 using namespace std;
 
 /// <summary>
@@ -314,14 +318,30 @@ void TestBinaryHeap()
 /// <returns></returns>
 int main() 
 {
-	// allocation
-	auto app = new CentipedeGameApp();
+	//Run tests on container classes
+	if (false)
+	{
+		TestBinaryHeap();
+		TestDynamicList();
+		TestLinkedList();
+		TestStack();
+		TestDequeue();
+		TestBinaryTree();
 
-	// initialise and loop
-	app->run("Centipede", 800, 600, false);
+		//Test for memory leaks
+		_CrtDumpMemoryLeaks();
+	}
+	//Run the centipede game
+	else
+	{
+		// allocation
+		auto app = new CentipedeGameApp();
 
-	// deallocation
-	delete app;
+		// initialise and loop
+		app->run("Centipede", 800, 600, false);
 
+		// deallocation
+		delete app;
+	}
 	return 0;
 }
