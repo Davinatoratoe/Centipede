@@ -261,3 +261,4 @@ __pycache__/
 /CentipedeGame/Submission/Binary Release
 /Centipede/bin/imgui.ini
 /CentipedeGame/bin/imgui.ini
+*.pdf
