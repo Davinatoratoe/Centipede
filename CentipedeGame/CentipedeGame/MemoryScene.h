@@ -27,6 +27,7 @@ private:
 	float showTimer;					//Timer used for showing the colours of two selected cards
 	const float SHOW_DELAY = 1.75F;		//How long to show the colours for
 
+	float time;		//How long has the game been running?
 	bool gameOver;	//Is the game over?
 	
 	//Shuffle the cards into a random order

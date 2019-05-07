@@ -31,6 +31,7 @@ MemoryScene::MemoryScene()
 	selectedFirstIndex = NUMBER_OF_CARDS;
 	selectedLastIndex = NUMBER_OF_CARDS;
 
+	time = 0.0F;
 	gameOver = false;
 }
 
@@ -61,6 +62,7 @@ void MemoryScene::OnStart()
 	selectedFirstIndex = NUMBER_OF_CARDS;
 	selectedLastIndex = NUMBER_OF_CARDS;
 
+	time = 0.0F;
 	gameOver = false;
 }
 
@@ -219,6 +221,10 @@ void MemoryScene::Update(float deltaTime, Input* input)
 	//Otherwise if the game is over, show the game over menu
 	else
 		ShowGameOverMenu();
+
+	//If still playing, add to the run time
+	if (!gameOver)
+		time += deltaTime;
 }
 
 /// <summary>
@@ -231,8 +237,14 @@ void MemoryScene::Draw(Renderer2D* renderer)
 	renderer->drawText(app->font, "MEMORY GAME", 20.0F, app->getWindowHeight() - 50.0F);
 
 	//Draw instructions text
-	renderer->drawText(app->font, "Use Arrow Keys to move...", 20.0F, app->getWindowHeight() - 100.0F);
-	renderer->drawText(app->font, "Use ENTER to select...", 20.0F, app->getWindowHeight() - 150.0F);
+	if (!gameOver)
+	{
+		renderer->drawText(app->font, "Use Arrow Keys to move...", 20.0F, app->getWindowHeight() - 100.0F);
+		renderer->drawText(app->font, "Use ENTER to select...", 20.0F, app->getWindowHeight() - 150.0F);
+	}
+	//Draw how long it took to complete the game
+	else
+		renderer->drawText(app->font, ("Time: " + to_string((int)time) + " seconds").c_str(), 20.0F, app->getWindowHeight() - 100.0F);
 
 	float colX = 0;	//x-position in a column
 	float rowY = 0;	//y-position of a row
