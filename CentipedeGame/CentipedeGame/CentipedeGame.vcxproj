@@ -182,6 +182,7 @@
     <ClCompile Include="QuadTreeScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Segment.cpp" />
+    <ClCompile Include="SimonScene.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="StackScene.cpp" />
     <ClCompile Include="Word.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="QuadTree.h" />
     <ClInclude Include="QuadTreeScene.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SimonScene.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stack.h" />
     <ClInclude Include="StackScene.h" />

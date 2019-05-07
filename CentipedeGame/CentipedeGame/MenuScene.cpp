@@ -53,6 +53,9 @@ void MenuScene::Update(float deltaTime, Input* input)
 	if (Button("Play Centipede", ImVec2(150, 0)))		//Button to play Centipede
 		app->ChangeScene(app->gameScene);
 
+	if (Button("Play Simon", ImVec2(150, 0)))			//Button to play Simon
+		app->ChangeScene(app->simonScene);
+
 	if (Button("Test Dynamic List", ImVec2(150, 0)))	//Button to test Dynamic Lists
 		app->ChangeScene(app->listScene);
 

@@ -58,6 +58,9 @@
     <ClCompile Include="Word.cpp">
       <Filter>Source\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="SimonScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="Word.h">
       <Filter>Headers\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SimonScene.h">
+      <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
