@@ -4,10 +4,13 @@
 #include "Colour.h"
 #include "LinkedList.h"
 
+/// <summary>
+/// Simon Scene used for the Simon Game.
+/// </summary>
 class SimonScene : public Scene
 {
 private:
-	#define Iterator LinkedList<Colour>::LinkedListIterator<Colour>
+	typedef LinkedList<Colour>::LinkedListIterator<Colour> Iterator;
 	
 	/// <summary>
 	/// Colours class that holds a library of colours that the Simon game uses.
