@@ -61,6 +61,9 @@
     <ClCompile Include="SimonScene.cpp">
       <Filter>Source\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="MemoryScene.cpp">
+      <Filter>Source\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CentipedeGameApp.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Colour.h">
       <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryScene.h">
+      <Filter>Headers\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

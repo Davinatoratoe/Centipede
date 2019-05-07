@@ -56,6 +56,9 @@ void MenuScene::Update(float deltaTime, Input* input)
 	if (Button("Play Simon", ImVec2(150, 0)))			//Button to play Simon
 		app->ChangeScene(app->simonScene);
 
+	if (Button("Play Memory", ImVec2(150, 0)))			//Button to play Memory
+		app->ChangeScene(app->memoryScene);
+
 	if (Button("Test Dynamic List", ImVec2(150, 0)))	//Button to test Dynamic Lists
 		app->ChangeScene(app->listScene);
 

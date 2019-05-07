@@ -254,7 +254,7 @@ void SimonScene::Update(float deltaTime, Input* input)
 		ShowGameOverMenu();
 
 	//Check if a clicked button should be unclicked
-	if (buttonClicked != numberOfButtons && (input->isMouseButtonUp(0) || !buttons[buttonClicked].IsOver(Point2D(input->getMouseX(), input->getMouseY()))))
+	if (buttonClicked != numberOfButtons && (input->isMouseButtonUp(0) || !buttons[buttonClicked].IsOver(Point2D((float)input->getMouseX(), (float)input->getMouseY()))))
 		buttonClicked = numberOfButtons;
 }
 
@@ -296,5 +296,5 @@ void SimonScene::Draw(Renderer2D* renderer)
 	}
 
 	//Reset the renderer colour
-	renderer->setRenderColour(0);
+	renderer->setRenderColour(255, 255, 255);
 }

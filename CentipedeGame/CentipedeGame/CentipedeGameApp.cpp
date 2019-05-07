@@ -13,6 +13,7 @@
 #include "QuadTreeScene.h"
 #include "HeapScene.h"
 #include "SimonScene.h"
+#include "MemoryScene.h"
 
 //Initialise the static instance variable
 CentipedeGameApp* CentipedeGameApp::instance = nullptr;
@@ -70,7 +71,8 @@ bool CentipedeGameApp::startup()
 	quadScene = new QuadScene();
 	heapScene = new HeapScene();
 	simonScene = new SimonScene();
-	
+	memoryScene = new MemoryScene();
+
 	//Set the starting scene to the main menu
 	ChangeScene(menuScene);
 

@@ -177,6 +177,7 @@
     <ClCompile Include="LinkedListScene.cpp" />
     <ClCompile Include="ListScene.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MemoryScene.cpp" />
     <ClCompile Include="MenuScene.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="QuadTreeScene.cpp" />
@@ -204,6 +205,7 @@
     <ClInclude Include="DynamicList.h" />
     <ClInclude Include="LinkedListScene.h" />
     <ClInclude Include="ListScene.h" />
+    <ClInclude Include="MemoryScene.h" />
     <ClInclude Include="MenuScene.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point2D.h" />

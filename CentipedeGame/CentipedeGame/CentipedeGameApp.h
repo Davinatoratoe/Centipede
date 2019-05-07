@@ -57,6 +57,7 @@ public:
 	Scene* quadScene;
 	Scene* heapScene;
 	Scene* simonScene;
+	Scene* memoryScene;
 
 	CentipedeGameApp();				//Default constructor
 	virtual ~CentipedeGameApp();	//Deconstructor

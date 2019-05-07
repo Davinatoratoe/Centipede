@@ -22,7 +22,7 @@ public:
 	/// <param name="_r">Red component.</param>
 	/// <param name="_g">Green component.</param>
 	/// <param name="_b">Blue component.</param>
-	Colour(float _r, float _g, float _b) { r = _r; g = _g; b = _b; }
+	Colour(float _r, float _g, float _b) { r = _r; g = _g; b = _b; a = 1.0F; }
 
 	/// <summary>
 	/// Overloaded constructor.
