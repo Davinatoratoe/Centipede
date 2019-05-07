@@ -1,40 +1,37 @@
 #pragma once
 #include "Scene.h"
 #include "Point2D.h"
+#include "Colour.h"
 #include "LinkedList.h"
 
 class SimonScene : public Scene
 {
 private:
 	#define Iterator LinkedList<Colour>::LinkedListIterator<Colour>
-
-	/// <summary>
-	/// Struct to represent an RGBA colour value
-	/// </summary>
-	struct Colour { float r, g, b; float a = 1.0F; };
-
+	
 	/// <summary>
 	/// Colours class that holds a library of colours that the Simon game uses.
 	/// </summary>
-	class Colours 
+	class SimonColours 
 	{ 
 	private:
-		Colour colours[3];	//The colours available
+		Colour colours[4];	//The colours available
 
 	public:
 		/// <summary>
 		/// Default constructor.
 		/// </summary>
-		Colours()
+		SimonColours()
 		{
 			//Sets up the colours
 			colours[0] = { 255, 0, 0 };		//Red
 			colours[1] = { 0, 255, 0 };		//Green
 			colours[2] = { 0, 0, 255 };		//Blue
+			colours[3] = { 255, 0, 255 };	//Pink
 		}
 
 		//Enum to make it easier to find colours
-		enum COLOUR { RED, GREEN, BLUE, NUMBER_OF_COLOURS };
+		enum COLOUR { RED, GREEN, BLUE, PINK, NUMBER_OF_COLOURS };
 
 		/// <summary>
 		/// Retrieve a colour using an index (or COLOUR enum value).
@@ -49,6 +46,12 @@ private:
 			else
 				throw out_of_range("Index not in range.");
 		}
+		
+		/// <summary>
+		/// Get a random colour.
+		/// </summary>
+		/// <returns>A random colour.</returns>
+		Colour GetRandom() const { return colours[rand() % NUMBER_OF_COLOURS]; }
 	};
 
 	/// <summary>
@@ -71,47 +74,61 @@ private:
 		/// <param name="_position">The position of the button.</param>
 		/// <param name="_colour">The colour of the button.</param>
 		Button(Point2D _position, Colour _colour) { position = _position; colour = _colour; }
+
+		/// <summary>
+		/// Check if a given point is within the bounds of the button.
+		/// </summary>
+		/// <param name="point">The point.</param>
+		/// <returns>True if the point is within the bounds of the button.</returns>
+		bool IsOver(Point2D point) const
+		{
+			return point.x > position.x && point.x < position.x + SimonScene::BUTTON_WIDTH &&
+				point.y < position.y && point.y > position.y - SimonScene::BUTTON_HEIGHT;
+		}
 	};
 
-	Colours colours;				//The colours that the Simon game can use
+	SimonColours colours;			//The colours that the Simon game can use
 	Button* buttons;				//The buttons to click in the Simon game
 	unsigned int numberOfButtons;	//The number of buttons
 	LinkedList<Colour> sequence;	//The sequence of colours to memorise
 	LinkedList<Colour> pressed;		//A list of the colours that have been pressed (in order)
-
-	const unsigned int BUTTON_WIDTH = 60;	//The width of a button
-	const unsigned int BUTTON_HEIGHT = 60;	//The height of a button
-	const unsigned int BUTTON_SPACING = 10;	//The spacing between buttons
-	const unsigned int BUTTON_PER_ROW = 3;	//The number of buttons to be positioned per row
 	
-	unsigned int mouseIsOver;	//The index of the button that has the mouse over it
-	unsigned int score;			//The number of consequent sequences guessed
+	static const unsigned int BUTTON_WIDTH = 120;	//The width of a button
+	static const unsigned int BUTTON_HEIGHT = 120;	//The height of a button
+	const unsigned int BUTTON_SPACING = 10;			//The spacing between buttons
+	const unsigned int BUTTON_PER_ROW = 2;			//The number of buttons to be positioned per row
+
+	unsigned int mouseIsOver;			//The index of the button that has the mouse over it
+	unsigned int buttonClicked;			//The index of the button that mouse is currently clicking
+	unsigned int score;					//The number of consequent sequences guessed
 
 	bool flashSequence;					//Whether to flash the sequence to memorise
 	Iterator flashIterator;				//Iterator used to iterate through the sequence of colours to flash
-	float flashTimer;					//Timer used to show how long each button should be flashed
-	const float FLASH_DELAY = 2.0F;		//The time per button when flashing
-	const float FLASH_SHOW_TIME = 1.2F;	//The timer to visually flash the button when flashing
+	float flashTimer;						//Timer used to show how long each button should be flashed
+	const float FLASH_DELAY = 1.75F;		//The time per button when flashing
+	const float FLASH_SHOW_TIME = 1.25F;	//The timer to visually flash the button when flashing
 
 	//Enum for which guessing state the user is in
 	enum GUESS_STATE { GUESS_ALL, GUESSING, GUESS_WRONG };
 
-	GUESS_STATE guessState;	//Which guessing state is the user in?
+	GUESS_STATE guessState;		//Which guessing state is the user in?
 
 	//Adds a new colour to the end of the sequence
-	void GenerateSequence();
-
-	//Starts flashing through the sequence
-	void FlashSequence();
+	void AddToSequence();
 
 	//Check for a new guess state
 	unsigned int CheckNewState() const;
 
-	//Check if the mouse is over a region (used for buttons)
-	bool IsMouseOver(int mouseX, int mouseY, float x, float y, float width, float height) const;
+	//Starts flashing through the sequence
+	void StartFlashingSequence();
 
-	//Check if two colours are the same
-	bool CompareColour(Colour a, Colour b) const;
+	//Logic for flashing the sequence
+	void FlashSequence(float deltaTime);
+
+	void UpdateGuessingLogic(Input* input);
+
+	//Show the game over menu
+	void ShowGameOverMenu();
 
 public:
 	//Constructor

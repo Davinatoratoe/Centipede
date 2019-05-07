@@ -193,6 +193,7 @@
     <ClInclude Include="BinaryTreeScene.h" />
     <ClInclude Include="Centipede.h" />
     <ClInclude Include="CentipedeGameApp.h" />
+    <ClInclude Include="Colour.h" />
     <ClInclude Include="DequeueScene.h" />
     <ClInclude Include="HashFunction.h" />
     <ClInclude Include="HashScene.h" />

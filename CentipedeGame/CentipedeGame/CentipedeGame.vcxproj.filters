@@ -141,6 +141,9 @@
     <ClInclude Include="SimonScene.h">
       <Filter>Headers\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="Colour.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Source">
